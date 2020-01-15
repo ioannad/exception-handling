@@ -2,12 +2,13 @@ Modules
 -------
 
 
-.. index:: index, type index, function index, table index, memory index, global index, local index, label index
+.. index:: index, type index, function index, table index, memory index, global index, event index, local index, label index
    pair: text format; type index
    pair: text format; function index
    pair: text format; table index
    pair: text format; memory index
    pair: text format; global index
+   pair: text format; event index
    pair: text format; local index
    pair: text format; label index
 .. _text-typeidx:
@@ -15,6 +16,7 @@ Modules
 .. _text-tableidx:
 .. _text-memidx:
 .. _text-globalidx:
+.. _text-eventidx:
 .. _text-localidx:
 .. _text-labelidx:
 .. _text-index:
@@ -42,6 +44,9 @@ Such identifiers are looked up in the suitable space of the :ref:`identifier con
    \production{global index} & \Tglobalidx_I &::=&
      x{:}\Tu32 &\Rightarrow& x \\&&|&
      v{:}\Tid &\Rightarrow& x & (\iff I.\IGLOBALS[x] = v) \\
+   \production{event index} & \Teventidx_I &::=&
+     x{:}\Tu32 &\Rightarrow& x \\&&|&
+     v{:}\Tid &\Rightarrow& x & (\iff I.\IEVENTS[x] = v) \\
    \production{local index} & \Tlocalidx_I &::=&
      x{:}\Tu32 &\Rightarrow& x \\&&|&
      v{:}\Tid &\Rightarrow& x & (\iff I.\ILOCALS[x] = v) \\
@@ -139,7 +144,7 @@ is inserted at the end of the module.
 Abbreviations are expanded in the order they appear, such that previously inserted type definitions are reused by consecutive expansions.
 
 
-.. index:: import, name, function type, table type, memory type, global type
+.. index:: import, name, function type, table type, memory type, global type, event
    pair: text format; import
 .. _text-importdesc:
 .. _text-import:
@@ -147,7 +152,7 @@ Abbreviations are expanded in the order they appear, such that previously insert
 Imports
 ~~~~~~~
 
-The descriptors in imports can bind a symbolic function, table, memory, or global :ref:`identifier <text-id>`.
+The descriptors in imports can bind a symbolic function, table, memory, global, or event :ref:`identifier <text-id>`.
 
 .. math::
    \begin{array}{llclll}
@@ -162,14 +167,16 @@ The descriptors in imports can bind a symbolic function, table, memory, or globa
      \text{(}~\text{memory}~~\Tid^?~~\X{mt}{:}\Tmemtype~\text{)}
        &\Rightarrow& \IDMEM~~\X{mt} \\ &&|&
      \text{(}~\text{global}~~\Tid^?~~\X{gt}{:}\Tglobaltype~\text{)}
-       &\Rightarrow& \IDGLOBAL~\X{gt} \\
+       &\Rightarrow& \IDGLOBAL~\X{gt} \\ &&|&
+     \text{(}~\text{event}~~\Tid^?~~\X{ev}{:}\Tevent~\text{)}
+       &\Rightarrow& \IDEVENT~\X{ev} \\
    \end{array}
 
 
 Abbreviations
 .............
 
-As an abbreviation, imports may also be specified inline with :ref:`function <text-func>`, :ref:`table <text-table>`, :ref:`memory <text-mem>`, or :ref:`global <text-global>` definitions; see the respective sections.
+As an abbreviation, imports may also be specified inline with :ref:`function <text-func>`, :ref:`table <text-table>`, :ref:`memory <text-mem>`, :ref:`global <text-global>`, or :ref:`event <text-event>` definitions; see the respective sections.
 
 
 
@@ -406,7 +413,60 @@ Globals can be defined as :ref:`imports <text-import>` or :ref:`exports <text-ex
 The latter abbreviation can be applied repeatedly, with ":math:`\dots`" containing another import or export.
 
 
-.. index:: export, name, index, function index, table index, memory index, global index
+.. index:: event, event type, identifier, function type, exception, attribute
+   pair: text format; event
+.. _text-event:
+
+Events
+~~~~~~
+
+Event definitions can bind a symbolic event identifier to an eventidx.
+
+.. math::
+   \begin{array}{llclll}
+   \production{function} & \Tevent_I &::=&
+     \text{(}~\text{event}~~\Tid^?~~\text{exception}~~x,I'{:}\Ttypeuse_I~\text{)} \\ &&& \qquad
+       \Rightarrow\quad \{ \EATTRIBUTE~\AEXCEPTION, \ETYPE~x \} \\
+   \end{array}
+
+
+.. index:: import, name
+   pair: text format; import
+.. index:: export, name, index, event index
+   pair: text format; export
+.. index:: exception
+.. _text-event-abbrev:
+
+Abbreviations
+.............
+
+An exception event can be abbreviated as follows:
+
+.. math::
+   \begin{array}{llclll}
+   \production{exception} & \text{(}~\text{exception}~~\Tid^?~~x,I'{:}\Ttypeuse_I~\text{)} \quad\equiv \\ & \qquad
+     \text{(}~\text{event}~~\Tid^?~~\text{exception}~~x,I'{:}\Ttypeuse_I~\text{)} \\
+   \end{array}
+
+Events can be defined as :ref:`imports <text-import>` or :ref:`exports <text-export>` inline:
+
+.. math::
+   \begin{array}{llclll}
+   \production{module field} &
+     \text{(}~\text{event}~~\Tid^?~~\text{(}~\text{import}~~\Tname_1~~\Tname_2~\text{)}~~\Teventtype~\text{)} \quad\equiv \\ & \qquad
+       \text{(}~\text{import}~~\Tname_1~~\Tname_2~~\text{(}~\text{event}~~\Tid^?~~\Teventtype~\text{)}~\text{)}
+       \\[1ex] &
+     \text{(}~\text{event}~~\Tid^?~~\text{(}~\text{export}~~\Tname~\text{)}~~\dots~\text{)} \quad\equiv \\ & \qquad
+       \text{(}~\text{export}~~\Tname~~\text{(}~\text{event}~~\Tid'~\text{)}~\text{)}~~
+       \text{(}~\text{event}~~\Tid'~~\dots~\text{)}
+       \\ & \qquad\qquad
+       (\iff \Tid' = \Tid^? \neq \epsilon \vee \Tid' \idfresh) \\
+   \end{array}
+
+The latter abbreviation can be applied repeatedly, with ":math:`\dots`" containing another import or export.
+
+
+.. index:: export, name, index, function index, table index, memory index, global index, event index
    pair: text format; export
 .. _text-exportdesc:
 .. _text-export:
@@ -429,14 +489,16 @@ The syntax for exports mirrors their :ref:`abstract syntax <syntax-export>` dire
      \text{(}~\text{memory}~~x{:}\Bmemidx_I~\text{)}
        &\Rightarrow& \EDMEM~x \\ &&|&
      \text{(}~\text{global}~~x{:}\Bglobalidx_I~\text{)}
-       &\Rightarrow& \EDGLOBAL~x \\
+       &\Rightarrow& \EDGLOBAL~x \\ &&|&
+     \text{(}~\text{event}~~x{:}\Beventidx_I~\text{)}
+       &\Rightarrow& \EDEVENT~x \\
    \end{array}
 
 
 Abbreviations
 .............
 
-As an abbreviation, exports may also be specified inline with :ref:`function <text-func>`, :ref:`table <text-table>`, :ref:`memory <text-mem>`, or :ref:`global <text-global>` definitions; see the respective sections.
+As an abbreviation, exports may also be specified inline with :ref:`function <text-func>`, :ref:`table <text-table>`, :ref:`memory <text-mem>`, :ref:`global <text-global>`, or :ref:`event <text-event>` definitions; see the respective sections.
 
 
 .. index:: start function, function index
@@ -561,7 +623,7 @@ Also, the memory index can be omitted, defaulting to :math:`\T{0}`.
 As another abbreviation, data segments may also be specified inline with :ref:`memory <text-mem>` definitions; see the respective section.
 
 
-.. index:: module, type definition, function type, function, table, memory, global, element, data, start function, import, export, identifier context, identifier, name section
+.. index:: module, type definition, function type, function, table, memory, global, event, element, data, start function, import, export, identifier context, identifier, name section
    pair: text format; module
    single: section; name
 .. _text-modulefield:
@@ -597,6 +659,7 @@ The name serves a documentary role only.
      \X{ta}{:}\Ttable_I &\Rightarrow& \{\MTABLES~\X{ta}\} \\ |&
      \X{me}{:}\Tmem_I &\Rightarrow& \{\MMEMS~\X{me}\} \\ |&
      \X{gl}{:}\Tglobal_I &\Rightarrow& \{\MGLOBALS~\X{gl}\} \\ |&
+     \X{ev}{:}\Tevent_I &\Rightarrow& \{\MEVENTS~\X{ev}\} \\ |&
      \X{ex}{:}\Texport_I &\Rightarrow& \{\MEXPORTS~\X{ex}\} \\ |&
      \X{st}{:}\Tstart_I &\Rightarrow& \{\MSTART~\X{st}\} \\ |&
      \X{el}{:}\Telem_I &\Rightarrow& \{\MELEM~\X{el}\} \\ |&
@@ -608,11 +671,11 @@ The following restrictions are imposed on the composition of :ref:`modules <synt
 
 * :math:`m_1.\MSTART = \epsilon \vee m_2.\MSTART = \epsilon`
 
-* :math:`m_1.\MFUNCS = m_1.\MTABLES = m_1.\MMEMS = m_1.\MGLOBALS = \epsilon \vee m_2.\MIMPORTS = \epsilon`
+* :math:`m_1.\MFUNCS = m_1.\MTABLES = m_1.\MMEMS = m_1.\MGLOBALS = m_1.\MEVENTS = \epsilon \vee m_2.\MIMPORTS = \epsilon`
 
 .. note::
    The first condition ensures that there is at most one start function.
-   The second condition enforces that all :ref:`imports <text-import>` must occur before any regular definition of a :ref:`function <text-func>`, :ref:`table <text-table>`, :ref:`memory <text-mem>`, or :ref:`global <text-global>`,
+   The second condition enforces that all :ref:`imports <text-import>` must occur before any regular definition of a :ref:`function <text-func>`, :ref:`table <text-table>`, :ref:`memory <text-mem>`, :ref:`global <text-global>`, or :ref:`event <text-event>`,
    thereby maintaining the ordering of the respective :ref:`index spaces <syntax-index>`.
 
    The :ref:`well-formedness <text-context-wf>` condition on :math:`I` in the grammar for |Tmodule| ensures that no namespace contains duplicate identifiers.
@@ -631,6 +694,8 @@ The definition of the initial :ref:`identifier context <text-context>` :math:`I`
      \{\IMEMS~(\Tid^?)\} \\
    \F{idc}(\text{(}~\text{global}~\Tid^?~\dots~\text{)}) &=&
      \{\IGLOBALS~(\Tid^?)\} \\
+   \F{idc}(\text{(}~\text{event}~\Tid^?~\dots~\text{)}) &=&
+     \{\IEVENTS~(\Tid^?)\} \\
    \F{idc}(\text{(}~\text{import}~\dots~\text{(}~\text{func}~\Tid^?~\dots~\text{)}~\text{)}) &=&
      \{\IFUNCS~(\Tid^?)\} \\
    \F{idc}(\text{(}~\text{import}~\dots~\text{(}~\text{table}~\Tid^?~\dots~\text{)}~\text{)}) &=&
@@ -639,6 +704,8 @@ The definition of the initial :ref:`identifier context <text-context>` :math:`I`
      \{\IMEMS~(\Tid^?)\} \\
    \F{idc}(\text{(}~\text{import}~\dots~\text{(}~\text{global}~\Tid^?~\dots~\text{)}~\text{)}) &=&
      \{\IGLOBALS~(\Tid^?)\} \\
+   \F{idc}(\text{(}~\text{import}~\dots~\text{(}~\text{event}~\Tid^?~\dots~\text{)}~\text{)}) &=&
+     \{\IEVENTS~(\Tid^?)\} \\
    \F{idc}(\text{(}~\dots~\text{)}) &=&
      \{\} \\
    \end{array}

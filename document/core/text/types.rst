@@ -34,6 +34,7 @@ Reference Types
    \production{reference type} & \Treftype &::=&
      \text{anyref} &\Rightarrow& \ANYREF \\ &&|&
      \text{funcref} &\Rightarrow& \FUNCREF \\ &&|&
+     \text{exnref} &\Rightarrow& \EXNREF \\ &&|&
      \text{nullref} &\Rightarrow& \NULLREF \\
    \end{array}
 
@@ -164,4 +165,19 @@ Global Types
    \production{global type} & \Tglobaltype &::=&
      t{:}\Tvaltype &\Rightarrow& \MCONST~t \\ &&|&
      \text{(}~\text{mut}~~t{:}\Tvaltype~\text{)} &\Rightarrow& \MVAR~t \\
+   \end{array}
+
+
+.. index:: event type, attribute, function type
+   pair: text format; event type
+   pair: text format; attribute
+.. _text-eventtype:
+
+Event Types
+~~~~~~~~~~~
+
+.. math::
+   \begin{array}{llclll}
+   \production{event type} & \Teventtype &::=&
+     \text{(}~\text{exception}~~t^\ast{:}\Tvec(\Tparam)~\text{)} &\Rightarrow& \AEXCEPTION~~[t^\ast] \to [] \\
    \end{array}

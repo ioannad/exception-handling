@@ -181,6 +181,7 @@
 
 .. |ANYREF| mathdef:: \xref{syntax/types}{syntax-reftype}{\K{anyref}}
 .. |FUNCREF| mathdef:: \xref{syntax/types}{syntax-reftype}{\K{funcref}}
+.. |EXNREF| mathdef:: \xref{syntax/types}{syntax-reftype}{\K{exnref}}
 .. |NULLREF| mathdef:: \xref{syntax/types}{syntax-reftype}{\K{nullref}}
 
 .. |MVAR| mathdef:: \xref{syntax/types}{syntax-mut}{\K{var}}
@@ -193,7 +194,9 @@
 .. |ETTABLE| mathdef:: \xref{syntax/types}{syntax-externtype}{\K{table}}
 .. |ETMEM| mathdef:: \xref{syntax/types}{syntax-externtype}{\K{mem}}
 .. |ETGLOBAL| mathdef:: \xref{syntax/types}{syntax-externtype}{\K{global}}
+.. |ETEVENT| mathdef:: \xref{syntax/types}{syntax-externtype}{\K{event}}
 
+.. |AEXCEPTION| mathdef:: \xref{syntax/types}{syntax-attribute}{\K{exception}}
 
 .. Types, non-terminals
 
@@ -203,6 +206,8 @@
 .. |resulttype| mathdef:: \xref{syntax/types}{syntax-resulttype}{\X{resulttype}}
 .. |functype| mathdef:: \xref{syntax/types}{syntax-functype}{\X{functype}}
 .. |globaltype| mathdef:: \xref{syntax/types}{syntax-globaltype}{\X{globaltype}}
+.. |eventtype| mathdef:: \xref{syntax/types}{syntax-eventtype}{\X{eventtype}}
+.. |attribute| mathdef:: \xref{syntax/types}{syntax-eventtype}{\X{attribute}}
 .. |tabletype| mathdef:: \xref{syntax/types}{syntax-tabletype}{\X{tabletype}}
 .. |memtype| mathdef:: \xref{syntax/types}{syntax-memtype}{\X{memtype}}
 
@@ -218,7 +223,7 @@
 .. |ettables| mathdef:: \xref{syntax/types}{syntax-externtype}{\F{tables}}
 .. |etmems| mathdef:: \xref{syntax/types}{syntax-externtype}{\F{mems}}
 .. |etglobals| mathdef:: \xref{syntax/types}{syntax-externtype}{\F{globals}}
-
+.. |etevents| mathdef:: \xref{syntax/types}{syntax-externtype}{\F{events}}
 
 .. Indices, non-terminals
 
@@ -229,6 +234,7 @@
 .. |globalidx| mathdef:: \xref{syntax/modules}{syntax-globalidx}{\X{globalidx}}
 .. |localidx| mathdef:: \xref{syntax/modules}{syntax-localidx}{\X{localidx}}
 .. |labelidx| mathdef:: \xref{syntax/modules}{syntax-labelidx}{\X{labelidx}}
+.. |eventidx| mathdef:: \xref{syntax/modules}{syntax-eventidx}{\X{eventidx}}
 
 
 .. Modules, terminals
@@ -238,6 +244,7 @@
 .. |MTABLES| mathdef:: \xref{syntax/modules}{syntax-module}{\K{tables}}
 .. |MMEMS| mathdef:: \xref{syntax/modules}{syntax-module}{\K{mems}}
 .. |MGLOBALS| mathdef:: \xref{syntax/modules}{syntax-module}{\K{globals}}
+.. |MEVENTS| mathdef:: \xref{syntax/modules}{syntax-module}{\K{events}}
 .. |MIMPORTS| mathdef:: \xref{syntax/modules}{syntax-module}{\K{imports}}
 .. |MEXPORTS| mathdef:: \xref{syntax/modules}{syntax-module}{\K{exports}}
 .. |MDATA| mathdef:: \xref{syntax/modules}{syntax-module}{\K{data}}
@@ -255,6 +262,9 @@
 .. |GTYPE| mathdef:: \xref{syntax/modules}{syntax-global}{\K{type}}
 .. |GINIT| mathdef:: \xref{syntax/modules}{syntax-global}{\K{init}}
 
+.. |EATTRIBUTE| mathdef:: \xref{syntax/modules}{syntax-event}{\K{attribute}}
+.. |ETYPE| mathdef:: \xref{syntax/modules}{syntax-event}{\K{type}}
+
 .. |ETABLE| mathdef:: \xref{syntax/modules}{syntax-elem}{\K{table}}
 .. |EOFFSET| mathdef:: \xref{syntax/modules}{syntax-elem}{\K{offset}}
 .. |EINIT| mathdef:: \xref{syntax/modules}{syntax-elem}{\K{init}}
@@ -271,6 +281,7 @@
 .. |EDTABLE| mathdef:: \xref{syntax/modules}{syntax-exportdesc}{\K{table}}
 .. |EDMEM| mathdef:: \xref{syntax/modules}{syntax-exportdesc}{\K{mem}}
 .. |EDGLOBAL| mathdef:: \xref{syntax/modules}{syntax-exportdesc}{\K{global}}
+.. |EDEVENT| mathdef:: \xref{syntax/modules}{syntax-exportdesc}{\K{event}}
 
 .. |IMODULE| mathdef:: \xref{syntax/modules}{syntax-import}{\K{module}}
 .. |INAME| mathdef:: \xref{syntax/modules}{syntax-import}{\K{name}}
@@ -279,6 +290,7 @@
 .. |IDTABLE| mathdef:: \xref{syntax/modules}{syntax-importdesc}{\K{table}}
 .. |IDMEM| mathdef:: \xref{syntax/modules}{syntax-importdesc}{\K{mem}}
 .. |IDGLOBAL| mathdef:: \xref{syntax/modules}{syntax-importdesc}{\K{global}}
+.. |IDEVENT| mathdef:: \xref{syntax/modules}{syntax-importdesc}{\K{event}}
 
 
 .. Modules, non-terminals
@@ -289,6 +301,7 @@
 .. |table| mathdef:: \xref{syntax/modules}{syntax-table}{\X{table}}
 .. |mem| mathdef:: \xref{syntax/modules}{syntax-mem}{\X{mem}}
 .. |global| mathdef:: \xref{syntax/modules}{syntax-global}{\X{global}}
+.. |event| mathdef:: \xref{syntax/modules}{syntax-event}{\X{event}}
 .. |import| mathdef:: \xref{syntax/modules}{syntax-import}{\X{import}}
 .. |export| mathdef:: \xref{syntax/modules}{syntax-export}{\X{export}}
 .. |importdesc| mathdef:: \xref{syntax/modules}{syntax-importdesc}{\X{importdesc}}
@@ -304,6 +317,7 @@
 .. |edtables| mathdef:: \xref{syntax/modules}{syntax-exportdesc}{\F{tables}}
 .. |edmems| mathdef:: \xref{syntax/modules}{syntax-exportdesc}{\F{mems}}
 .. |edglobals| mathdef:: \xref{syntax/modules}{syntax-exportdesc}{\F{globals}}
+.. |edevents| mathdef:: \xref{syntax/modules}{syntax-exportdesc}{\F{events}}
 
 
 .. Instructions, terminals
@@ -324,6 +338,11 @@
 .. |RETURN| mathdef:: \xref{syntax/instructions}{syntax-instr-control}{\K{return}}
 .. |CALL| mathdef:: \xref{syntax/instructions}{syntax-instr-control}{\K{call}}
 .. |CALLINDIRECT| mathdef:: \xref{syntax/instructions}{syntax-instr-control}{\K{call\_indirect}}
+.. |TRY| mathdef:: \xref{syntax/instructions}{syntax-instr-control}{\K{try}}
+.. |CATCH| mathdef:: \xref{syntax/instructions}{syntax-instr-control}{\K{catch}}
+.. |THROW| mathdef:: \xref{syntax/instructions}{syntax-instr-control}{\K{throw}}
+.. |RETHROW| mathdef:: \xref{syntax/instructions}{syntax-instr-control}{\K{rethrow}}
+.. |BRONEXN| mathdef:: \xref{syntax/instructions}{syntax-instr-control}{\K{br\_on\_exn}}
 
 .. |DROP| mathdef:: \xref{syntax/instructions}{syntax-instr-parametric}{\K{drop}}
 .. |SELECT| mathdef:: \xref{syntax/instructions}{syntax-instr-parametric}{\K{select}}
@@ -471,11 +490,12 @@
 .. |Bblocktype| mathdef:: \xref{binary/types}{binary-blocktype}{\B{blocktype}}
 .. |Bfunctype| mathdef:: \xref{binary/types}{binary-functype}{\B{functype}}
 .. |Bglobaltype| mathdef:: \xref{binary/types}{binary-globaltype}{\B{globaltype}}
+.. |Beventtype| mathdef:: \xref{binary/types}{binary-eventtype}{\B{eventtype}}
 .. |Btabletype| mathdef:: \xref{binary/types}{binary-tabletype}{\B{tabletype}}
 .. |Bmemtype| mathdef:: \xref{binary/types}{binary-memtype}{\B{memtype}}
 .. |Blimits| mathdef:: \xref{binary/types}{binary-limits}{\B{limits}}
 .. |Bmut| mathdef:: \xref{binary/types}{binary-mut}{\B{mut}}
-
+.. |Battribute| mathdef:: \xref{binary/types}{binary-attribute}{\B{attribute}}
 
 .. Indices, non-terminals
 
@@ -485,6 +505,7 @@
 .. |Btableidx| mathdef:: \xref{binary/modules}{binary-tableidx}{\B{tableidx}}
 .. |Bmemidx| mathdef:: \xref{binary/modules}{binary-memidx}{\B{memidx}}
 .. |Bglobalidx| mathdef:: \xref{binary/modules}{binary-globalidx}{\B{globalidx}}
+.. |Beventidx| mathdef:: \xref{binary/modules}{binary-eventidx}{\B{eventidx}}
 .. |Blocalidx| mathdef:: \xref{binary/modules}{binary-localidx}{\B{localidx}}
 .. |Blabelidx| mathdef:: \xref{binary/modules}{binary-labelidx}{\B{labelidx}}
 
@@ -503,6 +524,7 @@
 .. |Btablesec| mathdef:: \xref{binary/modules}{binary-tablesec}{\B{tablesec}}
 .. |Bmemsec| mathdef:: \xref{binary/modules}{binary-memsec}{\B{memsec}}
 .. |Bglobalsec| mathdef:: \xref{binary/modules}{binary-globalsec}{\B{globalsec}}
+.. |Beventsec| mathdef:: \xref{binary/modules}{binary-eventsec}{\B{eventsec}}
 .. |Bimportsec| mathdef:: \xref{binary/modules}{binary-importsec}{\B{importsec}}
 .. |Bexportsec| mathdef:: \xref{binary/modules}{binary-exportsec}{\B{exportsec}}
 .. |Belemsec| mathdef:: \xref{binary/modules}{binary-elemsec}{\B{elemsec}}
@@ -515,6 +537,7 @@
 .. |Btable| mathdef:: \xref{binary/modules}{binary-table}{\B{table}}
 .. |Bmem| mathdef:: \xref{binary/modules}{binary-mem}{\B{mem}}
 .. |Bglobal| mathdef:: \xref{binary/modules}{binary-global}{\B{global}}
+.. |Bevent| mathdef:: \xref{binary/modules}{binary-event}{\B{event}}
 .. |Bimport| mathdef:: \xref{binary/modules}{binary-import}{\B{import}}
 .. |Bexport| mathdef:: \xref{binary/modules}{binary-export}{\B{export}}
 .. |Bimportdesc| mathdef:: \xref{binary/modules}{binary-importdesc}{\B{importdesc}}
@@ -628,6 +651,7 @@
 .. |Tblocktype| mathdef:: \xref{text/types}{text-blocktype}{\T{blocktype}}
 .. |Tfunctype| mathdef:: \xref{text/types}{text-functype}{\T{functype}}
 .. |Tglobaltype| mathdef:: \xref{text/types}{text-globaltype}{\T{globaltype}}
+.. |Teventtype| mathdef:: \xref{text/types}{text-eventtype}{\T{eventtype}}
 .. |Ttabletype| mathdef:: \xref{text/types}{text-tabletype}{\T{tabletype}}
 .. |Tmemtype| mathdef:: \xref{text/types}{text-memtype}{\T{memtype}}
 .. |Tlimits| mathdef:: \xref{text/types}{text-limits}{\T{limits}}
@@ -642,6 +666,7 @@
 .. |Ttableidx| mathdef:: \xref{text/modules}{text-tableidx}{\T{tableidx}}
 .. |Tmemidx| mathdef:: \xref{text/modules}{text-memidx}{\T{memidx}}
 .. |Tglobalidx| mathdef:: \xref{text/modules}{text-globalidx}{\T{globalidx}}
+.. |Teventidx| mathdef:: \xref{text/modules}{text-eventidx}{\T{eventidx}}
 .. |Tlocalidx| mathdef:: \xref{text/modules}{text-localidx}{\T{localidx}}
 .. |Tlabelidx| mathdef:: \xref{text/modules}{text-labelidx}{\T{labelidx}}
 
@@ -665,6 +690,7 @@
 .. |Ttable| mathdef:: \xref{text/modules}{text-table}{\T{table}}
 .. |Tmem| mathdef:: \xref{text/modules}{text-mem}{\T{mem}}
 .. |Tglobal| mathdef:: \xref{text/modules}{text-global}{\T{global}}
+.. |Tevent| mathdef:: \xref{text/modules}{text-event}{\T{event}}
 .. |Timport| mathdef:: \xref{text/modules}{text-import}{\T{import}}
 .. |Texport| mathdef:: \xref{text/modules}{text-export}{\T{export}}
 .. |Timportdesc| mathdef:: \xref{text/modules}{text-importdesc}{\T{importdesc}}
@@ -704,6 +730,7 @@
 .. |ITABLES| mathdef:: \xref{text/conventions}{text-context}{\K{tables}}
 .. |IMEMS| mathdef:: \xref{text/conventions}{text-context}{\K{mems}}
 .. |IGLOBALS| mathdef:: \xref{text/conventions}{text-context}{\K{globals}}
+.. |IEVENTS| mathdef:: \xref{text/conventions}{text-context}{\K{events}}
 .. |ILOCALS| mathdef:: \xref{text/conventions}{text-context}{\K{locals}}
 .. |ILABELS| mathdef:: \xref{text/conventions}{text-context}{\K{labels}}
 

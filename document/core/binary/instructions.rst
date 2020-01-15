@@ -20,13 +20,17 @@ The only exception are :ref:`structured control instructions <binary-instr-contr
 Control Instructions
 ~~~~~~~~~~~~~~~~~~~~
 
-:ref:`Control instructions <syntax-instr-control>` have varying encodings. For structured instructions, the instruction sequences forming nested blocks are terminated with explicit opcodes for |END| and |ELSE|.
+:ref:`Control instructions <syntax-instr-control>` have varying encodings. For structured instructions, the instruction sequences forming nested blocks are terminated with explicit opcodes for |END|, |ELSE|, and |CATCH|.
 
 .. _binary-nop:
 .. _binary-unreachable:
 .. _binary-block:
 .. _binary-loop:
 .. _binary-if:
+.. _binary-try:
+.. _binary-throw:
+.. _binary-rethrow:
+.. _binary-br_on_exn:
 .. _binary-br:
 .. _binary-br_if:
 .. _binary-br_table:
@@ -48,6 +52,12 @@ Control Instructions
      \hex{04}~~\X{rt}{:}\Bblocktype~~(\X{in}_1{:}\Binstr)^\ast~~
        \hex{05}~~(\X{in}_2{:}\Binstr)^\ast~~\hex{0B}
        &\Rightarrow& \IF~\X{rt}~\X{in}_1^\ast~\ELSE~\X{in}_2^\ast~\END \\ &&|&
+     \hex{06}~~\X{rt}{:}\Bblocktype~~(\X{in}_1{:}\Binstr)^\ast~~
+       \hex{07}~~(\X{in}_2{:}\Binstr)^\ast~~\hex{0B}
+       &\Rightarrow& \TRY~\X{rt}~\X{in}_1^\ast~\CATCH~\X{in}_2^\ast~\END \\ &&|&
+     \hex{08}~~ev{:}\Beventidx &\Rightarrow& \THROW~ev \\ &&|&
+     \hex{09} &\Rightarrow& \RETHROW \\ &&|&
+     \hex{0A}~~l{:}\Blabelidx~~ev{:}\Beventidx &\Rightarrow& \BRONEXN~l~ev \\ &&|&
      \hex{0C}~~l{:}\Blabelidx &\Rightarrow& \BR~l \\ &&|&
      \hex{0D}~~l{:}\Blabelidx &\Rightarrow& \BRIF~l \\ &&|&
      \hex{0E}~~l^\ast{:}\Bvec(\Blabelidx)~~l_N{:}\Blabelidx

@@ -41,7 +41,7 @@ Conventions
   That is, :math:`|\I32| = |\F32| = 32` and :math:`|\I64| = |\F64| = 64`.
 
 
-.. index:: ! reference type, reference, table, function, function type, null
+.. index:: ! reference type, reference, table, function, function type, exception, null
    pair: abstract syntax; reference type
    pair: reference; type
 .. _syntax-reftype:
@@ -54,12 +54,14 @@ Reference Types
 .. math::
    \begin{array}{llll}
    \production{reference type} & \reftype &::=&
-     \ANYREF ~|~ \FUNCREF ~|~ \NULLREF \\
+     \ANYREF ~|~ \FUNCREF ~|~ \EXNREF ~|~ \NULLREF \\
    \end{array}
 
 The type |ANYREF| denotes the infinite union of all references, and thereby a :ref:`supertype <match-reftype>` of all other reference types.
 
 The type |FUNCREF| denotes the infinite union of all references to :ref:`functions <syntax-func>`, regardless of their :ref:`function types <syntax-functype>`.
+
+The type |EXNREF| denotes the infinite union of all references to exception :ref:`events <syntax-event>`, regardless of the function types in their :ref:`event types <syntax-eventtype>`.
 
 The type |NULLREF| only contains a single value: the :ref:`null <syntax-ref.null>` reference.
 It is a :ref:`subtype <match-reftype>` of all other reference types.
@@ -141,7 +143,6 @@ mapping a vector of parameters to a vector of results, written as follows.
    In the current version of WebAssembly,
    the length of the result type vector of a :ref:`valid <valid-functype>` function type may be at most :math:`1`.
    This restriction may be removed in future versions.
-
 
 .. index:: ! limits, memory type, table type
    pair: abstract syntax; limits
@@ -231,6 +232,33 @@ Global Types
    \end{array}
 
 
+.. index:: ! event, exception, event type, attribute
+   pair: abstract syntax; event
+   pair: abstract syntax; exception
+   single: event; type
+   single: event; attribute
+.. _syntax-attribute:
+.. _syntax-eventtype:
+
+Event Types
+~~~~~~~~~~~
+
+*Event types* classify the signature of :ref:`events <syntax-event>`,
+with an attribute and a function type.
+
+.. math::
+   \begin{array}{llll}
+   \production{event type} &\eventtype &::=& \attribute~~\functype \\
+   \production{attribute} &\attribute &::=& \AEXCEPTION \\
+   \end{array}
+
+The |attribute| |AEXCEPTION| specifies that the event is an exception, in which case the result type of its function type |functype| must be void.
+The parameters of |functype| define the list of values associated with the exception event.
+
+
+.. note:: In the current version of WebAssembly, events may only be exceptions. In future versions additional events may be added.
+
+
 .. index:: ! external type, function type, table type, memory type, global type, import, external value
    pair: abstract syntax; external type
    pair: external; type
@@ -247,7 +275,8 @@ External Types
      \ETFUNC~\functype ~|~
      \ETTABLE~\tabletype ~|~
      \ETMEM~\memtype ~|~
-     \ETGLOBAL~\globaltype \\
+     \ETGLOBAL~\globaltype ~|~
+     \ETEVENT~\eventtype \\
    \end{array}
 
 
@@ -264,3 +293,5 @@ It filters out entries of a specific kind in an order-preserving fashion:
 * :math:`\etmems(\externtype^\ast) = [\memtype ~|~ (\ETMEM~\memtype) \in \externtype^\ast]`
 
 * :math:`\etglobals(\externtype^\ast) = [\globaltype ~|~ (\ETGLOBAL~\globaltype) \in \externtype^\ast]`
+
+* :math:`\etevents(\externtype^\ast) = [\eventtype ~|~ (\ETEVENT~\eventtype) \in \externtype^\ast]`

@@ -188,7 +188,7 @@ Instructions in this group are concerned with accessing :ref:`references <syntax
      \REFFUNC~\funcidx \\
    \end{array}
 
-These instruction produce a null value, check for a null value, or compare two references, respectively.
+These instructions produce a null value, check for a null value, or compare two references, respectively.
 
 
 .. index:: ! parametric instruction, value type
@@ -361,6 +361,10 @@ Instructions in this group affect the flow of control.
      \BLOCK~\resulttype~\instr^\ast~\END \\&&|&
      \LOOP~\resulttype~\instr^\ast~\END \\&&|&
      \IF~\resulttype~\instr^\ast~\ELSE~\instr^\ast~\END \\&&|&
+     \TRY~\resulttype~instr^\ast~\CATCH~\instr^\ast~\END \\&&|&
+     \THROW~\eventidx \\&&|&
+     \RETHROW \\&&|&
+     \BRONEXN~\labelidx~\eventidx \\&&|&
      \BR~\labelidx \\&&|&
      \BRIF~\labelidx \\&&|&
      \BRTABLE~\vec(\labelidx)~\labelidx \\&&|&
@@ -373,10 +377,13 @@ The |NOP| instruction does nothing.
 
 The |UNREACHABLE| instruction causes an unconditional :ref:`trap <trap>`.
 
-The |BLOCK|, |LOOP| and |IF| instructions are *structured* instructions.
-They bracket nested sequences of instructions, called *blocks*, terminated with, or separated by, |END| or |ELSE| pseudo-instructions.
+The |BLOCK|, |LOOP|, |IF|, and |TRY| instructions are *structured* instructions.
+They bracket nested sequences of instructions, called *blocks*, terminated with, or separated by, either |END|, |ELSE| pseudo-instructions, or |CATCH| exception (event) handling code.
 As the grammar prescribes, they must be well-nested.
 A structured instruction can produce a value as described by the annotated :ref:`result type <syntax-resulttype>`.
+
+The instructions |TRY|, |THROW|, |RETHROW|, and |BRONEXN| are concerned with events, and in particular with exception handling.
+The |THROW| and |RETHROW| instructions alter control flow by searching for the catching-try block, if any. **TODO: add more details here?**
 
 Each structured control instruction introduces an implicit *label*.
 Labels are targets for branch instructions that reference them with :ref:`label indices <syntax-labelidx>`.
@@ -408,7 +415,6 @@ The |CALL| instruction invokes another :ref:`function <syntax-func>`, consuming 
 The |CALLINDIRECT| instruction calls a function indirectly through an operand indexing into a :ref:`table <syntax-table>` that is denoted by a :ref:`table index <syntax-tableidx>` and must have type |FUNCREF|.
 Since it may contain functions of heterogeneous type,
 the callee is dynamically checked against the :ref:`function type <syntax-functype>` indexed by the instruction's second immediate, and the call is aborted with a :ref:`trap <trap>` if it does not match.
-
 
 .. index:: ! expression, constant, global, offset, element, data, instruction
    pair: abstract syntax; expression

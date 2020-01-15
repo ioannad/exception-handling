@@ -22,6 +22,7 @@ except that :ref:`function definitions <syntax-func>` are split into two section
 .. _binary-tableidx:
 .. _binary-memidx:
 .. _binary-globalidx:
+.. _binary-eventidx:
 .. _binary-localidx:
 .. _binary-labelidx:
 .. _binary-index:
@@ -38,6 +39,7 @@ All :ref:`indices <syntax-index>` are encoded with their respective value.
    \production{table index} & \Btableidx &::=& x{:}\Bu32 &\Rightarrow& x \\
    \production{memory index} & \Bmemidx &::=& x{:}\Bu32 &\Rightarrow& x \\
    \production{global index} & \Bglobalidx &::=& x{:}\Bu32 &\Rightarrow& x \\
+   \production{event index} & \Beventidx &::=& x{:}\Bu32 &\Rightarrow& x \\
    \production{local index} & \Blocalidx &::=& x{:}\Bu32 &\Rightarrow& x \\
    \production{label index} & \Blabelidx &::=& l{:}\Bu32 &\Rightarrow& l \\
    \end{array}
@@ -139,7 +141,7 @@ It decodes into a vector of :ref:`function types <syntax-functype>` that represe
    \end{array}
 
 
-.. index:: ! import section, import, name, function type, table type, memory type, global type
+.. index:: ! import section, import, name, function type, table type, memory type, global type, event type
    pair: binary format; import
    pair: section; import
 .. _binary-import:
@@ -163,7 +165,8 @@ It decodes into a vector of :ref:`imports <syntax-import>` that represent the |M
      \hex{00}~~x{:}\Btypeidx &\Rightarrow& \IDFUNC~x \\ &&|&
      \hex{01}~~\X{tt}{:}\Btabletype &\Rightarrow& \IDTABLE~\X{tt} \\ &&|&
      \hex{02}~~\X{mt}{:}\Bmemtype &\Rightarrow& \IDMEM~\X{mt} \\ &&|&
-     \hex{03}~~\X{gt}{:}\Bglobaltype &\Rightarrow& \IDGLOBAL~\X{gt} \\
+     \hex{03}~~\X{gt}{:}\Bglobaltype &\Rightarrow& \IDGLOBAL~\X{gt} \\ &&|&
+     \hex{04}~~\X{ev}{:}\Bevent &\Rightarrow& \IDEVENT~\X{ev} \\
    \end{array}
 
 
@@ -250,7 +253,29 @@ It decodes into a vector of :ref:`globals <syntax-global>` that represent the |M
    \end{array}
 
 
-.. index:: ! export section, export, name, index, function index, table index, memory index, global index
+.. index:: ! event section, event, event type, attribute, function type index
+   pair: binary format; event
+   pair: section; event
+.. _binary-event:
+.. _binary-eventsec:
+
+Event Section
+~~~~~~~~~~~~~~
+
+The *event section* has the id 13.
+It decodes into a vector of :ref:`events <syntax-global>` that represent the |MEVENTS| component of a :ref:`module <syntax-module>`.
+
+.. math::
+   \begin{array}{llclll}
+   \production{event section} & \Beventsec &::=&
+     \X{event}^\ast{:}\Bsection_13(\Bvec(\Bevent)) &\Rightarrow& \X{event}^\ast \\
+   \production{event} & \Bevent &::=&
+     \X{a}{:}\Battribute~~\X{x}{:}\Btypeidx
+       &\Rightarrow& \{ \EATTRIBUTE~\X{a}, \ETYPE~\X{x} \} \\
+   \end{array}
+ 
+
+.. index:: ! export section, export, name, index, function index, table index, memory index, global index, event index
    pair: binary format; export
    pair: section; export
 .. _binary-export:
@@ -274,7 +299,8 @@ It decodes into a vector of :ref:`exports <syntax-export>` that represent the |M
      \hex{00}~~x{:}\Bfuncidx &\Rightarrow& \EDFUNC~x \\ &&|&
      \hex{01}~~x{:}\Btableidx &\Rightarrow& \EDTABLE~x \\ &&|&
      \hex{02}~~x{:}\Bmemidx &\Rightarrow& \EDMEM~x \\ &&|&
-     \hex{03}~~x{:}\Bglobalidx &\Rightarrow& \EDGLOBAL~x \\
+     \hex{03}~~x{:}\Bglobalidx &\Rightarrow& \EDGLOBAL~x \\ &&|&
+     \hex{04}~~x{:}\Beventidx &\Rightarrow& \EDEVENT~x \\
    \end{array}
 
 
@@ -407,7 +433,7 @@ It decodes into a vector of :ref:`data segments <syntax-data>` that represent th
    \end{array}
 
 
-.. index:: module, section, type definition, function type, function, table, memory, global, element, data, start function, import, export, context, version
+.. index:: module, section, type definition, function type, function, table, memory, global, event, element, data, start function, import, export, context, version
    pair: binary format; module
 .. _binary-magic:
 .. _binary-version:
@@ -448,6 +474,8 @@ The lengths of vectors produced by the (possibly empty) :ref:`function <binary-f
      \Bcustomsec^\ast \\ &&&
      \global^\ast{:\,}\Bglobalsec \\ &&&
      \Bcustomsec^\ast \\ &&&
+     \event^\ast{:\,}\Beventsec \\ &&&
+     \Bcustomsec^\ast \\ &&&
      \export^\ast{:\,}\Bexportsec \\ &&&
      \Bcustomsec^\ast \\ &&&
      \start^?{:\,}\Bstartsec \\ &&&
@@ -465,6 +493,7 @@ The lengths of vectors produced by the (possibly empty) :ref:`function <binary-f
        \MTABLES~\table^\ast, \\
        \MMEMS~\mem^\ast, \\
        \MGLOBALS~\global^\ast, \\
+       \MEVENTS~\event^\ast, \\
        \MELEM~\elem^\ast, \\
        \MDATA~\data^\ast, \\
        \MSTART~\start^?, \\
