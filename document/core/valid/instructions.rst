@@ -721,6 +721,107 @@ Control Instructions
    This may be generalized in future versions of WebAssembly.
 
 
+.. _valid-try:
+
+:math:`\TRY~[t^?]~\instr_1^\ast~\CATCH~\instr_2^\ast~\END`
+..........................................................
+
+* Let :math:`C'` be the same :ref:`context <context>` as :math:`C`, but with the :ref:`result type <syntax-resulttype>` :math:`[t^?]` prepended to the |CLABELS| vector.
+
+* Under context :math:`C'`,
+  the instruction sequence :math:`\instr_1^\ast` must be :ref:`valid <valid-instr-seq>` with type :math:`[t_1^\ast] \to [t^?]`.
+
+* Under context :math:`C'`,
+  the instruction sequence :math:`\instr_2^\ast` must be :ref:`valid <valid-instr-seq>` with type :math:`[\EXNREF] \to [t^?]`.
+
+* Then the compound instruction is valid with type :math:`[t_1^\ast] \to [t^?]`.
+
+.. math::
+   \frac{
+     C,\CLABELS\,[t^?] \vdashinstrseq \instr_1^\ast : [t_1^\ast] \to [t^?]
+     \qquad
+     C,\CLABELS\,[t^?] \vdashinstrseq \instr_2^\ast : [\EXNREF] \to [t^?]
+   }{
+     C \vdashinstr \TRY~[t^?]~\instr_1^\ast~\CATCH~\instr_2^\ast~\END : [t_1^\ast] \to [t^?]
+   }
+
+.. note::
+   The :ref:`notation <notation-extend>` :math:`C,\CLABELS\,[t^?]` inserts the new label type at index :math:`0`, shifting all others.
+
+   The |TRY| instruction is :ref:`stack-polymorphic <polymorphism>`.
+
+
+.. _valid-throw:
+
+:math:`\THROW~x`
+................
+
+* The event :math:`C.\CEVENTS[x]` must be defined in the context.
+
+* Let :math:`\AEXCEPTION [t^\ast] \to []` be its :ref:`event type <syntax-eventtype>`.
+
+* Then the instruction is valid with type :math:`[t_1^\ast t^\ast] \to [t_2^\ast]`, for any sequences of  :ref:`value types <syntax-valtype>` :math:`t_1^\ast` and :math:`t_2^\ast`.
+
+.. math::
+   \frac{
+     C.\CEVENTS[x] = \AEXCEPTION [t^\ast] \to []
+   }{
+     C \vdashinstr \THROW~x : [t_1^\ast t^\ast] \to [t_2^\ast]
+   }
+
+
+.. note::
+   The |THROW| instruction is :ref:`stack-polymorphic <polymorphism>`.
+
+
+.. _valid-rethrow:
+
+:math:`\RETHROW`
+................
+
+* The instruction is valid with type :math:`[t_1^\ast \EXNREF] \to [t_2^\ast]`, for any sequences of  :ref:`value types <syntax-valtype>` :math:`t_1^\ast` and :math:`t_2^\ast`.
+
+.. math::
+   \frac{
+   }{
+     C \vdashinstr \RETHROW : [t_1^\ast \EXNREF] \to [t_2^\ast]
+   }
+
+
+.. note::
+   The |RETHROW| instruction is :ref:`stack-polymorphic <polymorphism>`.
+
+
+.. _valid-br_on_exn:
+
+:math:`\BRONEXN~l~x`
+....................
+
+* The label :math:`C.\CLABELS[l]` must be defined in the context.
+
+* The event :math:`C.\CEVENTS[x]` must be defined in the context.
+
+* Let :math:`[t^?]` be the :ref:`result type <syntax-resulttype>` :math:`C.\CLABELS[l]`.
+
+* The event :math:`C.\CEVENTS[x]` must be :math:`\AEXCEPTION~[t^?]\to[]`.
+
+* Then the instruction is valid with type :math:`[\EXNREF~t^?]\to[\EXNREF~t^?]`
+
+.. math::
+   \frac{
+     C.\CLABELS[l]=[t^?]
+   \qquad
+     C.\CEVENTS[x]=\AEXCEPTION~[t^?]\to[]
+   }{
+     C \vdashinstr \BRONEXN~l~x : [\EXNREF~t^?]\to[\EXNREF~t^?]
+   }
+
+.. note::
+   The :ref:`label index <syntax-labelidx>` space in the :ref:`context <context>` :math:`C` contains the most recent label first, so that :math:`C.\CLABELS[l]` performs a relative lookup as expected.
+
+   In the current version of WebAssembly, only zero or one result type is allowed in a label's result type. This means that :math:`\BRONEXN` only works with exceptions with function type :math:`[t^?]\to[]`. This may be generalised in future versions of WebAssembly.
+
+
 .. _valid-br:
 
 :math:`\BR~l`

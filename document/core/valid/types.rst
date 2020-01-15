@@ -2,7 +2,7 @@ Types
 -----
 
 Most :ref:`types <syntax-type>` are universally valid.
-However, restrictions apply to :ref:`function types <syntax-functype>` as well as the :ref:`limits <syntax-limits>` of :ref:`table types <syntax-tabletype>` and :ref:`memory types <syntax-memtype>`, which must be checked during validation.
+However, restrictions apply to :ref:`function types <syntax-functype>` as well as the :ref:`limits <syntax-limits>` of :ref:`table types <syntax-tabletype>` and :ref:`memory types <syntax-memtype>`, and on the :ref:`result type <syntax-resulttype>` of an :ref:`event type's <syntax-eventtype>` :ref:`function type <syntax-functype>`, which must be checked during validation.
 
 On :ref:`value types <syntax-valtype>`, a simple notion of subtyping is defined.
 
@@ -135,7 +135,32 @@ Global Types
    }
 
 
-.. index:: external type, function type, table type, memory type, global type
+.. index:: event type, attribute, result type
+   pair: validation; event type
+   single: abstract syntax; event type
+.. _valid-eventtype:
+
+Event Types
+~~~~~~~~~~~
+
+:math:`\AEXCEPTION~~[t^n] \to []`
+.................................
+
+* The :ref:`attribute <syntax-attribute>` must be |AEXCEPTION|.
+
+* The :ref:`function type <syntax-functype>` :math:`[t^n] \to []` must be a :ref:`valid <valid-functype>`.
+
+* Then the event type is valid.
+
+.. math::
+   \frac{
+     \vdashfunctype [t^n] \to [] \ok
+   }{
+     \vdasheventtype \AEXCEPTION~[t^n] \to [] \ok
+   }
+
+
+.. index:: external type, function type, table type, memory type, global type, event type
    pair: validation; external type
    single: abstract syntax; external type
 .. _valid-externtype:
@@ -199,11 +224,27 @@ External Types
      \vdashexterntype \ETGLOBAL~\globaltype \ok
    }
 
+:math:`\ETEVENT~\eventtype`
+...........................
+
+* The :ref:`event type <syntax-eventtype>` :math:`\eventtype` must be :ref:`valid <valid-eventtype>`.
+
+* Then the external type is valid.
+
+.. math::
+   \frac{
+     \vdasheventtype \eventtype \ok
+   }{
+     \vdashexterntype \ETEVENT~\eventtype \ok
+   }
+
 
 .. index:: subtyping
 
 Value Subtyping
 ~~~~~~~~~~~~~~~
+
+If :math:`t_1` and :math:`t_2` are :ref:`value types <syntax-valtype>`, we say that :math:`t_1` matches :math:`t_2` and we write :math:`t_1 \matchesvaltype t_2` for the subtype relation defined in this section.
 
 .. index:: number type
 
@@ -431,4 +472,21 @@ An :ref:`external type <syntax-externtype>` :math:`\ETGLOBAL~(\mut_1~t_1)` match
      \vdashvaltypematch t_1 \matchesvaltype t_2
    }{
      \vdashexterntypematch \ETGLOBAL~(\MCONST~t_1) \matchesexterntype \ETGLOBAL~(\MCONST~t_2)
+   }
+
+
+.. index:: event type, value type, attribute
+.. _match-eventtype:
+
+Events
+......
+
+An :ref:`external type <syntax-externtype>` :math:`\ETEVENT~\eventtype_1` matches :math:`\ETEVENT~\eventtype_2`  if and only if:
+
+* Both :math:`\ETEVENT~\eventtype_1` and :math:`\ETEVENT~\eventtype_2` are the same.
+
+.. math::
+   \frac{
+   }{
+     \vdashexterntypematch \ETEVENT~\eventtype \matchesexterntype \ETEVENT~\eventtype
    }
