@@ -674,7 +674,8 @@ Table Instructions
 .. math::
    \begin{array}{l}
    \begin{array}{lcl@{\qquad}l}
-   S; F; (\I32.\CONST~i)~\val~(\I32.\CONST~(n+1))~(\TABLEFILL~x) &\stepto& S'; F; (\I32.\CONST~i)~\val~(\TABLESET~x)~(\I32.\CONST~(i+1))~\val~(\I32.\CONST~n)~(\TABLEFILL~x)
+   S; F; (\I32.\CONST~i)~\val~(\I32.\CONST~(n+1))~(\TABLEFILL~x) && \\
+     \qquad \stepto~~S'; F; (\I32.\CONST~i)~\val~(\TABLESET~x)~(\I32.\CONST~(i+1))~\val~(\I32.\CONST~n)~(\TABLEFILL~x) && \\
    \end{array} \\
    \begin{array}{lcl@{\qquad}l}
    S; F; (\I32.\CONST~i)~\val~(\I32.\CONST~0)~(\TABLEFILL~x) &\stepto& S'; F; \epsilon
