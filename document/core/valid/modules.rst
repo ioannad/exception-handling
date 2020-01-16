@@ -33,8 +33,8 @@ Functions :math:`\func` are classified by :ref:`function types <syntax-functype>
 
   * |CRETURN| set to the :ref:`result type <syntax-valtype>` :math:`[t_2^?]`.
 
-* Under the context :math:`C'`,
-  the expression :math:`\expr` must be valid with type :math:`t_2^?`.
+* Under the context :math:`C'`, 
+  the expression :math:`\expr` must be :ref:`valid <valid-expr>` with type :math:`t_2^?`.
 
 * Then the function definition is valid with type :math:`[t_1^\ast] \to [t_2^?]`.
 
@@ -552,10 +552,8 @@ Instead, the context :math:`C` for validation of the module's content is constru
     * Under the context :math:`C'`,
       the definition :math:`\global_i` must be :ref:`valid <valid-global>` with a :ref:`global type <syntax-globaltype>` :math:`\X{gt}_i`.
 
-  * For each :math:`\event_i` in :math:`\module.\MEVENTS`:
-
-    * Under the context :math:`C'`,
-      the definition :math:`\event_i` must be :ref:`valid <valid-event>` with a :ref:`event type <syntax-eventtype>` :math:`\X{ev}_i`.
+  * For each :math:`\event_i` in :math:`\module.\MEVENTS`,
+    the definition :math:`\event_i` must be :ref:`valid <valid-event>` with a :ref:`event type <syntax-eventtype>` :math:`\X{ev}_i`.
 
   * For each :math:`\elem_i` in :math:`\module.\MELEM`,
     the segment :math:`\elem_i` must be :ref:`valid <valid-elem>`.
