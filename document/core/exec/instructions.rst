@@ -945,7 +945,7 @@ Memory Instructions
    In practice, the choice depends on the :ref:`resources <impl-exec>` available to the :ref:`embedder <embedder>`.
 
 
-.. index:: control instructions, structured control, label, block, branch, result type, label index, function index, type index, vector, address, table address, table instance, store, frame
+.. index:: control instructions, structured control, label, block, branch, result type, label index, function index, type index, vector, address, table address, table instance, store, frame, event index, administrative instructions
    pair: execution; instruction
    single: abstract syntax; instruction
 .. _exec-label:
@@ -1046,6 +1046,101 @@ Control Instructions
    (\I32.\CONST~c)~\IF~[t^n]~\instr_1^\ast~\ELSE~\instr_2^\ast~\END &\stepto&
      \LABEL_n\{\epsilon\}~\instr_2^\ast~\END
      & (\iff c = 0) \\
+   \end{array}
+
+
+.. _exec-try:
+
+:math:`\TRY~[t^?]~\instr_1^\ast~\CATCH~\instr_2^\ast~\END`
+..........................................................
+
+1. Let :math:`[t_1^n]\to[t^?]` be the function type of the instruction :math:`\instr_1^\ast`.
+
+2. Assert: due to :ref:`validation <valid-try>`, :math:`n` values of types :math:`t_1^n` are on the top of the stack.
+
+3. Let :math:`m` be the length of :math:`t^?`.
+
+4. Let :math:`L` be the label whose arity is :math:`m` and whose continuation is the end of the |TRY| instruction.
+
+5. Execute the :math:`\CATCHN_m` administrative instruction, depending on the outcome of :ref:`entering <exec-instr-seq-enter>` the block :math:`\val^n~\instr_1^\ast` with label :math:`L`, using the :ref:`throw context <syntax-ctxt-throw>` rules.
+
+.. math::
+   ~\\[-1ex]
+   \begin{array}{lcl@{\qquad}}
+   \val^n~(\TRY~[t^n]~\instr_1^\ast~\CATCH~\instr_2^\ast~\END &\stepto&
+     \CATCH_n\{\instr_2\}~(\LABEL_m \{\}~\val^n~\instr_1^\ast~\END)~\END \\
+     && \hspace{-5ex} (\iff \instr_1^\ast : [t_1^n]\to[t^?]~\wedge~\val^n:[t_1^n]~\wedge~m=|t^?|) \\
+   \end{array}
+
+
+.. _exec-throw:
+
+:math:`\THROW~x`
+................
+
+1. Let :math:`F` be the :ref:`current <exec-notation-textual>` :ref:`frame <syntax-frame>`.
+
+2. Assert: due to :ref:`validation <valid-throw>`, :math:`F.\AMODULE.\MIEVENTS[x]` exists.
+
+3. Let :math:`a` be the :ref:`event address <syntax-eventaddr>` :math:`F.\AMODULE.\MIEVENTS[x]`.
+
+4. :ref:`Throw <syntax-throwa>` the event at address :math:`a`.
+
+.. math::
+   ~\\[-1ex]
+   \begin{array}{lclr@{\qquad}l}
+   \THROW~x &\stepto& \THROWA~a & (\iff F.\AMODULE.\MIEVENTS[x]=a) \\
+   \end{array}
+
+
+.. _exec-rethrow:
+
+:math:`\RETHROW`
+................
+
+1. Assert: due to :ref:`validation <valid-rethrow>`, there is a value :math:`(\REFEXN~a~\val^\ast)` with :ref:`reference type <syntax-reftype>` :math:`\EXNREF` on top of the stack.
+
+2. Pop the value :math:`(\REFEXN~a~\val^\ast)` from the stack.
+
+3. Put the values :math:`\val^\ast` on the stack.
+
+4. :ref:`Throw <syntax-throwa>` the event at address :math:`a`.
+
+.. math::
+   ~\\[-1ex]
+   \begin{array}{lclr@{\qquad}}
+     (\REFEXN~a~\val^\ast)~\RETHROW &\stepto& \val^\ast~(\THROWA~a) \\
+   \end{array}
+
+
+.. _exec-br_on_exn:
+
+:math:`\BRONEXN~l~x`
+....................
+
+1. Assert: due to :ref:`validation <valid-br_on_exn>`, there is a value :math:`(\REFEXN~a~\val^\ast)` with :ref:`reference type <syntax-reftype>` :math:`\EXNREF` on top of the stack.
+
+2. Pop the value :math:`(\REFEXN~a~\val^\ast)` from the stack.
+
+3. Let :math:`F` be the :ref:`current <exec-notation-textual>` :ref:`frame <syntax-frame>`.
+
+4. Assert: due to :ref:`validation <valid-br_on_exn>`, :math:`F.\AMODULE.\MIEVENTS[x]` exists.
+
+5. If :math:`F.\AMODULE.\MIEVENTS[x]=a`, then:
+
+   a. Put the values :math:`\val^\ast` on the stack.
+
+   b. :ref:`Execute <exec-br>` the instruction :math:`(\BR~l)`.
+
+5. Else:
+
+   a. Put the value :math:`(\REFEXN~a~\val^\ast)` back on the stack.
+
+.. math::
+   ~\\[-1ex]
+   \begin{array}{lclr@{\qquad}l}
+     F; (\REFEXN~a~\val^\ast)~\BRONEXN~l~x &\stepto& F; \val^\ast~(\BR~l)     & (\iff F.\AMODULE.\MIEVENTS[x] = a) \\
+     F; (\REFEXN~a~\val^\ast)~\BRONEXN~l~x &\stepto& F; (\REFEXN~a~\val^\ast) & (\iff F.\AMODULE.\MIEVENTS[x] \neq a) \\
    \end{array}
 
 

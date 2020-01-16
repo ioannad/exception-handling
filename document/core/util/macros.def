@@ -821,6 +821,7 @@
 .. |alloctable| mathdef:: \xref{exec/modules}{alloc-table}{\F{alloctable}}
 .. |allocmem| mathdef:: \xref{exec/modules}{alloc-mem}{\F{allocmem}}
 .. |allocglobal| mathdef:: \xref{exec/modules}{alloc-global}{\F{allocglobal}}
+.. |allocevent| mathdef:: \xref{exec/modules}{alloc-event}{\F{allocevent}}
 .. |allocmodule| mathdef:: \xref{exec/modules}{alloc-module}{\F{allocmodule}}
 
 .. |growtable| mathdef:: \xref{exec/modules}{grow-table}{\F{growtable}}
@@ -834,6 +835,7 @@
 .. |tableaddr| mathdef:: \xref{exec/runtime}{syntax-tableaddr}{\X{tableaddr}}
 .. |memaddr| mathdef:: \xref{exec/runtime}{syntax-memaddr}{\X{memaddr}}
 .. |globaladdr| mathdef:: \xref{exec/runtime}{syntax-globaladdr}{\X{globaladdr}}
+.. |eventaddr| mathdef:: \xref{exec/runtime}{syntax-eventaddr}{\X{eventaddr}}
 .. |hostaddr| mathdef:: \xref{exec/runtime}{syntax-hostaddr}{\X{hostaddr}}
 
 
@@ -853,6 +855,9 @@
 .. |GITYPE| mathdef:: \xref{exec/runtime}{syntax-globalinst}{\K{type}}
 .. |GIVALUE| mathdef:: \xref{exec/runtime}{syntax-globalinst}{\K{value}}
 
+.. |EIATTRIBUTE| mathdef:: \xref{exec/runtime}{syntax-eventinst}{\K{attribute}}
+.. |EITYPE| mathdef:: \xref{exec/runtime}{syntax-eventinst}{\K{type}}
+
 .. |EINAME| mathdef:: \xref{exec/runtime}{syntax-exportinst}{\K{name}}
 .. |EIVALUE| mathdef:: \xref{exec/runtime}{syntax-exportinst}{\K{value}}
 
@@ -860,12 +865,14 @@
 .. |EVTABLE| mathdef:: \xref{exec/runtime}{syntax-externval}{\K{table}}
 .. |EVMEM| mathdef:: \xref{exec/runtime}{syntax-externval}{\K{mem}}
 .. |EVGLOBAL| mathdef:: \xref{exec/runtime}{syntax-externval}{\K{global}}
+.. |EVEVENT| mathdef:: \xref{exec/runtime}{syntax-externval}{\K{event}}
 
 .. |MITYPES| mathdef:: \xref{exec/runtime}{syntax-moduleinst}{\K{types}}
 .. |MIFUNCS| mathdef:: \xref{exec/runtime}{syntax-moduleinst}{\K{funcaddrs}}
 .. |MITABLES| mathdef:: \xref{exec/runtime}{syntax-moduleinst}{\K{tableaddrs}}
 .. |MIMEMS| mathdef:: \xref{exec/runtime}{syntax-moduleinst}{\K{memaddrs}}
 .. |MIGLOBALS| mathdef:: \xref{exec/runtime}{syntax-moduleinst}{\K{globaladdrs}}
+.. |MIEVENTS| mathdef:: \xref{exec/runtime}{syntax-moduleinst}{\K{eventaddrs}}
 .. |MIEXPORTS| mathdef:: \xref{exec/runtime}{syntax-moduleinst}{\K{exports}}
 
 
@@ -879,6 +886,7 @@
 .. |funcelem| mathdef:: \xref{exec/runtime}{syntax-funcelem}{\X{funcelem}}
 .. |meminst| mathdef:: \xref{exec/runtime}{syntax-meminst}{\X{meminst}}
 .. |globalinst| mathdef:: \xref{exec/runtime}{syntax-globalinst}{\X{globalinst}}
+.. |eventinst| mathdef:: \xref{exec/runtime}{syntax-eventinst}{\X{eventinst}}
 .. |exportinst| mathdef:: \xref{exec/runtime}{syntax-exportinst}{\X{exportinst}}
 
 .. |hostfunc| mathdef:: \xref{exec/runtime}{syntax-hostfunc}{\X{hostfunc}}
@@ -890,6 +898,7 @@
 .. |evtables| mathdef:: \xref{exec/runtime}{syntax-externval}{\F{tables}}
 .. |evmems| mathdef:: \xref{exec/runtime}{syntax-externval}{\F{mems}}
 .. |evglobals| mathdef:: \xref{exec/runtime}{syntax-externval}{\F{globals}}
+.. |evevents| mathdef:: \xref{exec/runtime}{syntax-externval}{\F{events}}
 
 
 .. Store, terminals
@@ -898,6 +907,7 @@
 .. |STABLES| mathdef:: \xref{exec/runtime}{syntax-store}{\K{tables}}
 .. |SMEMS| mathdef:: \xref{exec/runtime}{syntax-store}{\K{mems}}
 .. |SGLOBALS| mathdef:: \xref{exec/runtime}{syntax-store}{\K{globals}}
+.. |SEVENTS| mathdef:: \xref{exec/runtime}{syntax-store}{\K{events}}
 
 
 .. Store, non-terminals
@@ -926,6 +936,9 @@
 .. |REFHOST| mathdef:: \xref{exec/runtime}{syntax-ref.host}{\K{ref{.}host}}
 .. |TRAP| mathdef:: \xref{exec/runtime}{syntax-trap}{\K{trap}}
 .. |INVOKE| mathdef:: \xref{exec/runtime}{syntax-invoke}{\K{invoke}}
+.. |THROWA| mathdef:: \xref{exec/runtime}{syntax-throwa}{\K{throw\_addr}}
+.. |CATCHN| mathdef:: \xref{exec/runtime}{syntax-catchn}{\K{catch}}
+.. |REFEXN| mathdef:: \xref{exec/runtime}{syntax-exception}{\K{refexn}}
 .. |INITELEM| mathdef:: \xref{exec/runtime}{syntax-init_elem}{\K{init\_elem}}
 .. |INITDATA| mathdef:: \xref{exec/runtime}{syntax-init_data}{\K{init\_data}}
 
@@ -946,6 +959,7 @@
 .. Administrative Instructions, non-terminals
 
 .. |XB| mathdef:: \xref{exec/runtime}{syntax-ctxt-block}{B}
+.. |XT| mathdef:: \xref{exec/runtime}{syntax-ctxt-throw}{T}
 
 
 .. Configurations, non-terminals
