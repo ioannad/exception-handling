@@ -148,7 +148,7 @@ Event Types
 
 * The :ref:`attribute <syntax-attribute>` must be |AEXCEPTION|.
 
-* The :ref:`function type <syntax-functype>` :math:`[t^n] \to []` must be a :ref:`valid <valid-functype>`.
+* The :ref:`function type <syntax-functype>` :math:`[t^n] \to []` must be :ref:`valid <valid-functype>`.
 
 * Then the event type is valid.
 

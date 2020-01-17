@@ -44,7 +44,7 @@ They either are *function references*, pointing to a specific :ref:`function add
      \num ~|~ \reff \\
    \end{array}
 
-The administrative value |REFEXN| is an exception reference of type |EXNREF|, representing a thrown exception on the stack, identified by the exception event's :ref:`address <syntax-eventaddr>`, and carrying the exception event's arguments. If it is uncaught by a |CATCHN| block, then the embedder defines how to handle it. It is an abstract value, and that it is an implementation detail how and where its argument values are stored. It is separate from any linear memory.
+The administrative value |REFEXN| is an exception reference of type |EXNREF|, representing a thrown exception on the stack, identified by the exception event's :ref:`address <syntax-eventaddr>`, and carrying the exception event's arguments. If it is uncaught by a |CATCHN| block, then the embedder defines how to handle it. It is an abstract value, and it is an implementation detail how and where its argument values are stored. It is separate from any linear memory.
 
 .. note::
    Future versions of WebAssembly may add additional forms of reference.
