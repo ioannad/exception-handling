@@ -7,11 +7,12 @@ Runtime Structure
 :ref:`Store <store>`, :ref:`stack <stack>`, and other *runtime structure* forming the WebAssembly abstract machine, such as :ref:`values <syntax-val>` or :ref:`module instances <syntax-moduleinst>`, are made precise in terms of additional auxiliary syntax.
 
 
-.. index:: ! value, number, reference, constant, number type, reference type, ! host address, ! event address, value type, integer, floating-point, ! default value
+.. index:: ! value, number, reference, constant, number type, reference type, ! host address, ! event address, value type, integer, floating-point, ! default value, embedder
    pair: abstract syntax; value
 .. _syntax-num:
-.. _syntax-ref:
+.. _syntax-reffuncaddr:
 .. _syntax-ref.host:
+.. _syntax-refexn:
 .. _syntax-val:
 
 Values
@@ -42,6 +43,8 @@ They either are *function references*, pointing to a specific :ref:`function add
    \production{(value)} & \val &::=&
      \num ~|~ \reff \\
    \end{array}
+
+The administrative value |REFEXN| is an exception reference of type |EXNREF|, representing a thrown exception on the stack, identified by the exception event's :ref:`address <syntax-eventaddr>`, and carrying the exception event's arguments. If it is uncaught by a |CATCHN| block, then the embedder defines how to handle it. It is an abstract value, and that it is an implementation detail how and where its argument values are stored. It is separate from any linear memory.
 
 .. note::
    Future versions of WebAssembly may add additional forms of reference.
@@ -490,16 +493,14 @@ Conventions
    This may be generalized in future versions.
 
 
-.. index:: ! administrative instructions, function, function instance, function address, label, frame, instruction, trap, call, memory, memory instance, table, table instance, element, data, segment, event, event instance, event address, reftype, embedder
+.. index:: ! administrative instructions, function, function instance, function address, label, frame, instruction, trap, call, memory, memory instance, table, table instance, element, data, segment, event, event instance, event address, exception, reftype
    pair:: abstract syntax; administrative instruction
 .. _syntax-trap:
-.. _syntax-reffuncaddr:
 .. _syntax-invoke:
 .. _syntax-init_elem:
 .. _syntax-init_data:
 .. _syntax-throwa:
 .. _syntax-catchn:
-.. _syntax-refexn:
 .. _syntax-instr-admin:
 
 Administrative Instructions
@@ -520,7 +521,6 @@ In order to express the reduction of :ref:`traps <trap>`, :ref:`calls <syntax-ca
      \INVOKE~\funcaddr \\ &&|&
      \INITELEM~\tableaddr~\u32~\funcidx^\ast \\ &&|&
      \INITDATA~\memaddr~\u32~\byte^\ast \\ &&|&
-     \REFEXN~\eventaddr~\val^\ast \\ &&|&
      \THROWA~\eventaddr \\ &&|&
      \CATCHN_n~\{\instr_2^\ast\}~\instr_1^\ast~\END \\ &&|&
      \LABEL_n\{\instr^\ast\}~\instr^\ast~\END \\ &&|&
@@ -530,7 +530,7 @@ In order to express the reduction of :ref:`traps <trap>`, :ref:`calls <syntax-ca
 The |TRAP| instruction represents the occurrence of a trap.
 Traps are bubbled up through nested instruction sequences, ultimately reducing the entire program to a single |TRAP| instruction, signalling abrupt termination.
 
-The |REFFUNCADDR| instruction represents :ref:`function reference values <syntax-ref.func>`. Similarly, |REFHOST| represents :ref:`host references <syntax-ref.host>`.
+The |REFFUNCADDR| instruction represents :ref:`function reference values <syntax-ref>`. Similarly, |REFHOST| represents :ref:`host references <syntax-ref.host>`, and |REFEXN| represents :ref:`exception reference values <syntax-refexn>` of thrown exception events.
 
 The |INVOKE| instruction represents the imminent invocation of a :ref:`function instance <syntax-funcinst>`, identified by its :ref:`address <syntax-funcaddr>`.
 It unifies the handling of different forms of calls.
@@ -539,12 +539,8 @@ The |INITELEM| and |INITDATA| instructions perform initialization of :ref:`eleme
 
 The |THROWA| instruction represents the imminent throw of an :ref:`event instance <syntax-eventinst>`, identified by its :ref:`address <syntax-eventaddr>`. It unifies the throwing of different forms of events.
 
-The |REFEXN| instruction represents a thrown exception event, which is an exception reference of type |EXNREF|, identified by the exception event's :ref:`address <syntax-eventaddr>`, and carrying the exception event's arguments.
-
 .. note::
    The reason for splitting instantiation into individual reduction steps is to provide a semantics that is compatible with future extensions like threads.
-
-   The administrative instruction and value :math:`\REFEXN~a~\val^\ast` is an abstract (reference) type value. It is an implementation detail how and where its argument values are stored. It is separate from any linear memory. If it is uncaught by a |CATCHN| block, then the embedder defines how to handle it.
 
 The |LABEL|, |FRAME|, and |CATCHN| instructions model :ref:`labels <syntax-label>`, :ref:`frames <syntax-frame>`, and :ref:`try-catch blocks <syntax-try>`respectively, :ref:`"on the stack" <exec-notation>`.
 Moreover, the administrative syntax maintains the nesting structure of the original :ref:`structured control instruction <syntax-instr-control>` or :ref:`function body <syntax-func>` and their :ref:`instruction sequences <syntax-instr-seq>` with an |END| marker.

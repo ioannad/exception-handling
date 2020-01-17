@@ -338,6 +338,10 @@ Both instructions operate in units of :ref:`page size <page-size>`.
 .. _syntax-block:
 .. _syntax-loop:
 .. _syntax-if:
+.. _syntax-try:
+.. _syntax-throw:
+.. _syntax-rethrow:
+.. _syntax-br_on_exn:
 .. _syntax-br:
 .. _syntax-br_if:
 .. _syntax-br_table:
