@@ -10,7 +10,7 @@ Runtime Structure
 .. index:: ! value, number, reference, constant, number type, reference type, ! host address, ! event address, value type, integer, floating-point, ! default value, embedder
    pair: abstract syntax; value
 .. _syntax-num:
-.. _syntax-reffuncaddr:
+.. _syntax-ref:
 .. _syntax-ref.host:
 .. _syntax-refexn:
 .. _syntax-val:
@@ -542,7 +542,7 @@ The |THROWA| instruction represents the imminent throw of an :ref:`event instanc
 .. note::
    The reason for splitting instantiation into individual reduction steps is to provide a semantics that is compatible with future extensions like threads.
 
-The |LABEL|, |FRAME|, and |CATCHN| instructions model :ref:`labels <syntax-label>`, :ref:`frames <syntax-frame>`, and :ref:`try-catch blocks <syntax-try>`respectively, :ref:`"on the stack" <exec-notation>`.
+The |LABEL|, |FRAME|, and |CATCHN| instructions model :ref:`labels <syntax-label>`, :ref:`frames <syntax-frame>`, and :ref:`try-catch blocks <syntax-try>` respectively, :ref:`"on the stack" <exec-notation>`.
 Moreover, the administrative syntax maintains the nesting structure of the original :ref:`structured control instruction <syntax-instr-control>` or :ref:`function body <syntax-func>` and their :ref:`instruction sequences <syntax-instr-seq>` with an |END| marker.
 That way, the end of the inner instruction sequence is known when part of an outer sequence.
 
