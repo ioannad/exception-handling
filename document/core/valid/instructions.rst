@@ -729,26 +729,24 @@ Control Instructions
 * Let :math:`C'` be the same :ref:`context <context>` as :math:`C`, but with the :ref:`result type <syntax-resulttype>` :math:`[t^?]` prepended to the |CLABELS| vector.
 
 * Under context :math:`C'`,
-  the instruction sequence :math:`\instr_1^\ast` must be :ref:`valid <valid-instr-seq>` with type :math:`[t_1^\ast] \to [t^?]`.
+  the instruction sequence :math:`\instr_1^\ast` must be :ref:`valid <valid-instr-seq>` with type :math:`[] \to [t^?]`.
 
 * Under context :math:`C'`,
   the instruction sequence :math:`\instr_2^\ast` must be :ref:`valid <valid-instr-seq>` with type :math:`[\EXNREF] \to [t^?]`.
 
-* Then the compound instruction is valid with type :math:`[t_1^\ast] \to [t^?]`.
+* Then the compound instruction is valid with type :math:`[] \to [t^?]`.
 
 .. math::
    \frac{
-     C,\CLABELS\,[t^?] \vdashinstrseq \instr_1^\ast : [t_1^\ast] \to [t^?]
+     C,\CLABELS\,[t^?] \vdashinstrseq \instr_1^\ast : [] \to [t^?]
      \qquad
      C,\CLABELS\,[t^?] \vdashinstrseq \instr_2^\ast : [\EXNREF] \to [t^?]
    }{
-     C \vdashinstr \TRY~[t^?]~\instr_1^\ast~\CATCH~\instr_2^\ast~\END : [t_1^\ast] \to [t^?]
+     C \vdashinstr \TRY~[t^?]~\instr_1^\ast~\CATCH~\instr_2^\ast~\END : [] \to [t^?]
    }
 
 .. note::
    The :ref:`notation <notation-extend>` :math:`C,\CLABELS\,[t^?]` inserts the new label type at index :math:`0`, shifting all others.
-
-   The |TRY| instruction is :ref:`stack-polymorphic <polymorphism>`.
 
 
 .. _valid-throw:

@@ -1054,22 +1054,20 @@ Control Instructions
 :math:`\TRY~[t^?]~\instr_1^\ast~\CATCH~\instr_2^\ast~\END`
 ..........................................................
 
-1. Let :math:`[t_1^n]\to[t^?]` be the function type of the instruction :math:`\instr_1^\ast`.
+1. Assert: due to :ref:`validation <valid-try>`, :math:`\instr_1^\ast:[]\to[t^?]` and :math:`\instr_2^\ast:[\EXNREF]\to[t^?]`.
 
-2. Assert: due to :ref:`validation <valid-try>`, :math:`n` values of types :math:`t_1^n` are on the top of the stack.
+2. Let :math:`m` be the length of :math:`t^?`.
 
-3. Let :math:`m` be the length of :math:`t^?`.
+3. Let :math:`L` be the label whose arity is :math:`m` and whose continuation is the end of the |TRY| instruction.
 
-4. Let :math:`L` be the label whose arity is :math:`m` and whose continuation is the end of the |TRY| instruction.
-
-5. Execute the :math:`\CATCHN_m` administrative instruction, depending on the outcome of :ref:`entering <exec-instr-seq-enter>` the block :math:`\val^n~\instr_1^\ast` with label :math:`L`, using the :ref:`throw context <syntax-ctxt-throw>` rules.
+4. Execute the :math:`\CATCHN_m` administrative instruction, depending on the outcome of :ref:`entering <exec-instr-seq-enter>` the block :math:`\instr_1^\ast` with label :math:`L`, using the :ref:`throw context <syntax-ctxt-throw>` rules.
 
 .. math::
    ~\\[-1ex]
    \begin{array}{lcl@{\qquad}}
-   \val^n~(\TRY~[t^n]~\instr_1^\ast~\CATCH~\instr_2^\ast~\END &\stepto&
-     \CATCH_n\{\instr_2\}~(\LABEL_m \{\}~\val^n~\instr_1^\ast~\END)~\END \\
-     && \hspace{-5ex} (\iff \instr_1^\ast : [t_1^n]\to[t^?]~\wedge~\val^n:[t_1^n]~\wedge~m=|t^?|) \\
+     \TRY~[t^?]~\instr_1^\ast~\CATCH~\instr_2^\ast~\END &\stepto&
+       \CATCHN_m\{\instr_2\}~(\LABEL_m \{\}~\instr_1^\ast~\END)~\END \\
+     && (\iff~m=|t^?|) \\
    \end{array}
 
 
