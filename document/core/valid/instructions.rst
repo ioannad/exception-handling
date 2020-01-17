@@ -795,8 +795,6 @@ Control Instructions
 :math:`\BRONEXN~l~x`
 ....................
 
-**WIP**
-
 * The label :math:`C.\CLABELS[l]` must be defined in the context.
 
 * The event :math:`C.\CEVENTS[x]` must be defined in the context.
@@ -805,7 +803,7 @@ Control Instructions
 
 * The event :math:`C.\CEVENTS[x]` must be :math:`\AEXCEPTION~[t^?]\to[]`.
 
-* Then the instruction is valid with type :math:`[\EXNREF~t^?]\to[\EXNREF~t^?]`
+* Then the instruction is valid with type :math:`[\EXNREF]\to[\EXNREF]`
 
 .. math::
    \frac{
@@ -813,7 +811,7 @@ Control Instructions
    \qquad
      C.\CEVENTS[x]=\AEXCEPTION~[t^?]\to[]
    }{
-     C \vdashinstr \BRONEXN~l~x : [\EXNREF~t^?]\to[\EXNREF~t^?]
+     C \vdashinstr \BRONEXN~l~x : [\EXNREF]\to[\EXNREF]
    }
 
 .. note::

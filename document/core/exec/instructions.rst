@@ -1116,8 +1116,6 @@ Control Instructions
 :math:`\BRONEXN~l~x`
 ....................
 
-**WIP**
-
 1. Assert: due to :ref:`validation <valid-br_on_exn>`, there is a value :math:`(\REFEXN~a~\val^\ast)` with :ref:`reference type <syntax-reftype>` :math:`\EXNREF` on top of the stack.
 
 2. Pop the value :math:`(\REFEXN~a~\val^\ast)` from the stack.
