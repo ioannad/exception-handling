@@ -416,7 +416,7 @@ Intuitively, :math:`\instr^\ast` is the *continuation* to execute when the branc
    For example, a loop label has the form
 
    .. math::
-      \LABEL_n\{\LOOP~[t^?]~\dots~\END\}
+      \LABEL_n\{\LOOP~\dots~\END\}
 
    When performing a branch to this label, this executes the loop, effectively restarting it from the beginning.
    Conversely, a simple block label has the form
@@ -451,9 +451,13 @@ Conventions
 
 * The meta variable :math:`F` ranges over frames where clear from context.
 
-.. note::
-   In the current version of WebAssembly, the arities of labels and frames cannot be larger than :math:`1`.
-   This may be generalized in future versions.
+* The following auxiliary definition takes a :ref:`block type <syntax-blocktype>` and looks up the :ref:`function type <syntax-functype>` that it denotes in the current frame:
+
+.. math::
+   \begin{array}{lll}
+   \expand_F(\typeidx) &=& F.\AMODULE.\MITYPES[\typeidx] \\
+   \expand_F([\valtype^?]) &=& [] \to [\valtype^?] \\
+   \end{array}
 
 
 .. index:: ! administrative instructions, function, function instance, function address, label, frame, instruction, trap, call, memory, memory instance, table, table instance, element, data, segment

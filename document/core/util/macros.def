@@ -3,11 +3,11 @@
 .. External Standards
 .. ------------------
 
-.. |WasmDraft| replace:: http://webassembly.github.io/spec/core/
-.. _WasmDraft: http://webassembly.github.io/spec/core/
+.. |WasmDraft| replace:: http://webassembly.github.io/exception-handling/core/
+.. _WasmDraft: http://webassembly.github.io/exception-handling/core/
 
-.. |WasmIssues| replace:: http://github.com/webassembly/spec/issues/
-.. _WasmIssues: http://github.com/webassembly/spec/issues/
+.. |WasmIssues| replace:: http://github.com/webassembly/exception-handling/issues/
+.. _WasmIssues: http://github.com/webassembly/exception-handling/issues/
 
 .. |IEEE754| replace:: IEEE 754-2019
 .. _IEEE754: https://ieeexplore.ieee.org/document/8766229
@@ -412,6 +412,8 @@
 .. |sx| mathdef:: \xref{syntax/instructions}{syntax-sx}{\X{sx}}
 .. |memarg| mathdef:: \xref{syntax/instructions}{syntax-memarg}{\X{memarg}}
 
+.. |blocktype| mathdef:: \xref{syntax/instructions}{syntax-blocktype}{\X{blocktype}}
+
 .. |instr| mathdef:: \xref{syntax/instructions}{syntax-instr}{\X{instr}}
 .. |expr| mathdef:: \xref{syntax/instructions}{syntax-expr}{\X{expr}}
 
@@ -444,6 +446,7 @@
 .. |BsN| mathdef:: \xref{binary/values}{binary-int}{\BsX{N}}
 .. |Bs7| mathdef:: \xref{binary/values}{binary-int}{\BsX{\B{7}}}
 .. |Bs32| mathdef:: \xref{binary/values}{binary-int}{\BsX{\B{32}}}
+.. |Bs33| mathdef:: \xref{binary/values}{binary-int}{\BsX{\B{33}}}
 .. |Bs64| mathdef:: \xref{binary/values}{binary-int}{\BsX{\B{64}}}
 
 .. |BiN| mathdef:: \xref{binary/values}{binary-int}{\BiX{N}}
@@ -742,6 +745,7 @@
 .. Judgments
 
 .. |vdashlimits| mathdef:: \xref{valid/types}{valid-limits}{\vdash}
+.. |vdashblocktype| mathdef:: \xref{valid/types}{valid-blocktype}{\vdash}
 .. |vdashfunctype| mathdef:: \xref{valid/types}{valid-functype}{\vdash}
 .. |vdashtabletype| mathdef:: \xref{valid/types}{valid-tabletype}{\vdash}
 .. |vdashmemtype| mathdef:: \xref{valid/types}{valid-memtype}{\vdash}
@@ -888,6 +892,11 @@
 
 .. |label| mathdef:: \xref{exec/runtime}{syntax-label}{\X{label}}
 .. |frame| mathdef:: \xref{exec/runtime}{syntax-frame}{\X{frame}}
+
+
+.. Stack, meta functions
+
+.. |expand| mathdef:: \xref{exec/runtime}{syntax-frame}{\F{expand}}
 
 
 .. Administrative Instructions, terminals
