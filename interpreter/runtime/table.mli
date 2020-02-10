@@ -6,6 +6,7 @@ type t = table
 
 type size = int32
 type index = int32
+type count = int32
 
 exception Type
 exception Bounds

@@ -198,11 +198,15 @@ Reference Instructions
 
 * The function :math:`C.\CFUNCS[x]` must be defined in the context.
 
+* The :ref:`function index <syntax-funcidx>` :math:`x` must be contained in :math:`C.\CREFS`.
+
 * The instruction is valid with type :math:`[] \to [\FUNCREF]`.
 
 .. math::
    \frac{
      C.\CFUNCS[x] = \functype
+     \qquad
+     x \in C.\CREFS
    }{
      C \vdashinstr \REFFUNC~x : [] \to [\FUNCREF]
    }
@@ -370,9 +374,7 @@ Variable Instructions
    }
 
 
-
-
-.. index:: table instructions, table index, context
+.. index:: table instruction, table index, context
    pair: validation; instruction
    single: abstract syntax; instruction
 .. _valid-instr-table:
@@ -470,6 +472,61 @@ Table Instructions
      C.\CTABLES[x] = t
    }{
      C \vdashinstr \TABLEFILL~x : [\I32~t~\I32] \to []
+   }
+
+
+.. _valid-table.copy:
+
+:math:`\TABLECOPY`
+.....................
+
+* The table :math:`C.\CTABLES[0]` must be defined in the context.
+
+* Then the instruction is valid with type :math:`[\I32~\I32~\I32] \to []`.
+
+.. math::
+   \frac{
+     C.\CTABLES[0] = \tabletype
+   }{
+     C \vdashinstr \TABLECOPY : [\I32~\I32~\I32] \to []
+   }
+
+
+.. _valid-table.init:
+
+:math:`\TABLEINIT~x`
+.....................
+
+* The table :math:`C.\CTABLES[0]` must be defined in the context.
+
+* The element segment :math:`C.\CELEMS[x]` must be defined in the context.
+
+* Then the instruction is valid with type :math:`[\I32~\I32~\I32] \to []`.
+
+.. math::
+   \frac{
+     C.\CTABLES[0] = \tabletype
+     \qquad
+     C.\CELEMS[x] = {\ok}
+   }{
+     C \vdashinstr \TABLEINIT~x : [\I32~\I32~\I32] \to []
+   }
+
+
+.. _valid-elem.drop:
+
+:math:`\ELEMDROP~x`
+...................
+
+* The element segment :math:`C.\CELEMS[x]` must be defined in the context.
+
+* Then the instruction is valid with type :math:`[] \to []`.
+
+.. math::
+   \frac{
+     C.\CELEMS[x] = {\ok}
+   }{
+     C \vdashinstr \ELEMDROP~x : [] \to []
    }
 
 
@@ -598,7 +655,79 @@ Memory Instructions
    }
 
 
-.. index:: control instructions, structured control, label, block, branch, block type, result type, label index, function index, type index, vector, polymorphism, context
+.. _valid-memory.fill:
+
+:math:`\MEMORYFILL`
+...................
+
+* The memory :math:`C.\CMEMS[0]` must be defined in the context.
+
+* Then the instruction is valid with type :math:`[\I32~\I32~\I32] \to []`.
+
+.. math::
+   \frac{
+     C.\CMEMS[0] = \memtype
+   }{
+     C \vdashinstr \MEMORYFILL : [\I32~\I32~\I32] \to []
+   }
+
+
+.. _valid-memory.copy:
+
+:math:`\MEMORYCOPY`
+...................
+
+* The memory :math:`C.\CMEMS[0]` must be defined in the context.
+
+* Then the instruction is valid with type :math:`[\I32~\I32~\I32] \to []`.
+
+.. math::
+   \frac{
+     C.\CMEMS[0] = \memtype
+   }{
+     C \vdashinstr \MEMORYCOPY : [\I32~\I32~\I32] \to []
+   }
+
+
+.. _valid-memory.init:
+
+:math:`\MEMORYINIT~x`
+.....................
+
+* The memory :math:`C.\CMEMS[0]` must be defined in the context.
+
+* The data segment :math:`C.\CDATAS[x]` must be defined in the context.
+
+* Then the instruction is valid with type :math:`[\I32~\I32~\I32] \to []`.
+
+.. math::
+   \frac{
+     C.\CMEMS[0] = \memtype
+     \qquad
+     C.\CDATAS[x] = {\ok}
+   }{
+     C \vdashinstr \MEMORYINIT~x : [\I32~\I32~\I32] \to []
+   }
+
+
+.. _valid-data.drop:
+
+:math:`\DATADROP~x`
+...................
+
+* The data segment :math:`C.\CDATAS[x]` must be defined in the context.
+
+* Then the instruction is valid with type :math:`[] \to []`.
+
+.. math::
+   \frac{
+     C.\CDATAS[x] = {\ok}
+   }{
+     C \vdashinstr \DATADROP~x : [] \to []
+   }
+
+
+.. index:: control instructions, structured control, label, block, branch, result type, label index, function index, type index, vector, polymorphism, context
    pair: validation; instruction
    single: abstract syntax; instruction
 .. _valid-label:

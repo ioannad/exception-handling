@@ -3,6 +3,7 @@ open Values
 
 type size = int32
 type index = int32
+type count = int32
 
 type table = {mutable ty : table_type; mutable content : ref_ array}
 type t = table
