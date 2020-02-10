@@ -251,14 +251,21 @@ let rec instr e =
     | TableSize x -> "table.size " ^ var x, []
     | TableGrow x -> "table.grow " ^ var x, []
     | TableFill x -> "table.fill " ^ var x, []
+    | TableCopy (x, y) -> "table.copy " ^ var x ^ " " ^ var y, []
+    | TableInit (x, y) -> "table.init " ^ var x ^ " " ^ var y, []
+    | ElemDrop x -> "elem.drop " ^ var x, []
     | Load op -> loadop op, []
     | Store op -> storeop op, []
     | MemorySize -> "memory.size", []
     | MemoryGrow -> "memory.grow", []
+    | MemoryFill -> "memory.fill", []
+    | MemoryCopy -> "memory.copy", []
+    | MemoryInit x -> "memory.init " ^ var x, []
+    | DataDrop x -> "data.drop " ^ var x, []
     | RefNull -> "ref.null", []
     | RefIsNull -> "ref.is_null", []
     | RefFunc x -> "ref.func " ^ var x, []
-    | Const lit -> constop lit ^ " " ^ num lit, []
+    | Const n -> constop n ^ " " ^ num n, []
     | Test op -> testop op, []
     | Compare op -> relop op, []
     | Unary op -> unop op, []
@@ -266,8 +273,10 @@ let rec instr e =
     | Convert op -> cvtop op, []
   in Node (head, inner)
 
-let const c =
-  list instr c.it
+let const head c =
+  match c.it with
+  | [e] -> instr e
+  | es -> Node (head, list instr c.it)
 
 
 (* Functions *)
@@ -301,15 +310,45 @@ let memory off i mem =
   let {mtype = MemoryType lim} = mem.it in
   Node ("memory $" ^ nat (off + i) ^ " " ^ limits nat32 lim, [])
 
-let segment head dat seg =
-  let {index; offset; init} = seg.it in
-  Node (head, atom var index :: Node ("offset", const offset) :: dat init)
+let is_elem_kind = function
+  | FuncRefType -> true
+  | _ -> false
 
-let elems seg =
-  segment "elem" (list (atom var)) seg
+let elem_kind = function
+  | FuncRefType -> "func"
+  | _ -> assert false
 
-let data seg =
-  segment "data" break_bytes seg
+let is_elem_index e =
+  match e.it with
+  | [{it = RefFunc _; _}] -> true
+  | _ -> false
+
+let elem_index e =
+  match e.it with
+  | [{it = RefFunc x; _}] -> atom var x
+  | _ -> assert false
+
+let segment_mode category mode =
+  match mode.it with
+  | Passive -> []
+  | Active {index; offset} ->
+    (if index.it = 0l then [] else [Node (category, [atom var index])]) @
+    [const "offset" offset]
+  | Declarative -> [Atom "declare"]
+
+let elem i seg =
+  let {etype; einit; emode} = seg.it in
+  Node ("elem $" ^ nat i,
+    segment_mode "table" emode @
+    if is_elem_kind etype && List.for_all is_elem_index einit then
+      atom elem_kind etype :: list elem_index einit
+    else
+      atom ref_type etype :: list (const "item") einit
+  )
+
+let data i seg =
+  let {dinit; dmode} = seg.it in
+  Node ("data $" ^ nat i, segment_mode "memory" dmode @ break_bytes dinit)
 
 
 (* Modules *)
@@ -346,8 +385,8 @@ let export ex =
   Node ("export", [atom name n; export_desc edesc])
 
 let global off i g =
-  let {gtype; value} = g.it in
-  Node ("global $" ^ nat (off + i), global_type gtype :: const value)
+  let {gtype; ginit} = g.it in
+  Node ("global $" ^ nat (off + i), global_type gtype :: list instr ginit.it)
 
 
 (* Modules *)
@@ -371,8 +410,8 @@ let module_with_var_opt x_opt m =
     listi (func_with_index !fx) m.it.funcs @
     list export m.it.exports @
     opt start m.it.start @
-    list elems m.it.elems @
-    list data m.it.data
+    listi elem m.it.elems @
+    listi data m.it.datas
   )
 
 let binary_module_with_var_opt x_opt bs =
@@ -431,6 +470,22 @@ let action act =
   | Get (x_opt, name) ->
     Node ("get" ^ access x_opt name, [])
 
+let nan = function
+  | CanonicalNan -> "nan:canonical"
+  | ArithmeticNan -> "nan:arithmetic"
+
+let result res =
+  match res.it with
+  | LitResult lit -> value lit
+  | NanResult nanop ->
+    (match nanop.it with
+    | Values.I32 _ | Values.I64 _ -> assert false
+    | Values.F32 n -> Node ("f32.const " ^ nan n, [])
+    | Values.F64 n -> Node ("f64.const " ^ nan n, [])
+    )
+  | RefResult -> Node ("ref", [])
+  | FuncResult -> Node ("ref.func", [])
+
 let assertion mode ass =
   match ass.it with
   | AssertMalformed (def, re) ->
@@ -441,16 +496,8 @@ let assertion mode ass =
     Node ("assert_unlinkable", [definition mode None def; Atom (string re)])
   | AssertUninstantiable (def, re) ->
     Node ("assert_trap", [definition mode None def; Atom (string re)])
-  | AssertReturn (act, vs) ->
-    Node ("assert_return", action act :: List.map value vs)
-  | AssertReturnCanonicalNaN act ->
-    Node ("assert_return_canonical_nan", [action act])
-  | AssertReturnArithmeticNaN act ->
-    Node ("assert_return_arithmetic_nan", [action act])
-  | AssertReturnRef act ->
-    Node ("assert_return_ref", [action act])
-  | AssertReturnFunc act ->
-    Node ("assert_return_func", [action act])
+  | AssertReturn (act, results) ->
+    Node ("assert_return", action act :: List.map result results)
   | AssertTrap (act, re) ->
     Node ("assert_trap", [action act; Atom (string re)])
   | AssertExhaustion (act, re) ->
