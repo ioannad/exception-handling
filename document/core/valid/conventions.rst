@@ -37,6 +37,7 @@ which collects relevant information about the surrounding :ref:`module <syntax-m
 * *Functions*: the list of functions declared in the current module, represented by their function type.
 * *Tables*: the list of tables declared in the current module, represented by their table type.
 * *Memories*: the list of memories declared in the current module, represented by their memory type.
+* *Events*: the list of events declared in the current module, represented by their event type.
 * *Globals*: the list of globals declared in the current module, represented by their global type.
 * *Element Segments*: the list of element segments declared in the current module, each represented by an |ok| entry.
 * *Data Segments*: the list of data segments declared in the current module, each represented by an |ok| entry.
@@ -60,6 +61,7 @@ More concretely, contexts are defined as :ref:`records <notation-record>` :math:
         & \CFUNCS & \functype^\ast, \\
         & \CTABLES & \tabletype^\ast, \\
         & \CMEMS & \memtype^\ast, \\
+	& \CEVENTS & \eventtype^\ast, \\
         & \CGLOBALS & \globaltype^\ast, \\
         & \CELEMS & {\ok}^\ast, \\
         & \CDATAS & {\ok}^\ast, \\

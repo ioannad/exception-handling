@@ -3,7 +3,7 @@ WebAssembly Specification
 
 .. only:: html
 
-   | Release |release| + bulk instructions + reference types (Draft, |today|)
+   | Release |release| + bulk instructions + reference types + multi-value (Draft, |today|)
 
    | Editor: Andreas Rossberg
 

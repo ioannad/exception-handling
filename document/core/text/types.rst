@@ -34,6 +34,7 @@ Reference Types
    \production{reference type} & \Treftype &::=&
      \text{anyref} &\Rightarrow& \ANYREF \\ &&|&
      \text{funcref} &\Rightarrow& \FUNCREF \\ &&|&
+     \text{exnref} &\Rightarrow& \EXNREF \\ &&|&
      \text{nullref} &\Rightarrow& \NULLREF \\
    \end{array}
 
@@ -148,6 +149,21 @@ Table Types
    \begin{array}{llclll}
    \production{table type} & \Ttabletype &::=&
      \X{lim}{:}\Tlimits~~\X{et}{:}\Treftype &\Rightarrow& \X{lim}~\X{et} \\
+   \end{array}
+
+
+.. index:: event type, attribute, function type
+   pair: text format; event type
+   pair: text format; attribute
+.. _text-eventtype:
+
+Event Types
+~~~~~~~~~~~
+
+.. math::
+   \begin{array}{llclll}
+   \production{event type} & \Teventtype &::=&
+     \text{(}~\text{exception}~~t^\ast{:}\Tvec(\Tparam)~\text{)} &\Rightarrow& \AEXCEPTION~~[t^\ast] \to [] \\
    \end{array}
 
 

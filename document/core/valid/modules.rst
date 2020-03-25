@@ -98,6 +98,37 @@ Memories :math:`\mem` are classified by :ref:`memory types <syntax-memtype>`.
    }
 
 
+.. index:: event, event type, attribute, exception
+   pair: validation; event
+   single: abstract syntax; event
+.. _valid-event:
+
+Events
+~~~~~~
+
+Events :math:`\event` are classified by :ref:`event types <syntax-eventtype>` of the form :math:`\attribute~\functype`.
+Currently the only allowed events have the form :math:`\AEXCEPTION~[t^\ast]\to[]`.
+
+
+:math:`\{ \EATTRIBUTE~\AEXCEPTION, \ETYPE~x \}`
+...............................................
+
+* The type :math:`C.\CTYPES[x]` must be defined in the context.
+
+* Let :math:`[t^\ast] \to [t_2^\ast]` be the :ref:`function type <syntax-functype>` :math:`C.\CTYPES[x]`.
+
+* The sequence :math:`t_2^\ast` must be empty.
+
+* Then the event definition is valid with :ref:`event type <syntax-eventtype>` :math:`\AEXCEPTION~[t^\ast]\to[]`.
+
+.. math::
+   \frac{
+     C.\CTYPES[x] = [t^\ast] \to []
+   }{
+     C \vdashevent \{ \EATTRIBUTE~\AEXCEPTION, \ETYPE~x \} : \AEXCEPTION~[t^\ast]\to[]
+   }
+
+
 .. index:: global, global type, expression
    pair: validation; global
    single: abstract syntax; global
@@ -319,7 +350,7 @@ Start function declarations :math:`\start` are not classified by any type.
    }
 
 
-.. index:: export, name, index, function index, table index, memory index, global index
+.. index:: export, name, index, function index, table index, memory index, global index, event index
    pair: validation; export
    single: abstract syntax; export
 .. _valid-exportdesc:
@@ -391,6 +422,21 @@ Exports :math:`\export` and export descriptions :math:`\exportdesc` are classifi
    }
 
 
+\EDEVENT~x`
+...................
+
+* The global :math:`C.\CEVENTS[x]` must be defined in the context.
+
+* Then the export description is valid with :ref:`external type <syntax-externtype>` :math:`\ETEVENT~C.\CEVENTS[x]`.
+
+.. math::
+   \frac{
+     C.\CEVENTS[x] = \eventtype
+   }{
+     C \vdashexportdesc \EDEVENT~x : \ETEVENT~\eventtype
+   }
+
+
 :math:`\EDGLOBAL~x`
 ...................
 
@@ -406,7 +452,7 @@ Exports :math:`\export` and export descriptions :math:`\exportdesc` are classifi
    }
 
 
-.. index:: import, name, function type, table type, memory type, global type
+.. index:: import, name, function type, table type, memory type, global type, event type
    pair: validation; import
    single: abstract syntax; import
 .. _valid-importdesc:
@@ -480,6 +526,26 @@ Imports :math:`\import` and import descriptions :math:`\importdesc` are classifi
    }
 
 
+:math:`\IDEVENT~\event`
+.......................
+
+* Let :math:`\{ \EATTRIBUTE~\AEXCEPTION, \ETYPE~x \}` be the :math:`\event`.
+
+* The type :math:`C.\CTYPES[x]` must be defined in the context.
+
+* The :ref:`event type <syntax-eventtype>` :math:`\AEXCEPTION~C.\CTYPES[x]` must be a :ref:`valid event type <valid-eventtype>`.
+
+* Then the import description is valid with type :math:`\ETEVENT~\AEXCEPTION~C.\CTYPES[x]`.
+
+.. math::
+   \frac{
+     \vdasheventtype \AEXCEPTION~C.\CTYPES[x] \ok
+   }{
+     C \vdashimportdesc \IDEVENT~\{ \EATTRIBUTE~\AEXCEPTION, \ETYPE~x \}: \ETEVENT~\AEXCEPTION~C.\CTYPES[x]
+   }
+
+
+
 :math:`\IDGLOBAL~\globaltype`
 .............................
 
@@ -525,6 +591,9 @@ Instead, the context :math:`C` for validation of the module's content is constru
   * :math:`C.\CMEMS` is :math:`\etmems(\X{it}^\ast)` concatenated with :math:`\X{mt}^\ast`,
     with the import's :ref:`external types <syntax-externtype>` :math:`\X{it}^\ast` and the internal :ref:`memory types <syntax-memtype>` :math:`\X{mt}^\ast` as determined below,
 
+  * :math:`C.\CEVENTS` is :math:`\etevents(\X{it}^\ast)` concatenated with :math:`\X{ev}^\ast`,
+    with the import's :ref:`external types <syntax-externtype>` :math:`\X{it}^\ast` and the internal :ref:`event types <syntax-eventtype>` :math:`\X{ev}^\ast` as determined below,
+
   * :math:`C.\CGLOBALS` is :math:`\etglobals(\X{it}^\ast)` concatenated with :math:`\X{gt}^\ast`,
     with the import's :ref:`external types <syntax-externtype>` :math:`\X{it}^\ast` and the internal :ref:`global types <syntax-globaltype>` :math:`\X{gt}^\ast` as determined below,
 
@@ -564,6 +633,9 @@ Instead, the context :math:`C` for validation of the module's content is constru
   * For each :math:`\mem_i` in :math:`\module.\MMEMS`,
     the definition :math:`\mem_i` must be :ref:`valid <valid-mem>` with a :ref:`memory type <syntax-memtype>` :math:`\X{mt}_i`.
 
+  * For each :math:`\event_i` in :math:`\module.\MEVENTS`,
+    the definition :math:`\event_i` must be :ref:`valid <valid-event>` with a :ref:`event type <syntax-eventtype>` :math:`\X{ev}_i`.
+
   * For each :math:`\global_i` in :math:`\module.\MGLOBALS`:
 
     * Under the context :math:`C'`,
@@ -594,6 +666,8 @@ Instead, the context :math:`C` for validation of the module's content is constru
 
 * Let :math:`\X{mt}^\ast` be the concatenation of the internal :ref:`memory types <syntax-memtype>` :math:`\X{mt}_i`, in index order.
 
+* Let :math:`\X{ev}^\ast` be the concatenation of the internal :ref:`event types <syntax-eventtype>` :math:`\X{ev}_i`, in index order.
+
 * Let :math:`\X{gt}^\ast` be the concatenation of the internal :ref:`global types <syntax-globaltype>` :math:`\X{gt}_i`, in index order.
 
 * Let :math:`\X{it}^\ast` be the concatenation of :ref:`external types <syntax-externtype>` :math:`\X{it}_i` of the imports, in index order.
@@ -613,8 +687,10 @@ Instead, the context :math:`C` for validation of the module's content is constru
      \quad
      (C \vdashmem \mem : \X{mt})^\ast
      \quad
-     (C' \vdashglobal \global : \X{gt})^\ast
+     (C \vdashevent \event : \X{ev})^\ast
      \\
+     (C' \vdashglobal \global : \X{gt})^\ast
+     \quad
      (C \vdashelem \elem \ok)^{N_e}
      \quad
      (C \vdashdata \data \ok)^{N_d}
@@ -631,9 +707,11 @@ Instead, the context :math:`C` for validation of the module's content is constru
      \qquad
      \X{imt}^\ast = \etmems(\X{it}^\ast)
      \qquad
+     \X{iev}^\ast = \etevents(\X{it}^\ast)
+     \qquad
      \X{igt}^\ast = \etglobals(\X{it}^\ast)
      \\
-     C = \{ \CTYPES~\functype^\ast, \CFUNCS~\X{ift}^\ast~\X{ft}^\ast, \CTABLES~\X{itt}^\ast~\X{tt}^\ast, \CMEMS~\X{imt}^\ast~\X{mt}^\ast, \CGLOBALS~\X{igt}^\ast~\X{gt}^\ast, \CELEMS~{\ok}^{N_e}, \CDATAS~{\ok}^{N_d}, \CREFS~\freefuncidx(\elem^{N_e}) \}
+     C = \{ \CTYPES~\functype^\ast, \CFUNCS~\X{ift}^\ast~\X{ft}^\ast, \CTABLES~\X{itt}^\ast~\X{tt}^\ast, \CMEMS~\X{imt}^\ast~\X{mt}^\ast, \CEVENTS~\X{iev}^\ast~\X{ev}^\ast, \CGLOBALS~\X{igt}^\ast~\X{gt}^\ast, \CELEMS~{\ok}^{N_e}, \CDATAS~{\ok}^{N_d}, \CREFS~\freefuncidx(\elem^{N_e}) \}
      \\
      C' = \{ \CGLOBALS~\X{igt}^\ast, \CFUNCS~(C.\CFUNCS), \CREFS~(C.\CREFS) \}
      \qquad
@@ -648,6 +726,7 @@ Instead, the context :math:`C` for validation of the module's content is constru
          \MFUNCS~\func^\ast,
          \MTABLES~\table^\ast,
          \MMEMS~\mem^\ast,
+	 \MEVENTS~\event^\ast, \\
          \MGLOBALS~\global^\ast, \\
          \MELEMS~\elem^{N_e},
          \MDATAS~\data^{N_d},

@@ -149,6 +149,31 @@ Memory Types
    }
 
 
+.. index:: event type, attribute, result type
+   pair: validation; event type
+   single: abstract syntax; event type
+.. _valid-eventtype:
+
+Event Types
+~~~~~~~~~~~
+
+:math:`\AEXCEPTION~~[t^n] \to []`
+.................................
+
+* The :ref:`attribute <syntax-attribute>` must be |AEXCEPTION|.
+
+* The :ref:`function type <syntax-functype>` :math:`[t^n] \to []` must be :ref:`valid <valid-functype>`.
+
+* Then the event type is valid.
+
+.. math::
+   \frac{
+     \vdashfunctype [t^n] \to [] \ok
+   }{
+     \vdasheventtype \AEXCEPTION~[t^n] \to [] \ok
+   }
+
+
 .. index:: global type, value type, mutability
    pair: validation; global type
    single: abstract syntax; global type
@@ -219,6 +244,20 @@ External Types
      \vdashexterntype \ETMEM~\memtype \ok
    }
 
+:math:`\ETEVENT~\eventtype`
+...........................
+
+* The :ref:`event type <syntax-eventtype>` :math:`\eventtype` must be :ref:`valid <valid-eventtype>`.
+
+* Then the external type is valid.
+
+.. math::
+   \frac{
+     \vdasheventtype \eventtype \ok
+   }{
+     \vdashexterntype \ETEVENT~\eventtype \ok
+   }
+
 :math:`\ETGLOBAL~\globaltype`
 .............................
 
@@ -238,6 +277,8 @@ External Types
 
 Value Subtyping
 ~~~~~~~~~~~~~~~
+
+If :math:`t_1` and :math:`t_2` are :ref:`value types <syntax-valtype>`, we say that :math:`t_1` matches :math:`t_2` and we write :math:`t_1 \matchesvaltype t_2` for the subtype relation defined in this section.
 
 .. index:: number type
 
@@ -439,6 +480,23 @@ An :ref:`external type <syntax-externtype>` :math:`\ETMEM~\limits_1` matches :ma
      \vdashlimitsmatch \limits_1 \matcheslimits \limits_2
    }{
      \vdashexterntypematch \ETMEM~\limits_1 \matchesexterntype \ETMEM~\limits_2
+   }
+
+
+.. index:: event type, value type, attribute
+.. _match-eventtype:
+
+Events
+......
+
+An :ref:`external type <syntax-externtype>` :math:`\ETEVENT~\eventtype_1` matches :math:`\ETEVENT~\eventtype_2`  if and only if:
+
+* Both :math:`\ETEVENT~\eventtype_1` and :math:`\ETEVENT~\eventtype_2` are the same.
+
+.. math::
+   \frac{
+   }{
+     \vdashexterntypematch \ETEVENT~\eventtype \matchesexterntype \ETEVENT~\eventtype
    }
 
 

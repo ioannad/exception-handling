@@ -68,6 +68,24 @@ The following auxiliary typing rules specify this typing relation relative to a 
    }
 
 
+.. index:: event type, event address, function type, attribute
+.. _valid-externval-event:
+
+:math:`\EVEVENT~a`
+...................
+
+* The store entry :math:`S.\SEVENTS[a]` must exist.
+
+* Then :math:`\EVEVENT~a` is valid with :ref:`external type <syntax-externtype>` :math:`\ETEVENT~S.\SEVENTS[a].\EIATTRIBUTE~S.\SEVENTS[a].\EITYPE`.
+
+.. math::
+   \frac{
+   }{
+     S \vdashexternval \EVEVENT~a : \ETEVENT~S.\SEVENTS[a].\EIATTRIBUTE~S.\SEVENTS[a].\EITYPE
+   }
+
+
+
 .. index:: global type, global address, value type, mutability
 .. _valid-externval-global:
 
@@ -147,6 +165,26 @@ The following auxiliary typing rules specify this typing relation relative to a 
    }{
      S \vdashval \REFHOST~a : \ANYREF
    }
+
+
+:ref:`Exception References <syntax-refexn>` :math:`\REFEXN~a~\val^n`
+.......................................................................
+
+* The external value :math:`\EVEVENT~a` must be valid with :ref:`event type <syntax-eventtype>` :math:`\AEXCEPTION~[t^n]\to[]`.
+
+* Each value :math:`val_i` in :math:`\val^n` must have type :math:`t_i` in :math:`t^n`.
+
+* The value is valid with :ref:`reference type <syntax-reftype>` :math:`\EXNREF`.
+
+.. math::
+   \frac{
+     S \vdashexternval \EVEVENT~a : \AEXCEPTION~[t^n]\to[]
+   \qquad
+    \val^n:t^n
+   }{
+     S \vdashval \REFEXN~a~\val^n : \EXNREF
+   }
+
 
 
 .. index:: ! allocation, store, address
@@ -274,6 +312,34 @@ New instances of :ref:`functions <syntax-funcinst>`, :ref:`tables <syntax-tablei
    \memaddr &=& |S.\SMEMS| \\
    \meminst &=& \{ \MITYPE~\memtype, \MIDATA~(\hex{00})^{n \cdot 64\,\F{Ki}} \} \\
    S' &=& S \compose \{\SMEMS~\meminst\} \\
+   \end{array}
+
+
+.. index:: event, event instance, event address, event type, function type, attribute
+.. _alloc-event:
+
+:ref:`Events <syntax-eventinst>`
+................................
+
+1. Let :math:`\event` be the :ref:`event <syntax-event>` to allocate for the module :math:`\module`.
+
+2. Let :math:`a` be the first free :ref:`event address <syntax-eventaddr>` in :math:`S`.
+
+3. Let :math:`\functype` be the :ref:`function type <syntax-functype>` :math:`\module.\MTYPES[\event.\ETYPE]`.
+
+4. Let :math:`\eventinst` be the :ref:`event instance <syntax-eventinst>` :math:`\{ \EIATTRIBUTE~\event.\EATTRIBUTE, \EITYPE~\functype \}`. 
+
+5. Append :math:`\eventinst` to the |SEVENTS| of :math:`S`.
+
+5. Return :math:`a`.
+
+.. math::
+   \begin{array}{rlll}
+   \allocevent(S, \event, \module) &=& S', \eventaddr \\[1ex]
+   \mbox{where:} \hfill \\
+   \eventaddr &=& |S.\SEVENTS| \\
+   \eventinst &=& \{ \EIATTRIBUTE~\event.\EATTRIBUTE, \EITYPE~\functype \} \\
+   S' &=& S \compose \{\SEVENTS~\eventinst\} \\
    \end{array}
 
 
@@ -471,21 +537,23 @@ and list of :ref:`reference <syntax-ref>` vectors for the module's :ref:`element
 
 10. Let :math:`\memaddr^\ast` be the the concatenation of the :ref:`memory addresses <syntax-memaddr>` :math:`\memaddr_i` in index order.
 
-11. Let :math:`\globaladdr^\ast` be the the concatenation of the :ref:`global addresses <syntax-globaladdr>` :math:`\globaladdr_i` in index order.
+11. Let :math:`\eventaddr_{\F{mod}}^\ast` be the list of :ref:`event addresses <syntax-eventaddr>` extracted from :math:`\externval_{\F{im}}^\ast`, concatenated with :math:`\eventaddr^\ast`.
 
-12. Let :math:`\elemaddr^\ast` be the the concatenation of the :ref:`element addresses <syntax-elemaddr>` :math:`\elemaddr_i` in index order.
+12. Let :math:`\globaladdr^\ast` be the the concatenation of the :ref:`global addresses <syntax-globaladdr>` :math:`\globaladdr_i` in index order.
 
-13. Let :math:`\dataaddr^\ast` be the the concatenation of the :ref:`data addresses <syntax-dataaddr>` :math:`\dataaddr_i` in index order.
+13. Let :math:`\elemaddr^\ast` be the the concatenation of the :ref:`element addresses <syntax-elemaddr>` :math:`\elemaddr_i` in index order.
 
-14. Let :math:`\funcaddr_{\F{mod}}^\ast` be the list of :ref:`function addresses <syntax-funcaddr>` extracted from :math:`\externval_{\F{im}}^\ast`, concatenated with :math:`\funcaddr^\ast`.
+14. Let :math:`\dataaddr^\ast` be the the concatenation of the :ref:`data addresses <syntax-dataaddr>` :math:`\dataaddr_i` in index order.
 
-15. Let :math:`\tableaddr_{\F{mod}}^\ast` be the list of :ref:`table addresses <syntax-tableaddr>` extracted from :math:`\externval_{\F{im}}^\ast`, concatenated with :math:`\tableaddr^\ast`.
+15. Let :math:`\funcaddr_{\F{mod}}^\ast` be the list of :ref:`function addresses <syntax-funcaddr>` extracted from :math:`\externval_{\F{im}}^\ast`, concatenated with :math:`\funcaddr^\ast`.
 
-16. Let :math:`\memaddr_{\F{mod}}^\ast` be the list of :ref:`memory addresses <syntax-memaddr>` extracted from :math:`\externval_{\F{im}}^\ast`, concatenated with :math:`\memaddr^\ast`.
+16. Let :math:`\tableaddr_{\F{mod}}^\ast` be the list of :ref:`table addresses <syntax-tableaddr>` extracted from :math:`\externval_{\F{im}}^\ast`, concatenated with :math:`\tableaddr^\ast`.
 
-17. Let :math:`\globaladdr_{\F{mod}}^\ast` be the list of :ref:`global addresses <syntax-globaladdr>` extracted from :math:`\externval_{\F{im}}^\ast`, concatenated with :math:`\globaladdr^\ast`.
+17. Let :math:`\memaddr_{\F{mod}}^\ast` be the list of :ref:`memory addresses <syntax-memaddr>` extracted from :math:`\externval_{\F{im}}^\ast`, concatenated with :math:`\memaddr^\ast`.
 
-18. For each :ref:`export <syntax-export>` :math:`\export_i` in :math:`\module.\MEXPORTS`, do:
+18. Let :math:`\globaladdr_{\F{mod}}^\ast` be the list of :ref:`global addresses <syntax-globaladdr>` extracted from :math:`\externval_{\F{im}}^\ast`, concatenated with :math:`\globaladdr^\ast`.
+
+19. For each :ref:`export <syntax-export>` :math:`\export_i` in :math:`\module.\MEXPORTS`, do:
 
     a. If :math:`\export_i` is a function export for :ref:`function index <syntax-funcidx>` :math:`x`, then let :math:`\externval_i` be the :ref:`external value <syntax-externval>` :math:`\EVFUNC~(\funcaddr_{\F{mod}}^\ast[x])`.
 
@@ -493,15 +561,17 @@ and list of :ref:`reference <syntax-ref>` vectors for the module's :ref:`element
 
     c. Else, if :math:`\export_i` is a memory export for :ref:`memory index <syntax-memidx>` :math:`x`, then let :math:`\externval_i` be the :ref:`external value <syntax-externval>` :math:`\EVMEM~(\memaddr_{\F{mod}}^\ast[x])`.
 
-    d. Else, if :math:`\export_i` is a global export for :ref:`global index <syntax-globalidx>` :math:`x`, then let :math:`\externval_i` be the :ref:`external value <syntax-externval>` :math:`\EVGLOBAL~(\globaladdr_{\F{mod}}^\ast[x])`.
+    d. Else, if :math:`\export_i` is an event export for :ref:`event index <syntax-eventidx>` :math:`x`, then let :math:`\externval_i` be the :ref:`external value <syntax-externval>` :math:`\EVEVENT~(\eventaddr_{\F{mod}}^\ast[x])`.
 
-    e. Let :math:`\exportinst_i` be the :ref:`export instance <syntax-exportinst>` :math:`\{\EINAME~(\export_i.\ENAME), \EIVALUE~\externval_i\}`.
+    e. Else, if :math:`\export_i` is a global export for :ref:`global index <syntax-globalidx>` :math:`x`, then let :math:`\externval_i` be the :ref:`external value <syntax-externval>` :math:`\EVGLOBAL~(\globaladdr_{\F{mod}}^\ast[x])`.
 
-19. Let :math:`\exportinst^\ast` be the the concatenation of the :ref:`export instances <syntax-exportinst>` :math:`\exportinst_i` in index order.
+    f. Let :math:`\exportinst_i` be the :ref:`export instance <syntax-exportinst>` :math:`\{\EINAME~(\export_i.\ENAME), \EIVALUE~\externval_i\}`.
 
-20. Let :math:`\moduleinst` be the :ref:`module instance <syntax-moduleinst>` :math:`\{\MITYPES~(\module.\MTYPES),` :math:`\MIFUNCS~\funcaddr_{\F{mod}}^\ast,` :math:`\MITABLES~\tableaddr_{\F{mod}}^\ast,` :math:`\MIMEMS~\memaddr_{\F{mod}}^\ast,` :math:`\MIGLOBALS~\globaladdr_{\F{mod}}^\ast,` :math:`\MIEXPORTS~\exportinst^\ast\}`.
+20. Let :math:`\exportinst^\ast` be the the concatenation of the :ref:`export instances <syntax-exportinst>` :math:`\exportinst_i` in index order.
 
-21. Return :math:`\moduleinst`.
+21. Let :math:`\moduleinst` be the :ref:`module instance <syntax-moduleinst>` :math:`\{\MITYPES~(\module.\MTYPES),` :math:`\MIFUNCS~\funcaddr_{\F{mod}}^\ast,` :math:`\MITABLES~\tableaddr_{\F{mod}}^\ast,` :math:`\MIMEMS~\memaddr_{\F{mod}}^\ast,` :math:`\MIEVENTS~\eventaddr_{\F{mod}}^\ast,` :math:`\MIGLOBALS~\globaladdr_{\F{mod}}^\ast,` :math:`\MIEXPORTS~\exportinst^\ast\}`.
+
+22. Return :math:`\moduleinst`.
 
 
 .. math::
@@ -520,6 +590,7 @@ where:
      \MIFUNCS~\evfuncs(\externval_{\F{im}}^\ast)~\funcaddr^\ast, \\
      \MITABLES~\evtables(\externval_{\F{im}}^\ast)~\tableaddr^\ast, \\
      \MIMEMS~\evmems(\externval_{\F{im}}^\ast)~\memaddr^\ast, \\
+     \MIEVENTS~\evevents(\externval_{\F{im}}^\ast)~\eventaddr^\ast, \\
      \MIGLOBALS~\evglobals(\externval_{\F{im}}^\ast)~\globaladdr^\ast, \\
      \MIELEMS~\elemaddr^\ast, \\
      \MIDATAS~\dataaddr^\ast, \\
@@ -530,11 +601,13 @@ where:
      \qquad\qquad\qquad~ (\where \table^\ast = \module.\MTABLES) \\
    S_3, \memaddr^\ast &=& \allocmem^\ast(S_2, (\mem.\MTYPE)^\ast)
      \qquad\qquad\qquad~ (\where \mem^\ast = \module.\MMEMS) \\
-   S_4, \globaladdr^\ast &=& \allocglobal^\ast(S_3, (\global.\GTYPE)^\ast, \val^\ast)
+   S_4, \eventaddr^\ast &=& \allocevent^\ast(S_3, \event^\ast, \module)
+     \qquad\quad~ (\where \event^\ast = \module.\MEVENTS) \\
+   S_5, \globaladdr^\ast &=& \allocglobal^\ast(S_4, (\global.\GTYPE)^\ast, \val^\ast)
      \qquad\quad~ (\where \global^\ast = \module.\MGLOBALS) \\
-   S_5, \elemaddr^\ast &=& \allocelem^\ast(S_4, (\elem.\ETYPE)^\ast, (\reff^\ast)^\ast) \\
+   S_6, \elemaddr^\ast &=& \allocelem^\ast(S_5, (\elem.\ETYPE)^\ast, (\reff^\ast)^\ast) \\
      \qquad\quad~ (\where \elem^\ast = \module.\MELEMS) \\
-   S', \dataaddr^\ast &=& \allocdata^\ast(S_5, (\data.\DINIT)^\ast)
+   S', \dataaddr^\ast &=& \allocdata^\ast(S_6, (\data.\DINIT)^\ast)
      \qquad\qquad\qquad~ (\where \data^\ast = \module.\MDATAS) \\
    \exportinst^\ast &=& \{ \EINAME~(\export.\ENAME), \EIVALUE~\externval_{\F{ex}} \}^\ast
      \quad (\where \export^\ast = \module.\MEXPORTS) \\[1ex]
@@ -544,6 +617,8 @@ where:
      \qquad (\where x^\ast = \edtables(\module.\MEXPORTS)) \\
    \evmems(\externval_{\F{ex}}^\ast) &=& (\moduleinst.\MIMEMS[x])^\ast
      \qquad (\where x^\ast = \edmems(\module.\MEXPORTS)) \\
+   \evevents(\externval_{\F{ex}}^\ast) &=& (\moduleinst.\MIEVENTS[x])^\ast
+     \qquad\!\!\! (\where x^\ast = \edevents(\module.\MEXPORTS)) \\
    \evglobals(\externval_{\F{ex}}^\ast) &=& (\moduleinst.\MIGLOBALS[x])^\ast
      \qquad\!\!\! (\where x^\ast = \edglobals(\module.\MEXPORTS)) \\
    \end{array}
