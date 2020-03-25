@@ -240,7 +240,7 @@ The |MEVENTS| component of a module defines a vector of *events* with the follow
 
 .. math::
    \begin{array}{llll}
-   \production{event} & \event &::=& \{ \EATTRIBUTE~\attribute, \ETYPE~\typeidx \} \\
+   \production{event} & \event &::=& \{ \EVATTRIBUTE~\attribute, \EVTYPE~\typeidx \} \\
    \end{array}
 
 The event's :ref:`attribute <syntax-attribute>` may only specify that the event is an |AEXCEPTION|.

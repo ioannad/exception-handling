@@ -1616,7 +1616,7 @@ Control Instructions
 .. _exec-try:
 
 :math:`\TRY~\blocktype~\instr_1^\ast~\CATCH~\instr_2^\ast~\END`
-..........................................................
+...............................................................
 
 1. Assert: due to :ref:`validation <valid-blocktype>`, :math:`\expand_F(\blocktype)` is defined.
 

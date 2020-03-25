@@ -76,12 +76,12 @@ The following auxiliary typing rules specify this typing relation relative to a 
 
 * The store entry :math:`S.\SEVENTS[a]` must exist.
 
-* Then :math:`\EVEVENT~a` is valid with :ref:`external type <syntax-externtype>` :math:`\ETEVENT~S.\SEVENTS[a].\EIATTRIBUTE~S.\SEVENTS[a].\EITYPE`.
+* Then :math:`\EVEVENT~a` is valid with :ref:`external type <syntax-externtype>` :math:`\ETEVENT~S.\SEVENTS[a].\EVIATTRIBUTE~S.\SEVENTS[a].\EVITYPE`.
 
 .. math::
    \frac{
    }{
-     S \vdashexternval \EVEVENT~a : \ETEVENT~S.\SEVENTS[a].\EIATTRIBUTE~S.\SEVENTS[a].\EITYPE
+     S \vdashexternval \EVEVENT~a : \ETEVENT~S.\SEVENTS[a].\EVIATTRIBUTE~S.\SEVENTS[a].\EVITYPE
    }
 
 
@@ -325,9 +325,9 @@ New instances of :ref:`functions <syntax-funcinst>`, :ref:`tables <syntax-tablei
 
 2. Let :math:`a` be the first free :ref:`event address <syntax-eventaddr>` in :math:`S`.
 
-3. Let :math:`\functype` be the :ref:`function type <syntax-functype>` :math:`\module.\MTYPES[\event.\ETYPE]`.
+3. Let :math:`\functype` be the :ref:`function type <syntax-functype>` :math:`\module.\MTYPES[\event.\EVTYPE]`.
 
-4. Let :math:`\eventinst` be the :ref:`event instance <syntax-eventinst>` :math:`\{ \EIATTRIBUTE~\event.\EATTRIBUTE, \EITYPE~\functype \}`. 
+4. Let :math:`\eventinst` be the :ref:`event instance <syntax-eventinst>` :math:`\{ \EVIATTRIBUTE~\event.\EVATTRIBUTE, \EVITYPE~\functype \}`. 
 
 5. Append :math:`\eventinst` to the |SEVENTS| of :math:`S`.
 
@@ -338,7 +338,7 @@ New instances of :ref:`functions <syntax-funcinst>`, :ref:`tables <syntax-tablei
    \allocevent(S, \event, \module) &=& S', \eventaddr \\[1ex]
    \mbox{where:} \hfill \\
    \eventaddr &=& |S.\SEVENTS| \\
-   \eventinst &=& \{ \EIATTRIBUTE~\event.\EATTRIBUTE, \EITYPE~\functype \} \\
+   \eventinst &=& \{ \EVIATTRIBUTE~\event.\EVATTRIBUTE, \EVITYPE~\functype \} \\
    S' &=& S \compose \{\SEVENTS~\eventinst\} \\
    \end{array}
 

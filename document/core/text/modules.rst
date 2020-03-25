@@ -400,7 +400,7 @@ Event definitions can bind a symbolic :ref:`event identifier <text-id>` to an ev
    \begin{array}{llclll}
    \production{function} & \Tevent_I &::=&
      \text{(}~\text{event}~~\Tid^?~~\text{exception}~~x,I'{:}\Ttypeuse_I~\text{)} \\ &&& \qquad
-       \Rightarrow\quad \{ \EATTRIBUTE~\AEXCEPTION, \ETYPE~x \} \\
+       \Rightarrow\quad \{ \EVATTRIBUTE~\AEXCEPTION, \EVTYPE~x \} \\
    \end{array}
 
 

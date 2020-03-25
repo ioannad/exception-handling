@@ -328,7 +328,7 @@ It records its :ref:`attribute <syntax-attribute>` and its :ref:`function type <
 .. math::
    \begin{array}{llll}
    \production{(event instance)} & \eventinst &::=&
-     \{ \EIATTRIBUTE~\AEXCEPTION, \EITYPE~\functype \} \\
+     \{ \EVIATTRIBUTE~\AEXCEPTION, \EVITYPE~\functype \} \\
    \end{array}
 
 Because :ref:`events <syntax-event>` :ref:`have type <valid-event>` |eventtype|, it is an invariant of the semantics that the function type :math:`\functype` has void result type.
@@ -677,7 +677,7 @@ the following syntax of *throw contexts* is defined, as well as associated struc
    \begin{array}{rcl}
    S;~F;~\CATCHN_m~\{\instr^\ast\}~\val^m~\END &\stepto& S;~F;~\val^m \\
    S;~F;~\CATCHN_m~\{\instr^\ast\}~\XT[\val^\ast~[\_]~(\THROWA~a)]~\END &\stepto& S;~F;~\LABEL_m~\{\epsilon\}~(\REFEXN~a~\val^\ast)~{\instr}^\ast~\END \\
-   && \hspace{-12ex} (\iff S.\SEVENTS[a]=\{\EATTRIBUTE~\AEXCEPTION, \ETYPE~[t^n]\to[]\}) \\
+   && \hspace{-12ex} (\iff S.\SEVENTS[a]=\{\EVATTRIBUTE~\AEXCEPTION, \EVTYPE~[t^n]\to[]\}) \\
    \end{array}
 
 **TODO: add explanation and note with example reduction**

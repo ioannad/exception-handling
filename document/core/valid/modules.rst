@@ -110,8 +110,8 @@ Events :math:`\event` are classified by :ref:`event types <syntax-eventtype>` of
 Currently the only allowed events have the form :math:`\AEXCEPTION~[t^\ast]\to[]`.
 
 
-:math:`\{ \EATTRIBUTE~\AEXCEPTION, \ETYPE~x \}`
-...............................................
+:math:`\{ \EVATTRIBUTE~\AEXCEPTION, \EVTYPE~x \}`
+.................................................
 
 * The type :math:`C.\CTYPES[x]` must be defined in the context.
 
@@ -125,7 +125,7 @@ Currently the only allowed events have the form :math:`\AEXCEPTION~[t^\ast]\to[]
    \frac{
      C.\CTYPES[x] = [t^\ast] \to []
    }{
-     C \vdashevent \{ \EATTRIBUTE~\AEXCEPTION, \ETYPE~x \} : \AEXCEPTION~[t^\ast]\to[]
+     C \vdashevent \{ \EVATTRIBUTE~\AEXCEPTION, \EVTYPE~x \} : \AEXCEPTION~[t^\ast]\to[]
    }
 
 
@@ -529,7 +529,7 @@ Imports :math:`\import` and import descriptions :math:`\importdesc` are classifi
 :math:`\IDEVENT~\event`
 .......................
 
-* Let :math:`\{ \EATTRIBUTE~\AEXCEPTION, \ETYPE~x \}` be the :math:`\event`.
+* Let :math:`\{ \EVATTRIBUTE~\AEXCEPTION, \EVTYPE~x \}` be the :math:`\event`.
 
 * The type :math:`C.\CTYPES[x]` must be defined in the context.
 
@@ -541,7 +541,7 @@ Imports :math:`\import` and import descriptions :math:`\importdesc` are classifi
    \frac{
      \vdasheventtype \AEXCEPTION~C.\CTYPES[x] \ok
    }{
-     C \vdashimportdesc \IDEVENT~\{ \EATTRIBUTE~\AEXCEPTION, \ETYPE~x \}: \ETEVENT~\AEXCEPTION~C.\CTYPES[x]
+     C \vdashimportdesc \IDEVENT~\{ \EVATTRIBUTE~\AEXCEPTION, \EVTYPE~x \}: \ETEVENT~\AEXCEPTION~C.\CTYPES[x]
    }
 
 

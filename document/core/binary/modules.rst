@@ -500,7 +500,7 @@ It decodes into a vector of :ref:`events <syntax-global>` that represent the |ME
      \X{event}^\ast{:}\Bsection_13(\Bvec(\Bevent)) &\Rightarrow& \X{event}^\ast \\
    \production{event} & \Bevent &::=&
      \X{a}{:}\Battribute~~\X{x}{:}\Btypeidx
-       &\Rightarrow& \{ \EATTRIBUTE~\X{a}, \ETYPE~\X{x} \} \\
+       &\Rightarrow& \{ \EVATTRIBUTE~\X{a}, \EVTYPE~\X{x} \} \\
    \end{array} 
 
 
