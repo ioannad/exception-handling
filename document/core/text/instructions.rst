@@ -73,7 +73,7 @@ However, the special case of a type use that is syntactically empty or consists 
    \begin{array}[t]{@{}c@{}} ::= \\ | \\ \end{array}
    &
    \begin{array}[t]{@{}lcll@{}}
-     (t{:}\Tresult)^? &\Rightarrow& t^? \\
+     (t{:}\Tresult)^? &\Rightarrow& t^? & \\
      x,I'{:}\Ttypeuse_I &\Rightarrow& x & (\iff I' = \{\}) \\
    \end{array} \\
    \production{block instruction} & \Tblockinstr_I &::=&
@@ -86,7 +86,7 @@ However, the special case of a type use that is syntactically empty or consists 
      \text{if}~~I'{:}\Tlabel_I~~\X{bt}{:}\Tblocktype~~(\X{in}_1{:}\Tinstr_{I'})^\ast~~
        \text{else}~~\Tid_1^?~~(\X{in}_2{:}\Tinstr_{I'})^\ast~~\text{end}~~\Tid_2^?
        \\ &&&\qquad \Rightarrow\quad \IF~\X{bt}~\X{in}_1^\ast~\ELSE~\X{in}_2^\ast~\END
-       \qquad (\iff \Tid_1^? = \epsilon \vee \Tid_1^? = \Tlabel, \Tid_2^? = \epsilon \vee \Tid_2^? = \Tlabel) \\
+       \qquad (\iff \Tid_1^? = \epsilon \vee \Tid_1^? = \Tlabel, \Tid_2^? = \epsilon \vee \Tid_2^? = \Tlabel) \\ &&|&
     \text{try}~~I'{:}\Tlabel_I~~\X{bt}{:}\Tblocktype~~(\X{in}_1{:}\Tinstr_{I'})^\ast~~
        \text{catch}~~\Tid_1^?~~(\X{in}_2{:}\Tinstr_{I'})^\ast~~\text{end}~~\Tid_2^?
        \\ &&&\qquad \Rightarrow\quad \TRY~\X{rt}~\X{in}_1^\ast~\CATCH~\X{in}_2^\ast~\END
@@ -242,7 +242,7 @@ Table Instructions
      \text{table.set}~~x{:}\Ttableidx_I &\Rightarrow& \TABLESET~x \\ &&|&
      \text{table.size}~~x{:}\Ttableidx_I &\Rightarrow& \TABLESIZE~x \\ &&|&
      \text{table.grow}~~x{:}\Ttableidx_I &\Rightarrow& \TABLEGROW~x \\ &&|&
-     \text{table.fill}~~x{:}\Ttableidx_I &\Rightarrow& \TABLEFILL~x \\
+     \text{table.fill}~~x{:}\Ttableidx_I &\Rightarrow& \TABLEFILL~x \\ &&|&
      \text{table.copy}~~x{:}\Ttableidx_I~~y{:}\Ttableidx_I &\Rightarrow& \TABLECOPY~x~y \\ &&|&
      \text{table.init}~~x{:}\Ttableidx_I~~y{:}\Telemidx_I &\Rightarrow& \TABLEINIT~x~y \\ &&|&
      \text{elem.drop}~~x{:}\Telemidx_I &\Rightarrow& \ELEMDROP~x \\
@@ -556,7 +556,7 @@ Such a folded instruction can appear anywhere a regular instruction can.
      \text{(}~\text{if}~~\Tlabel~~\Tblocktype~~\Tfoldedinstr^\ast
        &\hspace{-3ex} \text{(}~\text{then}~~\Tinstr_1^\ast~\text{)}~~\text{(}~\text{else}~~\Tinstr_2^\ast~\text{)}^?~~\text{)}
        \quad\equiv \\ &\qquad
-         \Tfoldedinstr^\ast~~\text{if}~~\Tlabel~~\Tblocktype &\hspace{-1ex} \Tinstr_1^\ast~~\text{else}~~(\Tinstr_2^\ast)^?~\text{end} \\
+         \Tfoldedinstr^\ast~~\text{if}~~\Tlabel~~\Tblocktype &\hspace{-1ex} \Tinstr_1^\ast~~\text{else}~~(\Tinstr_2^\ast)^?~\text{end} \\ &
      \text{(}~\text{try}~~\Tlabel~~\Tblocktype~~\Tinstr_1^\ast
        &\hspace{-8ex} \text{(}~\text{catch}~~\Tinstr_2^\ast~\text{)}~\text{)} \quad\equiv \\ &\qquad
        \text{try}~~\Tlabel~~\Tblocktype~~\Tinstr_1^\ast & \hspace{-6ex} \text{catch}~~\Tinstr_2^\ast~\text{end} & \\
