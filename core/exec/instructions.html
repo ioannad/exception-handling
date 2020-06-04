@@ -1378,7 +1378,7 @@ F; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~(\href{../syntax/instr
 <div class="section" id="xref-syntax-instructions-syntax-instr-control-mathsf-rethrow">
 <span id="exec-rethrow"></span><h3><span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{rethrow}}\)</span><a class="headerlink" href="#xref-syntax-instructions-syntax-instr-control-mathsf-rethrow" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li><p>Assert: due to <a class="reference internal" href="../valid/instructions.html#valid-rethrow"><span class="std std-ref">validation</span></a>, there is a value <span class="math notranslate nohighlight">\((\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)\)</span> with
+<li><p>Assert: due to <a class="reference internal" href="../valid/instructions.html#valid-rethrow"><span class="std std-ref">validation</span></a>, there is a value with
 <a class="reference internal" href="../syntax/types.html#syntax-reftype"><span class="std std-ref">reference type</span></a> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> on top of the stack.</p></li>
 <li><p>Pop the <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> value from the stack.</p></li>
 <li><p>If the <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> value is <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-ref}{\mathsf{ref{.}null}}~\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> then:</p>
@@ -1386,7 +1386,7 @@ F; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~(\href{../syntax/instr
 <li><p>Trap.</p></li>
 </ol>
 </li>
-<li><p>Else the <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> value is of the form <span class="math notranslate nohighlight">\((\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)\)</span>.</p></li>
+<li><p>Else the <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> value is of the form <span class="math notranslate nohighlight">\((\href{../exec/runtime.html#syntax-exnrefaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)\)</span>.</p></li>
 <li><p>Put the values <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast\)</span> on the stack.</p></li>
 <li><p><a class="reference internal" href="runtime.html#syntax-throwaddr"><span class="std std-ref">Throw</span></a> the <a class="reference internal" href="runtime.html#syntax-eventaddr"><span class="std std-ref">event address</span></a> <span class="math notranslate nohighlight">\(a\)</span>.</p></li>
 </ol>
@@ -1394,13 +1394,13 @@ F; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~(\href{../syntax/instr
 \[\begin{split}~\\[-1ex]
 \begin{array}{lclr&#64;{\qquad}}
   (\href{../syntax/instructions.html#syntax-instr-ref}{\mathsf{ref{.}null}}~\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}})~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{rethrow}} &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; \href{../exec/runtime.html#syntax-trap}{\mathsf{trap}} \\
-  (\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{rethrow}} &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast~(\href{../exec/runtime.html#syntax-throwaddr}{\mathsf{throw}}~a) \\
+  (\href{../exec/runtime.html#syntax-exnrefaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{rethrow}} &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast~(\href{../exec/runtime.html#syntax-throwaddr}{\mathsf{throw}}~a) \\
 \end{array}\end{split}\]</div>
 </div>
 <div class="section" id="xref-syntax-instructions-syntax-instr-control-mathsf-br-on-exn-l-x">
 <span id="exec-br-on-exn"></span><h3><span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x\)</span><a class="headerlink" href="#xref-syntax-instructions-syntax-instr-control-mathsf-br-on-exn-l-x" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
-<li><p>Assert: due to <a class="reference internal" href="../valid/instructions.html#valid-br-on-exn"><span class="std std-ref">validation</span></a>, there is a value <span class="math notranslate nohighlight">\((\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)\)</span>
+<li><p>Assert: due to <a class="reference internal" href="../valid/instructions.html#valid-br-on-exn"><span class="std std-ref">validation</span></a>, there is a value
 with <a class="reference internal" href="../syntax/types.html#syntax-reftype"><span class="std std-ref">reference type</span></a> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> on top of the stack.</p></li>
 <li><p>Pop the <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> value from the stack.</p></li>
 <li><p>If the <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> value is <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-ref}{\mathsf{ref{.}null}}~\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> then:</p>
@@ -1408,7 +1408,7 @@ with <a class="reference internal" href="../syntax/types.html#syntax-reftype"><s
 <li><p>Trap.</p></li>
 </ol>
 </li>
-<li><p>Else the <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> value is of the form <span class="math notranslate nohighlight">\((\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)\)</span>.</p></li>
+<li><p>Else the <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> value is of the form <span class="math notranslate nohighlight">\((\href{../exec/runtime.html#syntax-exnrefaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)\)</span>.</p></li>
 <li><p>Let <span class="math notranslate nohighlight">\(F\)</span> be the <a class="reference internal" href="conventions.html#exec-notation-textual"><span class="std std-ref">current</span></a> <a class="reference internal" href="runtime.html#syntax-frame"><span class="std std-ref">frame</span></a>.</p></li>
 <li><p>Assert: due to <a class="reference internal" href="../valid/instructions.html#valid-br-on-exn"><span class="std std-ref">validation</span></a>, <span class="math notranslate nohighlight">\(F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x]\)</span> exists.</p></li>
 <li><p>If <span class="math notranslate nohighlight">\(F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x]=a\)</span>, then:</p>
@@ -1419,7 +1419,7 @@ with <a class="reference internal" href="../syntax/types.html#syntax-reftype"><s
 </li>
 <li><p>Else:</p>
 <ol class="loweralpha simple">
-<li><p>Put the value <span class="math notranslate nohighlight">\((\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)\)</span> back on the stack.</p></li>
+<li><p>Put the value <span class="math notranslate nohighlight">\((\href{../exec/runtime.html#syntax-exnrefaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)\)</span> back on the stack.</p></li>
 </ol>
 </li>
 </ol>
@@ -1427,8 +1427,8 @@ with <a class="reference internal" href="../syntax/types.html#syntax-reftype"><s
 \[\begin{split}~\\[-1ex]
 \begin{array}{lclr&#64;{\qquad}l}
   F; (\href{../syntax/instructions.html#syntax-instr-ref}{\mathsf{ref{.}null}}~\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}})~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; F; \href{../exec/runtime.html#syntax-trap}{\mathsf{trap}} \\
-  F; (\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; F; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast~(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br}}~l)     &amp; (\mathrel{\mbox{if}} F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x] = a) \\
-  F; (\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; F; (\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast) &amp; (\mathrel{\mbox{if}} F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x] \neq a) \\
+  F; (\href{../exec/runtime.html#syntax-exnrefaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; F; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast~(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br}}~l)     &amp; (\mathrel{\mbox{if}} F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x] = a) \\
+  F; (\href{../exec/runtime.html#syntax-exnrefaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; F; (\href{../exec/runtime.html#syntax-exnrefaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast) &amp; (\mathrel{\mbox{if}} F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x] \neq a) \\
 \end{array}\end{split}\]</div>
 </div>
 <div class="section" id="xref-syntax-instructions-syntax-instr-control-mathsf-br-l">
