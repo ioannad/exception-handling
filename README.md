@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/WebAssembly/exception-handling.svg?branch=master)](https://travis-ci.org/WebAssembly/exception-handling)
+[![Build Status](https://travis-ci.org/ioannad/exception-handling.svg?branch=master)](https://travis-ci.org/ioannad/exception-handling)
 
 # Exception Handling Proposal for WebAssembly
 
@@ -8,6 +8,8 @@ holds a
 adding exception handling to WebAssembly.
 
 * See the [proposal overview](proposals/Exceptions.md) for a summary of the proposal.
+
+* See the [modified spec](https://ioannad.github.io/exception-handling/core/) for details.
 
 The repository is now based on the [reference types proposal](proposals/reference-types/Overview.md) and includes all respective changes.
 
