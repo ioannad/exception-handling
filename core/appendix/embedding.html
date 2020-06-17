@@ -138,7 +138,7 @@ If it does, the post conditions are guaranteed by the semantics.</p>
 </ol>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{lclll}
-\mathrm{store\_init}() &amp;=&amp; \{ \href{../exec/runtime.html#syntax-store}{\mathsf{funcs}}~\epsilon,~ \href{../exec/runtime.html#syntax-store}{\mathsf{mems}}~\epsilon,~ \href{../exec/runtime.html#syntax-store}{\mathsf{tables}}~\epsilon,~ \href{../exec/runtime.html#syntax-store}{\mathsf{globals}}~\epsilon \} \\
+\mathrm{store\_init}() &amp;=&amp; \{ \href{../exec/runtime.html#syntax-store}{\mathsf{funcs}}~\epsilon,~ \href{../exec/runtime.html#syntax-store}{\mathsf{mems}}~\epsilon, ~\href{../exec/runtime.html#syntax-store}{\mathsf{events}}~\epsilon,~ \href{../exec/runtime.html#syntax-store}{\mathsf{tables}}~\epsilon,~ \href{../exec/runtime.html#syntax-store}{\mathsf{globals}}~\epsilon \} \\
 \end{array}\end{split}\]</div>
 </div>
 </div>
@@ -493,6 +493,21 @@ If it does, the post conditions are guaranteed by the semantics.</p>
 \mathrm{mem\_grow}(S, a, n) &amp;=&amp; S' &amp;&amp;
   (\mathrel{\mbox{if}} S' = S \href{../syntax/conventions.html#notation-replace}{\mathrel{\mbox{with}}} \href{../exec/runtime.html#syntax-store}{\mathsf{mems}}[a] = \href{../exec/modules.html#grow-mem}{\mathrm{growmem}}(S.\href{../exec/runtime.html#syntax-store}{\mathsf{mems}}[a], n)) \\
 \mathrm{mem\_grow}(S, a, n) &amp;=&amp; \href{../appendix/embedding.html#embed-error}{\mathsf{error}} &amp;&amp; (\mathrel{\mbox{otherwise}}) \\
+\end{array}\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="events">
+<span id="embed-event"></span><h2>Events<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mathrm-event-alloc-xref-exec-runtime-syntax-store-mathit-store-xref-syntax-types-syntax-eventtype-mathit-eventtype-xref-exec-runtime-syntax-store-mathit-store-xref-exec-runtime-syntax-eventaddr-mathit-eventaddr">
+<span id="embedd-event-alloc"></span><h3><span class="math notranslate nohighlight">\(\mathrm{event\_alloc}(\href{../exec/runtime.html#syntax-store}{\mathit{store}}, \href{../syntax/types.html#syntax-eventtype}{\mathit{eventtype}}) : (\href{../exec/runtime.html#syntax-store}{\mathit{store}}, \href{../exec/runtime.html#syntax-eventaddr}{\mathit{eventaddr}})\)</span><a class="headerlink" href="#mathrm-event-alloc-xref-exec-runtime-syntax-store-mathit-store-xref-syntax-types-syntax-eventtype-mathit-eventtype-xref-exec-runtime-syntax-store-mathit-store-xref-exec-runtime-syntax-eventaddr-mathit-eventaddr" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Pre-condition: <span class="math notranslate nohighlight">\(eventtype\)</span> is <a class="reference internal" href="../valid/types.html#valid-eventtype"><span class="std std-ref">valid</span></a>.</p></li>
+<li><p>Let <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-eventaddr}{\mathit{eventaddr}}\)</span> be the result of <a class="reference internal" href="../exec/modules.html#alloc-event"><span class="std std-ref">allocating an event</span></a> in <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-store}{\mathit{store}}\)</span> with <a class="reference internal" href="../syntax/types.html#syntax-eventtype"><span class="std std-ref">event type</span></a> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathit{eventtype}}\)</span>.</p></li>
+<li><p>Return the new store paired with <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-eventaddr}{\mathit{eventaddr}}\)</span>.</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lclll}
+\mathrm{event\_alloc}(S, \mathit{et}) &amp;=&amp; (S', \mathit{a}) &amp;&amp; (\mathrel{\mbox{if}} \href{../exec/modules.html#alloc-event}{\mathrm{allocevent}}(S, \mathit{et}) = S', \mathit{a}) \\
 \end{array}\end{split}\]</div>
 </div>
 </div>

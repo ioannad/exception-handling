@@ -594,6 +594,7 @@ S; F; \href{../exec/runtime.html#syntax-frame}{\mathsf{frame}}_n\{F'\}~\href{../
 \end{array}\end{split}\]</div>
 <p>Reduction terminates when a thread’s instruction sequence has been reduced to a <a class="reference internal" href="#syntax-result"><span class="std std-ref">result</span></a>,
 that is, either a sequence of <a class="reference internal" href="#syntax-val"><span class="std std-ref">values</span></a> or to a <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-trap}{\mathsf{trap}}\)</span>.</p>
+<p>(TODO: add rules to deal with unresolved <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-throwaddr}{\mathsf{throw}}~\href{../exec/runtime.html#syntax-eventaddr}{\mathit{eventaddr}}\)</span>, and extend results to include such situations.)</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The restriction on evaluation contexts rules out contexts like <span class="math notranslate nohighlight">\([\_]\)</span> and <span class="math notranslate nohighlight">\(\epsilon~[\_]~\epsilon\)</span> for which <span class="math notranslate nohighlight">\(E[\href{../exec/runtime.html#syntax-trap}{\mathsf{trap}}] = \href{../exec/runtime.html#syntax-trap}{\mathsf{trap}}\)</span>.</p>
