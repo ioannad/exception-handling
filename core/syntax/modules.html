@@ -143,9 +143,8 @@ The indices of these imports precede the indices of other definitions in the sam
 </div>
 <div class="section" id="types">
 <span id="syntax-typedef"></span><span id="index-2"></span><h2>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
-<p>The <span class="math notranslate nohighlight">\(\href{../syntax/modules.html#syntax-module}{\mathsf{types}}\)</span> component of a module defines a vector of <a class="reference internal" href="types.html#syntax-functype"><span class="std std-ref">function types</span></a>,
-which may also be part of an <a class="reference internal" href="types.html#syntax-eventtype"><span class="std std-ref">event type</span></a>.</p>
-<p>All function types and all event function types used in a module must be defined in this component.
+<p>The <span class="math notranslate nohighlight">\(\href{../syntax/modules.html#syntax-module}{\mathsf{types}}\)</span> component of a module defines a vector of <a class="reference internal" href="types.html#syntax-functype"><span class="std std-ref">function types</span></a>.</p>
+<p>All function types used in a module must be defined in this component.
 They are referenced by <a class="reference internal" href="#syntax-typeidx"><span class="std std-ref">type indices</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -217,9 +216,9 @@ This restriction may be lifted in future versions.</p>
 <p>The <span class="math notranslate nohighlight">\(\href{../syntax/modules.html#syntax-module}{\mathsf{events}}\)</span> component of a module defines a vector of <em>events</em> with the following structure.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{llll}
-\def\mathdef1679#1{{}}\mathdef1679{event} &amp; \href{../syntax/modules.html#syntax-event}{\mathit{event}} &amp;::=&amp; \{ \href{../syntax/modules.html#syntax-event}{\mathsf{attribute}}~\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}, \href{../syntax/modules.html#syntax-event}{\mathsf{type}}~\href{../syntax/modules.html#syntax-typeidx}{\mathit{typeidx}} \} \\
+\def\mathdef1679#1{{}}\mathdef1679{event} &amp; \href{../syntax/modules.html#syntax-event}{\mathit{event}} &amp;::=&amp; \{ \href{../syntax/modules.html#syntax-event}{\mathsf{eventattr}}~\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}, \href{../syntax/modules.html#syntax-event}{\mathsf{type}}~\href{../syntax/modules.html#syntax-typeidx}{\mathit{typeidx}} \} \\
 \end{array}\end{split}\]</div>
-<p>The event’s <a class="reference internal" href="types.html#syntax-attribute"><span class="std std-ref">attribute</span></a> may only specify the attribute <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}\)</span>, meaning that the event is an exception.
+<p>The <a class="reference internal" href="types.html#syntax-eventattr"><span class="std std-ref">event attribute</span></a> may only specify the attribute <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}\)</span>, meaning that the event is an exception.
 In this case, the result type of the function signature with type index <span class="math notranslate nohighlight">\(\href{../syntax/modules.html#syntax-typeidx}{\mathit{typeidx}}\)</span> must be void.</p>
 <p>Events are referenced through <a class="reference internal" href="#syntax-eventidx"><span class="std std-ref">event indices</span></a>,
 starting with the smallest index not referencing an event <a class="reference internal" href="#syntax-import"><span class="std std-ref">import</span></a>.</p>

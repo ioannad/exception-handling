@@ -114,11 +114,11 @@ That is, <span class="math notranslate nohighlight">\(|\href{../syntax/types.htm
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{llll}
 \def\mathdef1716#1{{}}\mathdef1716{reference type} &amp; \href{../syntax/types.html#syntax-reftype}{\mathit{reftype}} &amp;::=&amp;
-  \href{../syntax/types.html#syntax-reftype}{\mathsf{funcref}} ~|~ \href{../syntax/types.html#syntax-reftype}{\mathsf{externref}} ~|~ \href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}} \\
+  \href{../syntax/types.html#syntax-reftype}{\mathsf{funcref}} ~|~ \href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}} ~|~ \href{../syntax/types.html#syntax-reftype}{\mathsf{externref}} \\
 \end{array}\end{split}\]</div>
 <p>The type <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{funcref}}\)</span> denotes the infinite union of all references to <a class="reference internal" href="modules.html#syntax-func"><span class="std std-ref">functions</span></a>, regardless of their <a class="reference internal" href="#syntax-functype"><span class="std std-ref">function types</span></a>.</p>
+<p>The type <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> denotes a caught exception <a class="reference internal" href="modules.html#syntax-event"><span class="std std-ref">event</span></a>.</p>
 <p>The type <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{externref}}\)</span> denotes the infinite union of all references to objects owned by the <a class="reference internal" href="../intro/overview.html#embedder"><span class="std std-ref">embedder</span></a> and that can be passed into WebAssembly under this type.</p>
-<p>The type <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> denotes the infinite union of all references to exception <a class="reference internal" href="modules.html#syntax-event"><span class="std std-ref">events</span></a>, regardless of their <a class="reference internal" href="#syntax-eventtype"><span class="std std-ref">event types</span></a>.</p>
 <p>Reference types are <em>opaque</em>, meaning that neither their size nor their bit pattern can be observed.
 Values of reference type can be stored in <a class="reference internal" href="modules.html#syntax-table"><span class="std std-ref">tables</span></a>.</p>
 </div>
@@ -196,15 +196,15 @@ The limits are given in numbers of entries.</p>
 </div>
 </div>
 <div class="section" id="event-types">
-<span id="syntax-eventtype"></span><span id="syntax-attribute"></span><span id="index-9"></span><h2>Event Types<a class="headerlink" href="#event-types" title="Permalink to this headline">¶</a></h2>
+<span id="syntax-eventtype"></span><span id="syntax-eventattr"></span><span id="index-9"></span><h2>Event Types<a class="headerlink" href="#event-types" title="Permalink to this headline">¶</a></h2>
 <p><em>Event types</em> classify the signature of <a class="reference internal" href="modules.html#syntax-event"><span class="std std-ref">events</span></a>,
-with an attribute and a function type.</p>
+with an event attribute and a function type.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{llll}
-\def\mathdef1716#1{{}}\mathdef1716{event type} &amp;\href{../syntax/types.html#syntax-eventtype}{\mathit{eventtype}} &amp;::=&amp; \href{../syntax/types.html#syntax-eventtype}{\mathit{attribute}}~~\href{../syntax/types.html#syntax-functype}{\mathit{functype}} \\
-\def\mathdef1716#1{{}}\mathdef1716{attribute} &amp;\href{../syntax/types.html#syntax-eventtype}{\mathit{attribute}} &amp;::=&amp; \href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}} \\
+\def\mathdef1716#1{{}}\mathdef1716{event type} &amp;\href{../syntax/types.html#syntax-eventtype}{\mathit{eventtype}} &amp;::=&amp; \href{../syntax/types.html#syntax-eventtype}{\mathit{eventattr}}~~\href{../syntax/types.html#syntax-functype}{\mathit{functype}} \\
+\def\mathdef1716#1{{}}\mathdef1716{event attribute} &amp;\href{../syntax/types.html#syntax-eventtype}{\mathit{eventattr}} &amp;::=&amp; \href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}} \\
 \end{array}\end{split}\]</div>
-<p>The <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathit{attribute}}\)</span> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}\)</span> specifies that the event is an exception, in which case the result type of its function type <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span> must be void.
+<p>The <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathit{eventattr}}\)</span> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}\)</span> specifies that the event is an exception, in which case the result type of its function type <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span> must be void.
 The parameters of <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span> define the list of values associated with the exception event.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

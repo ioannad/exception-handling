@@ -94,13 +94,13 @@ Consequently, it can be integrated directly into a decoder.</p>
 <div class="section" id="data-structures">
 <span id="index-1"></span><h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
 <p>Types are representable as an enumeration.</p>
-<div class="highlight-pseudo notranslate"><div class="highlight"><pre><span></span><span class="k">type</span> <span class="nf">val_type</span> = I32 | I64 | F32 | F64 | Funcref | Externref | Exnref
+<div class="highlight-pseudo notranslate"><div class="highlight"><pre><span></span><span class="k">type</span> <span class="nf">val_type</span> = I32 | I64 | F32 | F64 | Funcref | Exnref | Externref
 
 <span class="k">func</span> <span class="nf">is_num</span>(<span class="nf">t</span> : val_type) : bool =
   <span class="k">return</span> t = I32 || t = I64 || t = F32 || t = F64
 
 <span class="k">func</span> <span class="nf">is_ref</span>(<span class="nf">t</span> : val_type) : bool =
-  <span class="k">return</span> t = Funcref || t = Externref || t = Exnref
+  <span class="k">return</span> t = Funcref || t = Exnref || t = Externref
 </pre></div>
 </div>
 <p>The algorithm uses two separate stacks: the <em>value stack</em> and the <em>control stack</em>.

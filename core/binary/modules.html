@@ -233,7 +233,7 @@ It decodes into a vector of <a class="reference internal" href="../syntax/module
   \def\mathdef1032#1{\mathtt{0x#1}}\mathdef1032{01}~~\mathit{tt}{:}\href{../binary/types.html#binary-tabletype}{\mathtt{tabletype}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-importdesc}{\mathsf{table}}~\mathit{tt} \\ &amp;&amp;|&amp;
   \def\mathdef1033#1{\mathtt{0x#1}}\mathdef1033{02}~~\mathit{mt}{:}\href{../binary/types.html#binary-memtype}{\mathtt{memtype}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-importdesc}{\mathsf{mem}}~\mathit{mt} \\ &amp;&amp;|&amp;
   \def\mathdef1034#1{\mathtt{0x#1}}\mathdef1034{03}~~\mathit{gt}{:}\href{../binary/types.html#binary-globaltype}{\mathtt{globaltype}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-importdesc}{\mathsf{global}}~\mathit{gt} \\ &amp;&amp;|&amp;
-  \def\mathdef1035#1{\mathtt{0x#1}}\mathdef1035{04}~~\mathit{ev}{:}\href{../binary/modules.html#binary-event}{\mathtt{event}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-importdesc}{\mathsf{event}}~\mathit{ev} \\
+  \def\mathdef1035#1{\mathtt{0x#1}}\mathdef1035{04}~~\mathit{evt}{:}\href{../binary/modules.html#binary-event}{\mathtt{event}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-importdesc}{\mathsf{event}}~\mathit{evt} \\
 \end{array}\end{split}\]</div>
 </div>
 <div class="section" id="function-section">
@@ -453,8 +453,8 @@ component of a <a class="reference internal" href="../syntax/modules.html#syntax
 \def\mathdef994#1{{}}\mathdef994{event section} &amp; \href{../binary/modules.html#binary-eventsec}{\mathtt{eventsec}} &amp;::=&amp;
   \mathit{event}^\ast{:}\href{../binary/modules.html#binary-section}{\mathtt{section}}_{13}(\href{../binary/conventions.html#binary-vec}{\mathtt{vec}}(\href{../binary/modules.html#binary-event}{\mathtt{event}})) &amp;\Rightarrow&amp; \mathit{event}^\ast \\
 \def\mathdef994#1{{}}\mathdef994{event} &amp; \href{../binary/modules.html#binary-event}{\mathtt{event}} &amp;::=&amp;
-  \mathit{a}{:}\href{../binary/types.html#binary-attribute}{\mathtt{attribute}}~~\mathit{x}{:}\href{../binary/modules.html#binary-typeidx}{\mathtt{typeidx}}
-    &amp;\Rightarrow&amp; \{ \href{../syntax/modules.html#syntax-event}{\mathsf{attribute}}~\mathit{a}, \href{../syntax/modules.html#syntax-event}{\mathsf{type}}~\mathit{x} \} \\
+  \mathit{eventattr}{:}\href{../binary/types.html#binary-eventattr}{\mathtt{eventattr}}~~\mathit{x}{:}\href{../binary/modules.html#binary-typeidx}{\mathtt{typeidx}}
+    &amp;\Rightarrow&amp; \{ \href{../syntax/modules.html#syntax-event}{\mathsf{eventattr}}~\mathit{eventattr}, \href{../syntax/modules.html#syntax-event}{\mathsf{type}}~\mathit{x} \} \\
 \end{array}\end{split}\]</div>
 </div>
 <div class="section" id="binary-module">

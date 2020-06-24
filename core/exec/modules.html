@@ -132,12 +132,12 @@ The following auxiliary typing rules specify this typing relation relative to a 
 <ul class="simple">
 <li><p>The store entry <span class="math notranslate nohighlight">\(S.\href{../exec/runtime.html#syntax-store}{\mathsf{events}}[a]\)</span> must exist.</p></li>
 <li><p>Let <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span> be the function type <span class="math notranslate nohighlight">\(S.\href{../exec/runtime.html#syntax-store}{\mathsf{events}}[a].\href{../exec/runtime.html#syntax-eventinst}{\mathsf{type}}\)</span>.</p></li>
-<li><p>Then <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-externval}{\mathsf{event}}~a\)</span> is valid with <a class="reference internal" href="../syntax/types.html#syntax-externtype"><span class="std std-ref">external type</span></a> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-externtype}{\mathsf{event}}~S.\href{../exec/runtime.html#syntax-store}{\mathsf{events}}[a].\href{../exec/runtime.html#syntax-eventinst}{\mathsf{attribute}}~\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span>.</p></li>
+<li><p>Then <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-externval}{\mathsf{event}}~a\)</span> is valid with <a class="reference internal" href="../syntax/types.html#syntax-externtype"><span class="std std-ref">external type</span></a> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-externtype}{\mathsf{event}}~S.\href{../exec/runtime.html#syntax-store}{\mathsf{events}}[a].\href{../exec/runtime.html#syntax-eventinst}{\mathsf{eventattr}}~\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span>.</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[\frac{
 }{
-  S \href{../exec/modules.html#valid-externval}{\vdash} \href{../exec/runtime.html#syntax-externval}{\mathsf{event}}~a : \href{../syntax/types.html#syntax-externtype}{\mathsf{event}}~(S.\href{../exec/runtime.html#syntax-store}{\mathsf{events}}[a].\href{../exec/runtime.html#syntax-eventinst}{\mathsf{attribute}})~(S.\href{../exec/runtime.html#syntax-store}{\mathsf{events}}[a].\href{../exec/runtime.html#syntax-eventinst}{\mathsf{type}})
+  S \href{../exec/modules.html#valid-externval}{\vdash} \href{../exec/runtime.html#syntax-externval}{\mathsf{event}}~a : \href{../syntax/types.html#syntax-externtype}{\mathsf{event}}~(S.\href{../exec/runtime.html#syntax-store}{\mathsf{events}}[a].\href{../exec/runtime.html#syntax-eventinst}{\mathsf{eventattr}})~(S.\href{../exec/runtime.html#syntax-store}{\mathsf{events}}[a].\href{../exec/runtime.html#syntax-eventinst}{\mathsf{type}})
 }\]</div>
 </div>
 <div class="section" id="xref-exec-runtime-syntax-externval-mathsf-global-a">
@@ -204,8 +204,8 @@ The following auxiliary typing rules specify this typing relation relative to a 
   S \href{../appendix/properties.html#valid-val}{\vdash} \href{../exec/runtime.html#syntax-ref.extern}{\mathsf{ref{.}extern}}~a : \href{../syntax/types.html#syntax-reftype}{\mathsf{externref}}
 }\]</div>
 </div>
-<div class="section" id="exception-references-xref-exec-runtime-syntax-exnrefaddr-mathsf-ref-exn-a-xref-exec-runtime-syntax-val-mathit-val-n">
-<h3><a class="reference internal" href="runtime.html#syntax-exnrefaddr"><span class="std std-ref">Exception References</span></a> <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-exnrefaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n\)</span><a class="headerlink" href="#exception-references-xref-exec-runtime-syntax-exnrefaddr-mathsf-ref-exn-a-xref-exec-runtime-syntax-val-mathit-val-n" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="exception-references-xref-exec-runtime-syntax-refexnaddr-mathsf-ref-exn-a-xref-exec-runtime-syntax-val-mathit-val-n">
+<h3><a class="reference internal" href="runtime.html#syntax-refexnaddr"><span class="std std-ref">Exception References</span></a> <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n\)</span><a class="headerlink" href="#exception-references-xref-exec-runtime-syntax-refexnaddr-mathsf-ref-exn-a-xref-exec-runtime-syntax-val-mathit-val-n" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>The external value <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-externval}{\mathsf{event}}~a\)</span> must be valid with <a class="reference internal" href="../syntax/types.html#syntax-eventtype"><span class="std std-ref">event type</span></a> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}~[t^n]\href{../syntax/types.html#syntax-functype}{\rightarrow}[]\)</span>.</p></li>
 <li><p>Each value <span class="math notranslate nohighlight">\(val_i\)</span> in <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n\)</span> must have type <span class="math notranslate nohighlight">\(t_i\)</span> in <span class="math notranslate nohighlight">\(t^n\)</span>.</p></li>
@@ -217,7 +217,7 @@ The following auxiliary typing rules specify this typing relation relative to a 
 \qquad
  (S \href{../appendix/properties.html#valid-val}{\vdash} \href{../exec/runtime.html#syntax-val}{\mathit{val}} : t)^n
 }{
-  S \href{../appendix/properties.html#valid-val}{\vdash} \href{../exec/runtime.html#syntax-exnrefaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n : \href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}
+  S \href{../appendix/properties.html#valid-val}{\vdash} \href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n : \href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}
 }\]</div>
 </div>
 </div>
@@ -315,7 +315,7 @@ S' &amp;=&amp; S \href{../syntax/conventions.html#notation-compose}{\oplus} \{\h
 <li><p>Let <span class="math notranslate nohighlight">\(\href{../syntax/modules.html#syntax-event}{\mathit{event}}\)</span> be the <a class="reference internal" href="../syntax/modules.html#syntax-event"><span class="std std-ref">event</span></a> to allocate for the module <span class="math notranslate nohighlight">\(\href{../syntax/modules.html#syntax-module}{\mathit{module}}\)</span>.</p></li>
 <li><p>Let <span class="math notranslate nohighlight">\(a\)</span> be the first free <a class="reference internal" href="runtime.html#syntax-eventaddr"><span class="std std-ref">event address</span></a> in <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
 <li><p>Let <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span> be the <a class="reference internal" href="../syntax/types.html#syntax-functype"><span class="std std-ref">function type</span></a> <span class="math notranslate nohighlight">\(\href{../syntax/modules.html#syntax-module}{\mathit{module}}.\href{../syntax/modules.html#syntax-module}{\mathsf{types}}[\href{../syntax/modules.html#syntax-event}{\mathit{event}}.\href{../syntax/modules.html#syntax-event}{\mathsf{type}}]\)</span>.</p></li>
-<li><p>Let <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-eventinst}{\mathit{eventinst}}\)</span> be the <a class="reference internal" href="runtime.html#syntax-eventinst"><span class="std std-ref">event instance</span></a> <span class="math notranslate nohighlight">\(\{ \href{../exec/runtime.html#syntax-eventinst}{\mathsf{attribute}}~\href{../syntax/modules.html#syntax-event}{\mathit{event}}.\href{../syntax/modules.html#syntax-event}{\mathsf{attribute}}, \href{../exec/runtime.html#syntax-eventinst}{\mathsf{type}}~\href{../syntax/types.html#syntax-functype}{\mathit{functype}} \}\)</span>.</p></li>
+<li><p>Let <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-eventinst}{\mathit{eventinst}}\)</span> be the <a class="reference internal" href="runtime.html#syntax-eventinst"><span class="std std-ref">event instance</span></a> <span class="math notranslate nohighlight">\(\{ \href{../exec/runtime.html#syntax-eventinst}{\mathsf{eventattr}}~\href{../syntax/modules.html#syntax-event}{\mathit{event}}.\href{../syntax/modules.html#syntax-event}{\mathsf{eventattr}}, \href{../exec/runtime.html#syntax-eventinst}{\mathsf{type}}~\href{../syntax/types.html#syntax-functype}{\mathit{functype}} \}\)</span>.</p></li>
 <li><p>Append <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-eventinst}{\mathit{eventinst}}\)</span> to the <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-store}{\mathsf{events}}\)</span> of <span class="math notranslate nohighlight">\(S\)</span>.</p></li>
 </ol>
 <ol class="arabic simple" start="5">
@@ -326,7 +326,7 @@ S' &amp;=&amp; S \href{../syntax/conventions.html#notation-compose}{\oplus} \{\h
 \href{../exec/modules.html#alloc-event}{\mathrm{allocevent}}(S, \href{../syntax/modules.html#syntax-event}{\mathit{event}}, \href{../syntax/modules.html#syntax-module}{\mathit{module}}) &amp;=&amp; S', \href{../exec/runtime.html#syntax-eventaddr}{\mathit{eventaddr}} \\[1ex]
 \mbox{where:} \hfill \\
 \href{../exec/runtime.html#syntax-eventaddr}{\mathit{eventaddr}} &amp;=&amp; |S.\href{../exec/runtime.html#syntax-store}{\mathsf{events}}| \\
-\href{../exec/runtime.html#syntax-eventinst}{\mathit{eventinst}} &amp;=&amp; \{ \href{../exec/runtime.html#syntax-eventinst}{\mathsf{attribute}}~\href{../syntax/modules.html#syntax-event}{\mathit{event}}.\href{../syntax/modules.html#syntax-event}{\mathsf{attribute}}, \href{../exec/runtime.html#syntax-eventinst}{\mathsf{type}}~\href{../syntax/types.html#syntax-functype}{\mathit{functype}} \} \\
+\href{../exec/runtime.html#syntax-eventinst}{\mathit{eventinst}} &amp;=&amp; \{ \href{../exec/runtime.html#syntax-eventinst}{\mathsf{eventattr}}~\href{../syntax/modules.html#syntax-event}{\mathit{event}}.\href{../syntax/modules.html#syntax-event}{\mathsf{eventattr}}, \href{../exec/runtime.html#syntax-eventinst}{\mathsf{type}}~\href{../syntax/types.html#syntax-functype}{\mathit{functype}} \} \\
 S' &amp;=&amp; S \href{../syntax/conventions.html#notation-compose}{\oplus} \{\href{../exec/runtime.html#syntax-store}{\mathsf{events}}~\href{../exec/runtime.html#syntax-eventinst}{\mathit{eventinst}}\} \\
 \end{array}\end{split}\]</div>
 </div>

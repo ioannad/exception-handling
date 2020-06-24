@@ -108,8 +108,8 @@ Thus, the binary format for types corresponds to the encodings of small negative
 \[\begin{split}\begin{array}{llclll&#64;{\qquad\qquad}l}
 \def\mathdef1062#1{{}}\mathdef1062{reference type} &amp; \href{../binary/types.html#binary-reftype}{\mathtt{reftype}} &amp;::=&amp;
   \def\mathdef1103#1{\mathtt{0x#1}}\mathdef1103{70} &amp;\Rightarrow&amp; \href{../syntax/types.html#syntax-reftype}{\mathsf{funcref}} \\ &amp;&amp;|&amp;
-  \def\mathdef1104#1{\mathtt{0x#1}}\mathdef1104{6F} &amp;\Rightarrow&amp; \href{../syntax/types.html#syntax-reftype}{\mathsf{externref}} \\ &amp;&amp;|&amp;
-  \def\mathdef1105#1{\mathtt{0x#1}}\mathdef1105{68} &amp;\Rightarrow&amp; \href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}} \\
+  \def\mathdef1104#1{\mathtt{0x#1}}\mathdef1104{68} &amp;\Rightarrow&amp; \href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}} \\ &amp;&amp;|&amp;
+  \def\mathdef1105#1{\mathtt{0x#1}}\mathdef1105{6F} &amp;\Rightarrow&amp; \href{../syntax/types.html#syntax-reftype}{\mathsf{externref}} \\
 \end{array}\end{split}\]</div>
 </div>
 <div class="section" id="value-types">
@@ -187,16 +187,16 @@ Thus, the binary format for types corresponds to the <a class="reference externa
 \end{array}\end{split}\]</div>
 </div>
 <div class="section" id="event-types">
-<span id="binary-eventtype"></span><span id="binary-attribute"></span><span id="index-10"></span><h2>Event Types<a class="headerlink" href="#event-types" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../syntax/types.html#syntax-eventtype"><span class="std std-ref">Event types</span></a> are encoded as function types with a preceding flag indicating their <a class="reference internal" href="../syntax/types.html#syntax-attribute"><span class="std std-ref">attribute</span></a>.</p>
+<span id="binary-eventtype"></span><span id="binary-eventattr"></span><span id="index-10"></span><h2>Event Types<a class="headerlink" href="#event-types" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../syntax/types.html#syntax-eventtype"><span class="std std-ref">Event types</span></a> are encoded as function types with a preceding flag indicating their <a class="reference internal" href="../syntax/types.html#syntax-eventattr"><span class="std std-ref">attribute</span></a>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{llclll}
 \def\mathdef1062#1{{}}\mathdef1062{event type} &amp; \href{../binary/types.html#binary-eventtype}{\mathtt{eventtype}} &amp;::=&amp;
-  a{:}\href{../binary/types.html#binary-attribute}{\mathtt{attribute}}~~ft{:}\href{../binary/types.html#binary-functype}{\mathtt{functype}} &amp;\Rightarrow&amp; a~ft \\
-\def\mathdef1062#1{{}}\mathdef1062{attribute} &amp; \href{../binary/types.html#binary-attribute}{\mathtt{attribute}} &amp;::=&amp;
+  a{:}\href{../binary/types.html#binary-eventattr}{\mathtt{eventattr}}~~ft{:}\href{../binary/types.html#binary-functype}{\mathtt{functype}} &amp;\Rightarrow&amp; a~ft \\
+\def\mathdef1062#1{{}}\mathdef1062{eventattr} &amp; \href{../binary/types.html#binary-eventattr}{\mathtt{eventattr}} &amp;::=&amp;
   \def\mathdef1112#1{\mathtt{0x#1}}\mathdef1112{00} &amp;\Rightarrow&amp; \href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}} \\
 \end{array}\end{split}\]</div>
-<p><span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}\)</span> is the <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathit{attribute}}\)</span> of an exception, whose function type must have void result.</p>
+<p><span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}\)</span> is the <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathit{eventattr}}\)</span> of an exception, whose function type must have void result.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Currently events can only be exceptions.</p>
