@@ -1347,9 +1347,8 @@ F; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^m~(\href{../syntax/types
 <li><p>Assert: due to <a class="reference internal" href="../valid/instructions.html#valid-try"><span class="std std-ref">validation</span></a>, there are at least <span class="math notranslate nohighlight">\(n\)</span> values on the top of the stack.</p></li>
 <li><p>Pop the values <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n\)</span> from the stack.</p></li>
 <li><p>Let <span class="math notranslate nohighlight">\(L\)</span> be the label whose arity is <span class="math notranslate nohighlight">\(m\)</span> and whose continuation is the end of the <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{try}}\)</span> instruction.</p></li>
-</ol>
-<ol class="arabic simple" start="4">
-<li><p><a class="reference internal" href="#exec-catchn"><span class="std std-ref">Execute</span></a> the administrative instruction <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-catchn}{\mathsf{catch}}_m\)</span> by <a class="reference internal" href="#exec-instr-seq-enter"><span class="std std-ref">entering</span></a> the block <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}_1^\ast\)</span> with label <span class="math notranslate nohighlight">\(L\)</span>.</p></li>
+<li><p>Let <span class="math notranslate nohighlight">\(H\)</span> be the exception handler whose arity is <span class="math notranslate nohighlight">\(m\)</span> and whose continuation is the beginning of <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}_2^\ast\)</span>.</p></li>
+<li><p><a class="reference internal" href="#exec-install-handler"><span class="std std-ref">Install</span></a> the exception handler <cite>H</cite> for the block <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~\href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}_1^\ast\)</span> with label <span class="math notranslate nohighlight">\(L\)</span>.</p></li>
 </ol>
 <div class="math notranslate nohighlight">
 \[\begin{split}~\\[-1ex]
@@ -1363,14 +1362,14 @@ F; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~(\href{../syntax/instr
 <span id="exec-throw"></span><h3><span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{throw}}~x\)</span><a class="headerlink" href="#xref-syntax-instructions-syntax-instr-control-mathsf-throw-x" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li><p>Let <span class="math notranslate nohighlight">\(F\)</span> be the <a class="reference internal" href="conventions.html#exec-notation-textual"><span class="std std-ref">current</span></a> <a class="reference internal" href="runtime.html#syntax-frame"><span class="std std-ref">frame</span></a>.</p></li>
-<li><p>Assert: due to <a class="reference internal" href="../valid/instructions.html#valid-throw"><span class="std std-ref">validation</span></a>, <span class="math notranslate nohighlight">\(F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x]\)</span> exists.</p></li>
-<li><p>Let <span class="math notranslate nohighlight">\(a\)</span> be the <a class="reference internal" href="runtime.html#syntax-eventaddr"><span class="std std-ref">event address</span></a> <span class="math notranslate nohighlight">\(F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x]\)</span>.</p></li>
-<li><p><a class="reference internal" href="#exec-throwaddr"><span class="std std-ref">Throw</span></a> the <a class="reference internal" href="runtime.html#syntax-eventaddr"><span class="std std-ref">event address</span></a> <span class="math notranslate nohighlight">\(a\)</span>.</p></li>
+<li><p>Assert: due to <a class="reference internal" href="../valid/instructions.html#valid-throw"><span class="std std-ref">validation</span></a>, <span class="math notranslate nohighlight">\(F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{exnaddrs}}[x]\)</span> exists.</p></li>
+<li><p>Let <span class="math notranslate nohighlight">\(a\)</span> be the <a class="reference internal" href="runtime.html#syntax-exnaddr"><span class="std std-ref">exception address</span></a> <span class="math notranslate nohighlight">\(F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{exnaddrs}}[x]\)</span>.</p></li>
+<li><p><a class="reference internal" href="#exec-search-handler"><span class="std std-ref">Search</span></a> for an exception handler for the <a class="reference internal" href="runtime.html#syntax-exnaddr"><span class="std std-ref">exception address</span></a> <span class="math notranslate nohighlight">\(a\)</span>.</p></li>
 </ol>
 <div class="math notranslate nohighlight">
 \[\begin{split}~\\[-1ex]
 \begin{array}{lclr&#64;{\qquad}l}
-\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{throw}}~x &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; \href{../exec/runtime.html#syntax-throwaddr}{\mathsf{throw}}~a &amp; (\mathrel{\mbox{if}} F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x] = a) \\
+\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{throw}}~x &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; \href{../exec/runtime.html#syntax-throwaddr}{\mathsf{throw}}~a &amp; (\mathrel{\mbox{if}} F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{exnaddrs}}[x] = a) \\
 \end{array}\end{split}\]</div>
 </div>
 <div class="section" id="xref-syntax-instructions-syntax-instr-control-mathsf-rethrow">
@@ -1385,7 +1384,7 @@ F; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~(\href{../syntax/instr
 </li>
 <li><p>Assert: <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> is of the form <span class="math notranslate nohighlight">\((\href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)\)</span>.</p></li>
 <li><p>Put the values <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast\)</span> on the stack.</p></li>
-<li><p><a class="reference internal" href="#exec-throwaddr"><span class="std std-ref">Throw</span></a> the <a class="reference internal" href="runtime.html#syntax-eventaddr"><span class="std std-ref">event address</span></a> <span class="math notranslate nohighlight">\(a\)</span>.</p></li>
+<li><p><a class="reference internal" href="#exec-search-handler"><span class="std std-ref">Search</span></a>  for an exception handler for the <a class="reference internal" href="runtime.html#syntax-exnaddr"><span class="std std-ref">exception address</span></a> <span class="math notranslate nohighlight">\(a\)</span>.</p></li>
 </ol>
 <div class="math notranslate nohighlight">
 \[\begin{split}~\\[-1ex]
@@ -1406,8 +1405,8 @@ F; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~(\href{../syntax/instr
 </li>
 <li><p>Assert: <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}\)</span> is of the form <span class="math notranslate nohighlight">\((\href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)\)</span>.</p></li>
 <li><p>Let <span class="math notranslate nohighlight">\(F\)</span> be the <a class="reference internal" href="conventions.html#exec-notation-textual"><span class="std std-ref">current</span></a> <a class="reference internal" href="runtime.html#syntax-frame"><span class="std std-ref">frame</span></a>.</p></li>
-<li><p>Assert: due to <a class="reference internal" href="../valid/instructions.html#valid-br-on-exn"><span class="std std-ref">validation</span></a>, <span class="math notranslate nohighlight">\(F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x]\)</span> exists.</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x]=a\)</span>, then:</p>
+<li><p>Assert: due to <a class="reference internal" href="../valid/instructions.html#valid-br-on-exn"><span class="std std-ref">validation</span></a>, <span class="math notranslate nohighlight">\(F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{exnaddrs}}[x]\)</span> exists.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{exnaddrs}}[x]=a\)</span>, then:</p>
 <ol class="loweralpha simple">
 <li><p>Put the values <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast\)</span> on the stack.</p></li>
 <li><p><a class="reference internal" href="#exec-br"><span class="std std-ref">Execute</span></a> the instruction <span class="math notranslate nohighlight">\((\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br}}~l)\)</span>.</p></li>
@@ -1423,8 +1422,8 @@ F; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~(\href{../syntax/instr
 \[\begin{split}~\\[-1ex]
 \begin{array}{lclr&#64;{\qquad}l}
   F; (\href{../syntax/instructions.html#syntax-instr-ref}{\mathsf{ref{.}null}}~\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}})~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; F; \href{../exec/runtime.html#syntax-trap}{\mathsf{trap}} \\
-  F; (\href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; F; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast~(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br}}~l)     &amp; (\mathrel{\mbox{if}} F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x] = a) \\
-  F; (\href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; F; (\href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast) &amp; (\mathrel{\mbox{if}} F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{eventaddrs}}[x] \neq a) \\
+  F; (\href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; F; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast~(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br}}~l)     &amp; (\mathrel{\mbox{if}} F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{exnaddrs}}[x] = a) \\
+  F; (\href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast)~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; F; (\href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^\ast) &amp; (\mathrel{\mbox{if}} F.\href{../exec/runtime.html#syntax-frame}{\mathsf{module}}.\href{../exec/runtime.html#syntax-moduleinst}{\mathsf{exnaddrs}}[x] \neq a) \\
 \end{array}\end{split}\]</div>
 </div>
 <div class="section" id="xref-syntax-instructions-syntax-instr-control-mathsf-br-l">
@@ -1640,17 +1639,78 @@ Therefore, execution of a loop falls off the end, unless a backwards branch is p
 </div>
 </div>
 <div class="section" id="exception-handling">
-<span id="exec-throwaddr"></span><span id="exec-catchn"></span><span id="index-9"></span><h2>Exception Handling<a class="headerlink" href="#exception-handling" title="Permalink to this headline">¶</a></h2>
+<span id="exec-exn-handling"></span><span id="exec-catchn"></span><span id="index-9"></span><h2>Exception Handling<a class="headerlink" href="#exception-handling" title="Permalink to this headline">¶</a></h2>
 <p>The following auxiliary rules define the semantics of handling thrown exceptions
-inside <a class="reference internal" href="runtime.html#syntax-ctxt-throw"><span class="std std-ref">throw contexts</span></a>.</p>
-<p><em>TODO: Add rules prose, which may involve having defined return values for unresolved throws.</em></p>
+inside <a class="reference internal" href="runtime.html#syntax-ctxt-throw"><span class="std std-ref">throw contexts</span></a>, such as installing, searching for,
+and exiting an <a class="reference internal" href="runtime.html#syntax-handler"><span class="std std-ref">exception handler</span></a> <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-catchn}{\mathsf{catch}}_n\)</span>.</p>
+<div class="section" id="installing-an-exception-handler-h-for-a-block-xref-syntax-instructions-syntax-instr-mathit-instr-ast-with-label-l">
+<span id="exec-install-handler"></span><h3>Installing an exception handler <span class="math notranslate nohighlight">\(H\)</span> for a block <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}^\ast\)</span> with label <span class="math notranslate nohighlight">\(L\)</span><a class="headerlink" href="#installing-an-exception-handler-h-for-a-block-xref-syntax-instructions-syntax-instr-mathit-instr-ast-with-label-l" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Let <span class="math notranslate nohighlight">\(H\)</span> be the exception handler <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-catchn}{\mathsf{catch}}_m{\href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}'^\ast}\)</span>.</p></li>
+<li><p>Push <span class="math notranslate nohighlight">\(H\)</span> on the stack.</p></li>
+<li><p><a class="reference internal" href="#exec-instr-seq-enter"><span class="std std-ref">Enter</span></a> the block <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}^\ast\)</span> with label <span class="math notranslate nohighlight">\(L\)</span>.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No formal reduction rule is needed for installing an exception handler
+because it is an <a class="reference internal" href="runtime.html#syntax-instr-admin"><span class="std std-ref">administrative instruction</span></a>
+which exception throwing instructions will search for.</p>
+</div>
+</div>
+<div class="section" id="exiting-an-exception-handler-with-arity-m-from-a-block-with-label-l">
+<h3>Exiting an exception handler with arity <span class="math notranslate nohighlight">\(m\)</span> from a block with label <span class="math notranslate nohighlight">\(L\)</span><a class="headerlink" href="#exiting-an-exception-handler-with-arity-m-from-a-block-with-label-l" title="Permalink to this headline">¶</a></h3>
+<p>When the block is exited without a throw <a class="reference internal" href="#exec-handle-exn"><span class="std std-ref">triggering</span></a>
+the exception handler, then the following steps are performed.</p>
+<ol class="arabic simple">
+<li><p>Assert: due to validation, there are <span class="math notranslate nohighlight">\(m\)</span> values on the top of the stack.</p></li>
+<li><p>Pop the values <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-val}{\mathit{val}}^m\)</span> from the stack.</p></li>
+<li><p>Assert: due to <a class="reference internal" href="../valid/instructions.html#valid-instr-seq"><span class="std std-ref">validation</span></a>, the exception handler <span class="math notranslate nohighlight">\(H\)</span> is now on the top of the stack.</p></li>
+<li><p>Pop the exception handler from the stack.</p></li>
+<li><p>Push <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-val}{\mathit{val}}^m\)</span> back to the stack.</p></li>
+<li><p>Jump to the position after the <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{end}}\)</span> of the originating <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{try}}\)</span> instruction associated with the label <span class="math notranslate nohighlight">\(L\)</span>.</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}~\\[-1ex]
+\begin{array}{lcl&#64;{\qquad}l}
+\href{../exec/runtime.html#syntax-catchn}{\mathsf{catch}}_m\{instr^\ast\}~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^m~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{end}} &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^m
+\end{array}\end{split}\]</div>
+</div>
+<div class="section" id="searching-for-an-exception-handler-for-the-exception-address-a">
+<span id="exec-throwaddr"></span><span id="exec-search-handler"></span><h3>Searching for an exception handler for the <a class="reference internal" href="runtime.html#syntax-exnaddr"><span class="std std-ref">exception address</span></a> <span class="math notranslate nohighlight">\(a\)</span><a class="headerlink" href="#searching-for-an-exception-handler-for-the-exception-address-a" title="Permalink to this headline">¶</a></h3>
+<p>When a throw or a rethrow occurs, labels and call frames are popped if necessary,
+until an exception handler is found on the top of the stack.</p>
+<ol class="arabic simple">
+<li><p>Assert: due to validation, <span class="math notranslate nohighlight">\(S.\href{../exec/runtime.html#syntax-store}{\mathsf{exceptions}}[a]\)</span> exists.</p></li>
+<li><p>Let <span class="math notranslate nohighlight">\([t^n] \href{../syntax/types.html#syntax-functype}{\rightarrow} []\)</span> be the type of the exception instance <span class="math notranslate nohighlight">\(S.\href{../exec/runtime.html#syntax-store}{\mathsf{exceptions}}[a]\)</span>.</p></li>
+<li><p>Assert: due to validation, there are <span class="math notranslate nohighlight">\(n\)</span> values on the top of the stack.</p></li>
+<li><p>Pop the <span class="math notranslate nohighlight">\(n\)</span> values <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n\)</span> from the stack.</p></li>
+<li><p>While the stack is not empty and the top of the stack is not an exception handler, do:</p>
+<ol class="loweralpha simple">
+<li><p>Pop the top element from the stack.</p></li>
+</ol>
+</li>
+<li><p>The stack is now either empty or there is an exception handler on the top.</p></li>
+</ol>
+<ol class="arabic simple" id="exec-handle-exn" start="7">
+<li><p>If there is an exception handler <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-catchn}{\mathsf{catch}}_m\{\href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}^\ast\}\)</span> on the top of the stack, then:</p>
+<ol class="loweralpha simple">
+<li><p>Assert: the last element popped from the stack was the label <span class="math notranslate nohighlight">\(L\)</span> whose continuation is the end of the originating <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{try}}\)</span> instruction.</p></li>
+<li><p>Pop the exception handler from the stack.</p></li>
+<li><p>Put the label <span class="math notranslate nohighlight">\(L\)</span> back on the stack.</p></li>
+<li><p>Enter the block <span class="math notranslate nohighlight">\((\href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n) \href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}^\ast\)</span> with label <span class="math notranslate nohighlight">\(L\)</span>.</p></li>
+</ol>
+</li>
+<li><p>Else the stack is empty.</p></li>
+<li><p><em>TODO: return TBA administrative instruction for the unresolved throw.</em></p></li>
+</ol>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{rcl}
-S;~F;~\href{../exec/runtime.html#syntax-catchn}{\mathsf{catch}}_m\{\href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}^\ast\}~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^m~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{end}} &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp; S;~F;~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^m \\
-S;~F;~\href{../exec/runtime.html#syntax-catchn}{\mathsf{catch}}_m\{\href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}^\ast\}~\href{../exec/runtime.html#syntax-ctxt-throw}{T}[\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~[\_]~(\href{../exec/runtime.html#syntax-throwaddr}{\mathsf{throw}}~a)]~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{end}} &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp;
+S;~F;~\href{../exec/runtime.html#syntax-catchn}{\mathsf{catch}}_m\{\href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}^\ast\}~\href{../exec/runtime.html#syntax-ctxt-throw}{T}[\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~(\href{../exec/runtime.html#syntax-throwaddr}{\mathsf{throw}}~a)]~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{end}} &amp;\href{../exec/conventions.html#formal-notation}{\hookrightarrow}&amp;
    S;~F;~\href{../exec/runtime.html#syntax-label}{\mathsf{label}}_m\{\}~(\href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}~a~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n)~{\href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}}^\ast~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{end}} \\
-&amp;&amp; \hspace{-12ex} (\mathrel{\mbox{if}} S.\href{../exec/runtime.html#syntax-store}{\mathsf{events}}[a]=\{\href{../syntax/modules.html#syntax-event}{\mathsf{eventattr}}~\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}, \href{../syntax/modules.html#syntax-event}{\mathsf{type}}~[t^n]\href{../syntax/types.html#syntax-functype}{\rightarrow}[]\}) \\
+&amp;&amp; \hspace{-12ex} (\mathrel{\mbox{if}} S.\href{../exec/runtime.html#syntax-store}{\mathsf{exceptions}}[a]=\{\href{../syntax/modules.html#syntax-exn}{\mathsf{type}}~[t^n]\href{../syntax/types.html#syntax-functype}{\rightarrow}[]\}) \\
+%   S;\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~(\href{../exec/runtime.html#syntax-throwaddr}{\mathsf{throw}}~a) &amp; \href{../exec/conventions.html#formal-notation}{\hookrightarrow} &amp; TBA \\
 \end{array}\end{split}\]</div>
+</div>
 </div>
 <div class="section" id="function-calls">
 <span id="index-10"></span><h2>Function Calls<a class="headerlink" href="#function-calls" title="Permalink to this headline">¶</a></h2>

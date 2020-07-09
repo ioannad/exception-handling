@@ -92,7 +92,7 @@ except that <a class="reference internal" href="../syntax/modules.html#syntax-fu
 <p>This separation enables <em>parallel</em> and <em>streaming</em> compilation of the functions in a module.</p>
 </div>
 <div class="section" id="indices">
-<span id="binary-index"></span><span id="binary-labelidx"></span><span id="binary-localidx"></span><span id="binary-dataidx"></span><span id="binary-elemidx"></span><span id="binary-globalidx"></span><span id="binary-eventidx"></span><span id="binary-memidx"></span><span id="binary-tableidx"></span><span id="binary-funcidx"></span><span id="binary-typeidx"></span><span id="index-0"></span><h2>Indices<a class="headerlink" href="#indices" title="Permalink to this headline">¶</a></h2>
+<span id="binary-index"></span><span id="binary-labelidx"></span><span id="binary-localidx"></span><span id="binary-dataidx"></span><span id="binary-elemidx"></span><span id="binary-globalidx"></span><span id="binary-exnidx"></span><span id="binary-memidx"></span><span id="binary-tableidx"></span><span id="binary-funcidx"></span><span id="binary-typeidx"></span><span id="index-0"></span><h2>Indices<a class="headerlink" href="#indices" title="Permalink to this headline">¶</a></h2>
 <p>All <a class="reference internal" href="../syntax/modules.html#syntax-index"><span class="std std-ref">indices</span></a> are encoded with their respective value.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{llclll}
@@ -100,7 +100,7 @@ except that <a class="reference internal" href="../syntax/modules.html#syntax-fu
 \def\mathdef994#1{{}}\mathdef994{function index} &amp; \href{../binary/modules.html#binary-funcidx}{\mathtt{funcidx}} &amp;::=&amp; x{:}\href{../binary/values.html#binary-int}{\def\mathdef999#1{{\mathtt{u}#1}}\mathdef999{\mathtt{32}}} &amp;\Rightarrow&amp; x \\
 \def\mathdef994#1{{}}\mathdef994{table index} &amp; \href{../binary/modules.html#binary-tableidx}{\mathtt{tableidx}} &amp;::=&amp; x{:}\href{../binary/values.html#binary-int}{\def\mathdef999#1{{\mathtt{u}#1}}\mathdef999{\mathtt{32}}} &amp;\Rightarrow&amp; x \\
 \def\mathdef994#1{{}}\mathdef994{memory index} &amp; \href{../binary/modules.html#binary-memidx}{\mathtt{memidx}} &amp;::=&amp; x{:}\href{../binary/values.html#binary-int}{\def\mathdef999#1{{\mathtt{u}#1}}\mathdef999{\mathtt{32}}} &amp;\Rightarrow&amp; x \\
-\def\mathdef994#1{{}}\mathdef994{event index} &amp; \href{../binary/modules.html#binary-eventidx}{\mathtt{eventidx}} &amp;::=&amp; x{:}\href{../binary/values.html#binary-int}{\def\mathdef999#1{{\mathtt{u}#1}}\mathdef999{\mathtt{32}}} &amp;\Rightarrow&amp; x \\
+\def\mathdef994#1{{}}\mathdef994{exception index} &amp; \href{../binary/modules.html#binary-exnidx}{\mathtt{exnidx}} &amp;::=&amp; x{:}\href{../binary/values.html#binary-int}{\def\mathdef999#1{{\mathtt{u}#1}}\mathdef999{\mathtt{32}}} &amp;\Rightarrow&amp; x \\
 \def\mathdef994#1{{}}\mathdef994{global index} &amp; \href{../binary/modules.html#binary-globalidx}{\mathtt{globalidx}} &amp;::=&amp; x{:}\href{../binary/values.html#binary-int}{\def\mathdef999#1{{\mathtt{u}#1}}\mathdef999{\mathtt{32}}} &amp;\Rightarrow&amp; x \\
 \def\mathdef994#1{{}}\mathdef994{element index} &amp; \href{../binary/modules.html#binary-elemidx}{\mathtt{elemidx}} &amp;::=&amp; x{:}\href{../binary/values.html#binary-int}{\def\mathdef999#1{{\mathtt{u}#1}}\mathdef999{\mathtt{32}}} &amp;\Rightarrow&amp; x \\
 \def\mathdef994#1{{}}\mathdef994{data index} &amp; \href{../binary/modules.html#binary-dataidx}{\mathtt{dataidx}} &amp;::=&amp; x{:}\href{../binary/values.html#binary-int}{\def\mathdef999#1{{\mathtt{u}#1}}\mathdef999{\mathtt{32}}} &amp;\Rightarrow&amp; x \\
@@ -185,7 +185,7 @@ The module is malformed if the size does not match the length of the binary cont
 <td><p><a class="reference internal" href="#binary-datacountsec"><span class="std std-ref">data count section</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>13</p></td>
-<td><p><a class="reference internal" href="#binary-eventsec"><span class="std std-ref">event section</span></a></p></td>
+<td><p><a class="reference internal" href="#binary-exnsec"><span class="std std-ref">exception section</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -233,7 +233,7 @@ It decodes into a vector of <a class="reference internal" href="../syntax/module
   \def\mathdef1032#1{\mathtt{0x#1}}\mathdef1032{01}~~\mathit{tt}{:}\href{../binary/types.html#binary-tabletype}{\mathtt{tabletype}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-importdesc}{\mathsf{table}}~\mathit{tt} \\ &amp;&amp;|&amp;
   \def\mathdef1033#1{\mathtt{0x#1}}\mathdef1033{02}~~\mathit{mt}{:}\href{../binary/types.html#binary-memtype}{\mathtt{memtype}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-importdesc}{\mathsf{mem}}~\mathit{mt} \\ &amp;&amp;|&amp;
   \def\mathdef1034#1{\mathtt{0x#1}}\mathdef1034{03}~~\mathit{gt}{:}\href{../binary/types.html#binary-globaltype}{\mathtt{globaltype}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-importdesc}{\mathsf{global}}~\mathit{gt} \\ &amp;&amp;|&amp;
-  \def\mathdef1035#1{\mathtt{0x#1}}\mathdef1035{04}~~\mathit{evt}{:}\href{../binary/modules.html#binary-event}{\mathtt{event}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-importdesc}{\mathsf{event}}~\mathit{evt} \\
+  \def\mathdef1035#1{\mathtt{0x#1}}\mathdef1035{04}~~\mathit{et}{:}\href{../binary/modules.html#binary-exn}{\mathtt{exn}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-importdesc}{\mathsf{exception}}~\mathit{et} \\
 \end{array}\end{split}\]</div>
 </div>
 <div class="section" id="function-section">
@@ -300,7 +300,7 @@ It decodes into a vector of <a class="reference internal" href="../syntax/module
   \def\mathdef1037#1{\mathtt{0x#1}}\mathdef1037{01}~~x{:}\href{../binary/modules.html#binary-tableidx}{\mathtt{tableidx}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-exportdesc}{\mathsf{table}}~x \\ &amp;&amp;|&amp;
   \def\mathdef1038#1{\mathtt{0x#1}}\mathdef1038{02}~~x{:}\href{../binary/modules.html#binary-memidx}{\mathtt{memidx}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-exportdesc}{\mathsf{mem}}~x \\ &amp;&amp;|&amp;
   \def\mathdef1039#1{\mathtt{0x#1}}\mathdef1039{03}~~x{:}\href{../binary/modules.html#binary-globalidx}{\mathtt{globalidx}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-exportdesc}{\mathsf{global}}~x \\ &amp;&amp;|&amp;
-  \def\mathdef1040#1{\mathtt{0x#1}}\mathdef1040{04}~~x{:}\href{../binary/modules.html#binary-eventidx}{\mathtt{eventidx}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-exportdesc}{\mathsf{event}}~x \\
+  \def\mathdef1040#1{\mathtt{0x#1}}\mathdef1040{04}~~x{:}\href{../binary/modules.html#binary-exnidx}{\mathtt{exnidx}} &amp;\Rightarrow&amp; \href{../syntax/modules.html#syntax-exportdesc}{\mathsf{exception}}~x \\
 \end{array}\end{split}\]</div>
 </div>
 <div class="section" id="start-section">
@@ -443,18 +443,17 @@ occurs before the code section, so a single-pass validator can use this count
 instead of deferring validation.</p>
 </div>
 </div>
-<div class="section" id="event-section">
-<span id="binary-eventsec"></span><span id="binary-event"></span><span id="index-15"></span><h2>Event Section<a class="headerlink" href="#event-section" title="Permalink to this headline">¶</a></h2>
-<p>The <em>event section</em> has the id 13.
-It decodes into a vector of <a class="reference internal" href="../syntax/modules.html#syntax-event"><span class="std std-ref">events</span></a> that represent the <span class="math notranslate nohighlight">\(\href{../syntax/modules.html#syntax-module}{\mathsf{events}}\)</span>
+<div class="section" id="exception-section">
+<span id="binary-exnsec"></span><span id="binary-exn"></span><span id="index-15"></span><h2>Exception Section<a class="headerlink" href="#exception-section" title="Permalink to this headline">¶</a></h2>
+<p>The <em>exception section</em> has the id 13.
+It decodes into a vector of <a class="reference internal" href="../syntax/modules.html#syntax-exn"><span class="std std-ref">exceptions</span></a> that represent the <span class="math notranslate nohighlight">\(\href{../syntax/modules.html#syntax-module}{\mathsf{exceptions}}\)</span>
 component of a <a class="reference internal" href="../syntax/modules.html#syntax-module"><span class="std std-ref">module</span></a>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{llclll}
-\def\mathdef994#1{{}}\mathdef994{event section} &amp; \href{../binary/modules.html#binary-eventsec}{\mathtt{eventsec}} &amp;::=&amp;
-  \mathit{event}^\ast{:}\href{../binary/modules.html#binary-section}{\mathtt{section}}_{13}(\href{../binary/conventions.html#binary-vec}{\mathtt{vec}}(\href{../binary/modules.html#binary-event}{\mathtt{event}})) &amp;\Rightarrow&amp; \mathit{event}^\ast \\
-\def\mathdef994#1{{}}\mathdef994{event} &amp; \href{../binary/modules.html#binary-event}{\mathtt{event}} &amp;::=&amp;
-  \mathit{eventattr}{:}\href{../binary/types.html#binary-eventattr}{\mathtt{eventattr}}~~\mathit{x}{:}\href{../binary/modules.html#binary-typeidx}{\mathtt{typeidx}}
-    &amp;\Rightarrow&amp; \{ \href{../syntax/modules.html#syntax-event}{\mathsf{eventattr}}~\mathit{eventattr}, \href{../syntax/modules.html#syntax-event}{\mathsf{type}}~\mathit{x} \} \\
+\def\mathdef994#1{{}}\mathdef994{exception section} &amp; \href{../binary/modules.html#binary-exnsec}{\mathtt{exnsec}} &amp;::=&amp;
+  \mathit{exception}^\ast{:}\href{../binary/modules.html#binary-section}{\mathtt{section}}_{13}(\href{../binary/conventions.html#binary-vec}{\mathtt{vec}}(\href{../binary/modules.html#binary-exn}{\mathtt{exn}})) &amp;\Rightarrow&amp; \mathit{exception}^\ast \\
+\def\mathdef994#1{{}}\mathdef994{exception} &amp; \href{../binary/modules.html#binary-exn}{\mathtt{exn}} &amp;::=&amp;
+  \mathit{x}{:}\href{../binary/modules.html#binary-typeidx}{\mathtt{typeidx}} &amp;\Rightarrow&amp; \{ \href{../syntax/modules.html#syntax-exn}{\mathsf{type}}~\mathit{x} \} \\
 \end{array}\end{split}\]</div>
 </div>
 <div class="section" id="binary-module">
@@ -488,7 +487,7 @@ Furthermore, it must be present if any <span class="math notranslate nohighlight
   \href{../binary/modules.html#binary-customsec}{\mathtt{customsec}}^\ast \\ &amp;&amp;&amp;
   \href{../syntax/modules.html#syntax-mem}{\mathit{mem}}^\ast{:\,}\href{../binary/modules.html#binary-memsec}{\mathtt{memsec}} \\ &amp;&amp;&amp;
   \href{../binary/modules.html#binary-customsec}{\mathtt{customsec}}^\ast \\ &amp;&amp;&amp;
-  \href{../syntax/modules.html#syntax-event}{\mathit{event}}^\ast{:\,}\href{../binary/modules.html#binary-eventsec}{\mathtt{eventsec}} \\ &amp;&amp;&amp;
+  \href{../syntax/modules.html#syntax-exn}{\mathit{exn}}^\ast{:\,}\href{../binary/modules.html#binary-exnsec}{\mathtt{exnsec}} \\ &amp;&amp;&amp;
   \href{../binary/modules.html#binary-customsec}{\mathtt{customsec}}^\ast \\ &amp;&amp;&amp;
   \href{../syntax/modules.html#syntax-global}{\mathit{global}}^\ast{:\,}\href{../binary/modules.html#binary-globalsec}{\mathtt{globalsec}} \\ &amp;&amp;&amp;
   \href{../binary/modules.html#binary-customsec}{\mathtt{customsec}}^\ast \\ &amp;&amp;&amp;
@@ -510,7 +509,7 @@ Furthermore, it must be present if any <span class="math notranslate nohighlight
     \href{../syntax/modules.html#syntax-module}{\mathsf{funcs}}~\href{../syntax/modules.html#syntax-func}{\mathit{func}}^n, \\
     \href{../syntax/modules.html#syntax-module}{\mathsf{tables}}~\href{../syntax/modules.html#syntax-table}{\mathit{table}}^\ast, \\
     \href{../syntax/modules.html#syntax-module}{\mathsf{mems}}~\href{../syntax/modules.html#syntax-mem}{\mathit{mem}}^\ast, \\
-    \href{../syntax/modules.html#syntax-module}{\mathsf{events}}~\href{../syntax/modules.html#syntax-event}{\mathit{event}}^\ast, \\
+    \href{../syntax/modules.html#syntax-module}{\mathsf{exceptions}}~\href{../syntax/modules.html#syntax-exn}{\mathit{exn}}^\ast, \\
     \href{../syntax/modules.html#syntax-module}{\mathsf{globals}}~\href{../syntax/modules.html#syntax-global}{\mathit{global}}^\ast, \\
     \href{../syntax/modules.html#syntax-module}{\mathsf{elems}}~\href{../syntax/modules.html#syntax-elem}{\mathit{elem}}^\ast, \\
     \href{../syntax/modules.html#syntax-module}{\mathsf{datas}}~\href{../syntax/modules.html#syntax-data}{\mathit{data}}^m, \\

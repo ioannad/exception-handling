@@ -764,13 +764,13 @@ the instruction sequence <span class="math notranslate nohighlight">\(\href{../s
 <div class="section" id="xref-syntax-instructions-syntax-instr-control-mathsf-throw-x">
 <span id="valid-throw"></span><h3><span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{throw}}~x\)</span><a class="headerlink" href="#xref-syntax-instructions-syntax-instr-control-mathsf-throw-x" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>The event <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{events}}[x]\)</span> must be defined in the context.</p></li>
-<li><p>Let <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}} [t^\ast] \href{../syntax/types.html#syntax-functype}{\rightarrow} []\)</span> be its <a class="reference internal" href="../syntax/types.html#syntax-eventtype"><span class="std std-ref">event type</span></a>.</p></li>
+<li><p>The exception <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{exceptions}}[x]\)</span> must be defined in the context.</p></li>
+<li><p>Let <span class="math notranslate nohighlight">\([t^\ast] \href{../syntax/types.html#syntax-functype}{\rightarrow} []\)</span> be its <a class="reference internal" href="../syntax/types.html#syntax-exntype"><span class="std std-ref">exception type</span></a>.</p></li>
 <li><p>Then the instruction is valid with type <span class="math notranslate nohighlight">\([t_1^\ast t^\ast] \href{../syntax/types.html#syntax-functype}{\rightarrow} [t_2^\ast]\)</span>, for any sequences of  <a class="reference internal" href="../syntax/types.html#syntax-valtype"><span class="std std-ref">value types</span></a> <span class="math notranslate nohighlight">\(t_1^\ast\)</span> and <span class="math notranslate nohighlight">\(t_2^\ast\)</span>.</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[\frac{
-  C.\href{../valid/conventions.html#context}{\mathsf{events}}[x] = \href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}} [t^\ast] \href{../syntax/types.html#syntax-functype}{\rightarrow} []
+  C.\href{../valid/conventions.html#context}{\mathsf{exceptions}}[x] = [t^\ast] \href{../syntax/types.html#syntax-functype}{\rightarrow} []
 }{
   C \href{../valid/instructions.html#valid-instr}{\vdash} \href{../syntax/instructions.html#syntax-instr-control}{\mathsf{throw}}~x : [t_1^\ast t^\ast] \href{../syntax/types.html#syntax-functype}{\rightarrow} [t_2^\ast]
 }\]</div>
@@ -798,16 +798,16 @@ the instruction sequence <span class="math notranslate nohighlight">\(\href{../s
 <span id="valid-br-on-exn"></span><h3><span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x\)</span><a class="headerlink" href="#xref-syntax-instructions-syntax-instr-control-mathsf-br-on-exn-l-x" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>The label <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{labels}}[l]\)</span> must be defined in the context.</p></li>
-<li><p>The event <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{events}}[x]\)</span> must be defined in the context.</p></li>
+<li><p>The exception <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{exceptions}}[x]\)</span> must be defined in the context.</p></li>
 <li><p>Let <span class="math notranslate nohighlight">\([t^\ast]\)</span> be the <a class="reference internal" href="../syntax/types.html#syntax-resulttype"><span class="std std-ref">result type</span></a> <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{labels}}[l]\)</span>.</p></li>
-<li><p>The event <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{events}}[x]\)</span> must be <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}~[t^\ast]\href{../syntax/types.html#syntax-functype}{\rightarrow}[]\)</span>.</p></li>
+<li><p>The exception <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{exceptions}}[x]\)</span> must be <span class="math notranslate nohighlight">\([t^\ast]\href{../syntax/types.html#syntax-functype}{\rightarrow}[]\)</span>.</p></li>
 <li><p>Then the instruction is valid with type <span class="math notranslate nohighlight">\([\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}]\href{../syntax/types.html#syntax-functype}{\rightarrow}[\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}]\)</span></p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[\frac{
   C.\href{../valid/conventions.html#context}{\mathsf{labels}}[l]=[t^\ast]
 \qquad
-  C.\href{../valid/conventions.html#context}{\mathsf{events}}[x]=\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}~[t^\ast]\href{../syntax/types.html#syntax-functype}{\rightarrow}[]
+  C.\href{../valid/conventions.html#context}{\mathsf{exceptions}}[x]=[t^\ast]\href{../syntax/types.html#syntax-functype}{\rightarrow}[]
 }{
   C \href{../valid/instructions.html#valid-instr}{\vdash} \href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x : [\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}]\href{../syntax/types.html#syntax-functype}{\rightarrow}[\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}]
 }\]</div>

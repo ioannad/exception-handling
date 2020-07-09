@@ -186,20 +186,18 @@ Thus, the binary format for types corresponds to the <a class="reference externa
   \def\mathdef1111#1{\mathtt{0x#1}}\mathdef1111{01} &amp;\Rightarrow&amp; \href{../syntax/types.html#syntax-mut}{\mathsf{var}} \\
 \end{array}\end{split}\]</div>
 </div>
-<div class="section" id="event-types">
-<span id="binary-eventtype"></span><span id="binary-eventattr"></span><span id="index-10"></span><h2>Event Types<a class="headerlink" href="#event-types" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../syntax/types.html#syntax-eventtype"><span class="std std-ref">Event types</span></a> are encoded as function types with a preceding flag indicating their <a class="reference internal" href="../syntax/types.html#syntax-eventattr"><span class="std std-ref">attribute</span></a>.</p>
+<div class="section" id="exception-types">
+<span id="binary-exntype"></span><span id="index-10"></span><h2>Exception Types<a class="headerlink" href="#exception-types" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="../syntax/types.html#syntax-exntype"><span class="std std-ref">Exception types</span></a> are encoded as function types with a preceding flag, reserving a bit for future extensions.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{llclll}
-\def\mathdef1062#1{{}}\mathdef1062{event type} &amp; \href{../binary/types.html#binary-eventtype}{\mathtt{eventtype}} &amp;::=&amp;
-  a{:}\href{../binary/types.html#binary-eventattr}{\mathtt{eventattr}}~~ft{:}\href{../binary/types.html#binary-functype}{\mathtt{functype}} &amp;\Rightarrow&amp; a~ft \\
-\def\mathdef1062#1{{}}\mathdef1062{eventattr} &amp; \href{../binary/types.html#binary-eventattr}{\mathtt{eventattr}} &amp;::=&amp;
-  \def\mathdef1112#1{\mathtt{0x#1}}\mathdef1112{00} &amp;\Rightarrow&amp; \href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}} \\
+\def\mathdef1062#1{{}}\mathdef1062{exception type} &amp; \href{../binary/types.html#binary-exntype}{\mathtt{exntype}} &amp;::=&amp;
+  ft{:}\href{../binary/types.html#binary-functype}{\mathtt{functype}} &amp;\Rightarrow&amp; \def\mathdef1112#1{\mathtt{0x#1}}\mathdef1112{00}~ft \\
 \end{array}\end{split}\]</div>
-<p><span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathsf{exception}}\)</span> is the <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-eventtype}{\mathit{eventattr}}\)</span> of an exception, whose function type must have void result.</p>
+<p>The <span class="math notranslate nohighlight">\(\href{../binary/types.html#binary-functype}{\mathtt{functype}}\)</span> of an exception must have void result.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Currently events can only be exceptions.</p>
+<p>In future versions of WebAssembly the preceeding flag could take more values, generalising exceptions to events.</p>
 </div>
 </div>
 </div>
