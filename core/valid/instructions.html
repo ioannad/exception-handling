@@ -800,13 +800,14 @@ the instruction sequence <span class="math notranslate nohighlight">\(\href{../s
 <li><p>The label <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{labels}}[l]\)</span> must be defined in the context.</p></li>
 <li><p>The exception <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{exceptions}}[x]\)</span> must be defined in the context.</p></li>
 <li><p>Let <span class="math notranslate nohighlight">\([t^\ast]\)</span> be the <a class="reference internal" href="../syntax/types.html#syntax-resulttype"><span class="std std-ref">result type</span></a> <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{labels}}[l]\)</span>.</p></li>
-<li><p>The exception <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{exceptions}}[x]\)</span> must be <span class="math notranslate nohighlight">\([t^\ast]\href{../syntax/types.html#syntax-functype}{\rightarrow}[]\)</span>.</p></li>
+<li><p>Assert: the exception <span class="math notranslate nohighlight">\(C.\href{../valid/conventions.html#context}{\mathsf{exceptions}}[x]\)</span> is <span class="math notranslate nohighlight">\([t'^\ast]\href{../syntax/types.html#syntax-functype}{\rightarrow}[]\)</span>.</p></li>
+<li><p>The type sequence <span class="math notranslate nohighlight">\(t'^\ast\)</span> must be the same as the type sequence <span class="math notranslate nohighlight">\(t^\ast\)</span>.</p></li>
 <li><p>Then the instruction is valid with type <span class="math notranslate nohighlight">\([\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}]\href{../syntax/types.html#syntax-functype}{\rightarrow}[\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}]\)</span></p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[\frac{
   C.\href{../valid/conventions.html#context}{\mathsf{labels}}[l]=[t^\ast]
-\qquad
+  \qquad
   C.\href{../valid/conventions.html#context}{\mathsf{exceptions}}[x]=[t^\ast]\href{../syntax/types.html#syntax-functype}{\rightarrow}[]
 }{
   C \href{../valid/instructions.html#valid-instr}{\vdash} \href{../syntax/instructions.html#syntax-instr-control}{\mathsf{br\_on\_exn}}~l~x : [\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}]\href{../syntax/types.html#syntax-functype}{\rightarrow}[\href{../syntax/types.html#syntax-reftype}{\mathsf{exnref}}]

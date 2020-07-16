@@ -152,7 +152,7 @@ the expression <span class="math notranslate nohighlight">\(\href{../syntax/inst
 <div class="section" id="exceptions">
 <span id="valid-exn"></span><span id="index-3"></span><h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
 <p>Exceptions <span class="math notranslate nohighlight">\(\href{../syntax/modules.html#syntax-exn}{\mathit{exn}}\)</span> are classified by their <a class="reference internal" href="../syntax/types.html#syntax-exntype"><span class="std std-ref">exception type</span></a>,
-which contains an index to a <a class="reference internal" href="../syntax/types.html#syntax-functype"><span class="std std-ref">function type</span></a> with void result.</p>
+which contains an index to a <a class="reference internal" href="../syntax/types.html#syntax-functype"><span class="std std-ref">function type</span></a> with empty result.</p>
 <div class="section" id="xref-syntax-modules-syntax-exn-mathsf-type-x">
 <h3><span class="math notranslate nohighlight">\(\{ \href{../syntax/modules.html#syntax-exn}{\mathsf{type}}~x \}\)</span><a class="headerlink" href="#xref-syntax-modules-syntax-exn-mathsf-type-x" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -607,13 +607,13 @@ the segment <span class="math notranslate nohighlight">\(\href{../syntax/modules
   \qquad
   \mathit{imt}^\ast = \href{../syntax/types.html#syntax-externtype}{\mathrm{mems}}(\mathit{it}^\ast)
   \\
-  \mathit{iexnt}^\ast = \href{../syntax/types.html#syntax-externtype}{\mathrm{exceptions}}(\mathit{it}^\ast)
+  \mathit{iet}^\ast = \href{../syntax/types.html#syntax-externtype}{\mathrm{exceptions}}(\mathit{it}^\ast)
   \qquad
   \mathit{igt}^\ast = \href{../syntax/types.html#syntax-externtype}{\mathrm{globals}}(\mathit{it}^\ast)
   \\
   x^\ast = \href{../syntax/modules.html#syntax-funcidx}{\mathrm{funcidx}}(\href{../syntax/modules.html#syntax-module}{\mathit{module}} \href{../syntax/conventions.html#notation-replace}{\mathrel{\mbox{with}}} \href{../syntax/modules.html#syntax-module}{\mathsf{funcs}} = \epsilon \href{../syntax/conventions.html#notation-replace}{\mathrel{\mbox{with}}} \href{../syntax/modules.html#syntax-module}{\mathsf{start}} = \epsilon)
   \\
-  C = \{ \href{../valid/conventions.html#context}{\mathsf{types}}~\href{../syntax/modules.html#syntax-typedef}{\mathit{type}}^\ast, \href{../valid/conventions.html#context}{\mathsf{funcs}}~\mathit{ift}^\ast\,\mathit{ft}^\ast, \href{../valid/conventions.html#context}{\mathsf{tables}}~\mathit{itt}^\ast\,\mathit{tt}^\ast, \href{../valid/conventions.html#context}{\mathsf{mems}}~\mathit{imt}^\ast\,\mathit{mt}^\ast, \href{../valid/conventions.html#context}{\mathsf{exceptions}}~\mathit{iexnt}^\ast\,\mathit{exnt}^\ast,\\
+  C = \{ \href{../valid/conventions.html#context}{\mathsf{types}}~\href{../syntax/modules.html#syntax-typedef}{\mathit{type}}^\ast, \href{../valid/conventions.html#context}{\mathsf{funcs}}~\mathit{ift}^\ast\,\mathit{ft}^\ast, \href{../valid/conventions.html#context}{\mathsf{tables}}~\mathit{itt}^\ast\,\mathit{tt}^\ast, \href{../valid/conventions.html#context}{\mathsf{mems}}~\mathit{imt}^\ast\,\mathit{mt}^\ast, \href{../valid/conventions.html#context}{\mathsf{exceptions}}~\mathit{iet}^\ast\,\mathit{exnt}^\ast,\\
      \href{../valid/conventions.html#context}{\mathsf{globals}}~\mathit{igt}^\ast\,\mathit{gt}^\ast, \href{../valid/conventions.html#context}{\mathsf{elems}}~\mathit{rt}^\ast, \href{../valid/conventions.html#context}{\mathsf{datas}}~{\mathrel{\mbox{ok}}}^n, \href{../valid/conventions.html#context}{\mathsf{refs}}~x^\ast \}
   \\
   C' = \{ \href{../valid/conventions.html#context}{\mathsf{globals}}~\mathit{igt}^\ast, \href{../valid/conventions.html#context}{\mathsf{funcs}}~(C.\href{../valid/conventions.html#context}{\mathsf{funcs}}), \href{../valid/conventions.html#context}{\mathsf{refs}}~(C.\href{../valid/conventions.html#context}{\mathsf{refs}}), \href{../valid/conventions.html#context}{\mathsf{exceptions}}~(C.\href{../valid/conventions.html#context}{\mathsf{exceptions}}) \} \qquad

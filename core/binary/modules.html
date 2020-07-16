@@ -453,12 +453,12 @@ component of a <a class="reference internal" href="../syntax/modules.html#syntax
 \def\mathdef994#1{{}}\mathdef994{exception section} &amp; \href{../binary/modules.html#binary-exnsec}{\mathtt{exnsec}} &amp;::=&amp;
   \mathit{exception}^\ast{:}\href{../binary/modules.html#binary-section}{\mathtt{section}}_{13}(\href{../binary/conventions.html#binary-vec}{\mathtt{vec}}(\href{../binary/modules.html#binary-exn}{\mathtt{exn}})) &amp;\Rightarrow&amp; \mathit{exception}^\ast \\
 \def\mathdef994#1{{}}\mathdef994{exception} &amp; \href{../binary/modules.html#binary-exn}{\mathtt{exn}} &amp;::=&amp;
-  \mathit{x}{:}\href{../binary/modules.html#binary-typeidx}{\mathtt{typeidx}} &amp;\Rightarrow&amp; \{ \href{../syntax/modules.html#syntax-exn}{\mathsf{type}}~\mathit{x} \} \\
+  \def\mathdef1053#1{\mathtt{0x#1}}\mathdef1053{00}~~\mathit{x}{:}\href{../binary/modules.html#binary-typeidx}{\mathtt{typeidx}} &amp;\Rightarrow&amp; \{ \href{../syntax/modules.html#syntax-exn}{\mathsf{type}}~\mathit{x} \} \\
 \end{array}\end{split}\]</div>
 </div>
 <div class="section" id="binary-module">
 <span id="binary-version"></span><span id="binary-magic"></span><span id="index-16"></span><span id="id1"></span><h2>Modules<a class="headerlink" href="#binary-module" title="Permalink to this headline">¶</a></h2>
-<p>The encoding of a <a class="reference internal" href="../syntax/modules.html#syntax-module"><span class="std std-ref">module</span></a> starts with a preamble containing a 4-byte magic number (the string <span class="math notranslate nohighlight">\(\def\mathdef1053#1{\mbox{‘}\mathtt{#1}\mbox{’}}\mathdef1053{\backslash0asm}\)</span>) and a version field.
+<p>The encoding of a <a class="reference internal" href="../syntax/modules.html#syntax-module"><span class="std std-ref">module</span></a> starts with a preamble containing a 4-byte magic number (the string <span class="math notranslate nohighlight">\(\def\mathdef1054#1{\mbox{‘}\mathtt{#1}\mbox{’}}\mathdef1054{\backslash0asm}\)</span>) and a version field.
 The current version of the WebAssembly binary format is 1.</p>
 <p>The preamble is followed by a sequence of <a class="reference internal" href="#binary-section"><span class="std std-ref">sections</span></a>.
 <a class="reference internal" href="#binary-customsec"><span class="std std-ref">Custom sections</span></a> may be inserted at any place in this sequence,
@@ -470,9 +470,9 @@ Furthermore, it must be present if any <span class="math notranslate nohighlight
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{llcllll}
 \def\mathdef994#1{{}}\mathdef994{magic} &amp; \href{../binary/modules.html#binary-magic}{\mathtt{magic}} &amp;::=&amp;
-  \def\mathdef1054#1{\mathtt{0x#1}}\mathdef1054{00}~\def\mathdef1055#1{\mathtt{0x#1}}\mathdef1055{61}~\def\mathdef1056#1{\mathtt{0x#1}}\mathdef1056{73}~\def\mathdef1057#1{\mathtt{0x#1}}\mathdef1057{6D} \\
+  \def\mathdef1055#1{\mathtt{0x#1}}\mathdef1055{00}~\def\mathdef1056#1{\mathtt{0x#1}}\mathdef1056{61}~\def\mathdef1057#1{\mathtt{0x#1}}\mathdef1057{73}~\def\mathdef1058#1{\mathtt{0x#1}}\mathdef1058{6D} \\
 \def\mathdef994#1{{}}\mathdef994{version} &amp; \href{../binary/modules.html#binary-version}{\mathtt{version}} &amp;::=&amp;
-  \def\mathdef1058#1{\mathtt{0x#1}}\mathdef1058{01}~\def\mathdef1059#1{\mathtt{0x#1}}\mathdef1059{00}~\def\mathdef1060#1{\mathtt{0x#1}}\mathdef1060{00}~\def\mathdef1061#1{\mathtt{0x#1}}\mathdef1061{00} \\
+  \def\mathdef1059#1{\mathtt{0x#1}}\mathdef1059{01}~\def\mathdef1060#1{\mathtt{0x#1}}\mathdef1060{00}~\def\mathdef1061#1{\mathtt{0x#1}}\mathdef1061{00}~\def\mathdef1062#1{\mathtt{0x#1}}\mathdef1062{00} \\
 \def\mathdef994#1{{}}\mathdef994{module} &amp; \href{../binary/modules.html#binary-module}{\mathtt{module}} &amp;::=&amp;
   \href{../binary/modules.html#binary-magic}{\mathtt{magic}} \\ &amp;&amp;&amp;
   \href{../binary/modules.html#binary-version}{\mathtt{version}} \\ &amp;&amp;&amp;

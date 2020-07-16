@@ -190,10 +190,11 @@ Moreover, <a class="reference internal" href="../syntax/instructions.html#syntax
 </div>
 <div class="section" id="exception-types">
 <span id="valid-exntype"></span><span id="index-5"></span><h2>Exception Types<a class="headerlink" href="#exception-types" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="t-n-xref-syntax-types-syntax-functype-rightarrow">
-<h3><span class="math notranslate nohighlight">\([t^n] \href{../syntax/types.html#syntax-functype}{\rightarrow} []\)</span><a class="headerlink" href="#t-n-xref-syntax-types-syntax-functype-rightarrow" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h3><span class="math notranslate nohighlight">\([t_1^n] \href{../syntax/types.html#syntax-functype}{\rightarrow} [t_2^m]\)</span><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>The <a class="reference internal" href="../syntax/types.html#syntax-functype"><span class="std std-ref">function type</span></a> <span class="math notranslate nohighlight">\([t^n] \href{../syntax/types.html#syntax-functype}{\rightarrow} []\)</span> must be <a class="reference internal" href="#valid-functype"><span class="std std-ref">valid</span></a>.</p></li>
+<li><p>The <a class="reference internal" href="../syntax/types.html#syntax-functype"><span class="std std-ref">function type</span></a> <span class="math notranslate nohighlight">\([t_1^n] \href{../syntax/types.html#syntax-functype}{\rightarrow} [t_2^m]\)</span> must be <a class="reference internal" href="#valid-functype"><span class="std std-ref">valid</span></a>.</p></li>
+<li><p>The type sequence <span class="math notranslate nohighlight">\(t_2^m\)</span> must be empty.</p></li>
 <li><p>Then the exception type is valid.</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -292,7 +293,7 @@ Moreover, <a class="reference internal" href="../syntax/instructions.html#syntax
 <a class="reference internal" href="../exec/runtime.html#syntax-externval"><span class="std std-ref">external values</span></a> must be provided whose <a class="reference internal" href="../exec/modules.html#valid-externval"><span class="std std-ref">types</span></a> are <em>matched</em> against the respective <a class="reference internal" href="../syntax/types.html#syntax-externtype"><span class="std std-ref">external types</span></a> classifying each import.
 In some cases, this allows for a simple form of subtyping, as defined here.</p>
 <div class="section" id="match-limits">
-<span id="index-9"></span><span id="id1"></span><h3>Limits<a class="headerlink" href="#match-limits" title="Permalink to this headline">¶</a></h3>
+<span id="index-9"></span><span id="id2"></span><h3>Limits<a class="headerlink" href="#match-limits" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="../syntax/types.html#syntax-limits"><span class="std std-ref">Limits</span></a> <span class="math notranslate nohighlight">\(\{ \href{../syntax/types.html#syntax-limits}{\mathsf{min}}~n_1, \href{../syntax/types.html#syntax-limits}{\mathsf{max}}~m_1^? \}\)</span> match limits <span class="math notranslate nohighlight">\(\{ \href{../syntax/types.html#syntax-limits}{\mathsf{min}}~n_2, \href{../syntax/types.html#syntax-limits}{\mathsf{max}}~m_2^? \}\)</span> if and only if:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(n_1\)</span> is larger than or equal to <span class="math notranslate nohighlight">\(n_2\)</span>.</p></li>
