@@ -1618,7 +1618,7 @@ because the label <span class="math notranslate nohighlight">\(L\)</span> is emb
 </div>
 <div class="section" id="exiting-xref-syntax-instructions-syntax-instr-mathit-instr-ast-with-label-l">
 <span id="exec-instr-seq-exit"></span><h3>Exiting <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr}{\mathit{instr}}^\ast\)</span> with label <span class="math notranslate nohighlight">\(L\)</span><a class="headerlink" href="#exiting-xref-syntax-instructions-syntax-instr-mathit-instr-ast-with-label-l" title="Permalink to this headline">¶</a></h3>
-<p>When the end of a block is reached without a jump or trap aborting it, then the following steps are performed.</p>
+<p>When the end of a block is reached without a jump, exception, or trap aborting it, then the following steps are performed.</p>
 <ol class="arabic simple">
 <li><p>Let <span class="math notranslate nohighlight">\(m\)</span> be the number of values on the top of the stack.</p></li>
 <li><p>Pop the values <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-val}{\mathit{val}}^m\)</span> from the stack.</p></li>
@@ -1640,7 +1640,7 @@ Therefore, execution of a loop falls off the end, unless a backwards branch is p
 </div>
 </div>
 <div class="section" id="exception-handling">
-<span id="exec-catchn"></span><span id="index-9"></span><h2>Exception Handling<a class="headerlink" href="#exception-handling" title="Permalink to this headline">¶</a></h2>
+<span id="exec-catch"></span><span id="index-9"></span><h2>Exception Handling<a class="headerlink" href="#exception-handling" title="Permalink to this headline">¶</a></h2>
 <p>The following auxiliary rules define the semantics of entering and exiting exception handlers through <a class="reference internal" href="../syntax/instructions.html#syntax-try"><span class="std std-ref">try</span></a> instructions and handling thrown exceptions.</p>
 <div class="section" id="entering-an-exception-handler-h">
 <span id="exec-handler-enter"></span><h3>Entering an exception handler <span class="math notranslate nohighlight">\(H\)</span><a class="headerlink" href="#entering-an-exception-handler-h" title="Permalink to this headline">¶</a></h3>
@@ -1656,7 +1656,7 @@ that the <a class="reference internal" href="../syntax/instructions.html#syntax-
 </div>
 <div class="section" id="exiting-an-exception-handler">
 <span id="exec-handler-exit"></span><h3>Exiting an exception handler<a class="headerlink" href="#exiting-an-exception-handler" title="Permalink to this headline">¶</a></h3>
-<p>When the end of a <a class="reference internal" href="../syntax/instructions.html#syntax-try"><span class="std std-ref">try</span></a> instruction is reached without a jump, exception or trap, then the following steps are performed.
+<p>When the end of a <a class="reference internal" href="../syntax/instructions.html#syntax-try"><span class="std std-ref">try</span></a> instruction is reached without a jump, exception, or trap, then the following steps are performed.
 the exception handler, then the following steps are performed.</p>
 <ol class="arabic simple">
 <li><p>Let <span class="math notranslate nohighlight">\(m\)</span> be the number of values on the top of the stack.</p></li>
@@ -1746,7 +1746,7 @@ S; \href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~(\href{../exec/runtime
 </div>
 <div class="section" id="returning-from-a-function">
 <span id="exec-invoke-exit"></span><h3>Returning from a function<a class="headerlink" href="#returning-from-a-function" title="Permalink to this headline">¶</a></h3>
-<p>When the end of a function is reached without a jump (i.e., <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{return}}\)</span>) or trap aborting it, then the following steps are performed.</p>
+<p>When the end of a function is reached without a jump (i.e., <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{return}}\)</span>), exception, or trap aborting it, then the following steps are performed.</p>
 <ol class="arabic simple">
 <li><p>Let <span class="math notranslate nohighlight">\(F\)</span> be the <a class="reference internal" href="conventions.html#exec-notation-textual"><span class="std std-ref">current</span></a> <a class="reference internal" href="runtime.html#syntax-frame"><span class="std std-ref">frame</span></a>.</p></li>
 <li><p>Let <span class="math notranslate nohighlight">\(n\)</span> be the arity of the activation of <span class="math notranslate nohighlight">\(F\)</span>.</p></li>

@@ -292,7 +292,7 @@ It records its <a class="reference internal" href="../syntax/types.html#syntax-m
 <div class="section" id="exception-instances">
 <span id="syntax-exninst"></span><span id="index-9"></span><h2>Exception Instances<a class="headerlink" href="#exception-instances" title="Permalink to this headline">¶</a></h2>
 <p>An <em>exception instance</em> is the runtime representation of an <a class="reference internal" href="../syntax/modules.html#syntax-exn"><span class="std std-ref">exception</span></a> definition.
-It records type <a class="reference internal" href="../syntax/types.html#syntax-exntype"><span class="std std-ref">type</span></a> of the exception.</p>
+It records the <a class="reference internal" href="../syntax/types.html#syntax-exntype"><span class="std std-ref">type</span></a> of the exception.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{llll}
 \def\mathdef1382#1{{}}\mathdef1382{(exception instance)} &amp; \href{../exec/runtime.html#syntax-exninst}{\mathit{exninst}} &amp;::=&amp;
@@ -431,7 +431,7 @@ and a reference to the function’s own <a class="reference internal" href="#syn
 <div class="section" id="exception-handlers">
 <h3>Exception handlers<a class="headerlink" href="#exception-handlers" title="Permalink to this headline">¶</a></h3>
 <p>Like labels, exception handlers carry the return arity <span class="math notranslate nohighlight">\(n\)</span> of the
-respective try block, and their associated branch <em>target</em>, which is
+respective <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{try}}\)</span> block, and their associated branch <em>target</em>, which is
 expressed syntactically as an <a class="reference internal" href="../syntax/instructions.html#syntax-instr"><span class="std std-ref">instruction</span></a> sequence:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{llll}
@@ -461,7 +461,7 @@ when the handler catches a thrown exception.</p>
 <p class="admonition-title">Note</p>
 <p>This section is only relevant for the <a class="reference internal" href="conventions.html#exec-notation"><span class="std std-ref">formal notation</span></a>.</p>
 </div>
-<p>In order to express the reduction of <a class="reference internal" href="../intro/overview.html#trap"><span class="std std-ref">traps</span></a>, <a class="reference internal" href="../syntax/instructions.html#syntax-call"><span class="std std-ref">calls</span></a>, <a class="reference internal" href="instructions.html#exec-catchn"><span class="std std-ref">exception handling</span></a>, and <a class="reference internal" href="../syntax/instructions.html#syntax-instr-control"><span class="std std-ref">control instructions</span></a>, the syntax of instructions is extended to include the following <em>administrative instructions</em>:</p>
+<p>In order to express the reduction of <a class="reference internal" href="../intro/overview.html#trap"><span class="std std-ref">traps</span></a>, <a class="reference internal" href="../syntax/instructions.html#syntax-call"><span class="std std-ref">calls</span></a>, <a class="reference internal" href="instructions.html#exec-catch"><span class="std std-ref">exception handling</span></a>, and <a class="reference internal" href="../syntax/instructions.html#syntax-instr-control"><span class="std std-ref">control instructions</span></a>, the syntax of instructions is extended to include the following <em>administrative instructions</em>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{llcl}
 \def\mathdef1382#1{{}}\mathdef1382{(administrative instruction)} &amp; \href{../syntax/instructions.html#syntax-instr}{\mathit{instr}} &amp;::=&amp;
@@ -525,7 +525,7 @@ The selected label is identified through the <a class="reference internal" href=
 </div>
 <div class="section" id="throw-contexts">
 <span id="syntax-ctxt-throw"></span><span id="index-18"></span><h3>Throw Contexts<a class="headerlink" href="#throw-contexts" title="Permalink to this headline">¶</a></h3>
-<p>In order to specify the reduction of <a class="reference internal" href="../syntax/instructions.html#syntax-try"><span class="std std-ref">try-catch blocks</span></a>
+<p>In order to specify the reduction of <span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{try}}\)</span> blocks
 with the help of the administrative instructions <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-throwaddr}{\mathsf{throw}}\)</span>, <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-refexnaddr}{\mathsf{ref{.}exn}}\)</span>, and <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-catchn}{\mathsf{catch}}\)</span>,
 the following syntax of <em>throw contexts</em> is defined, as well as associated structural rules:</p>
 <div class="math notranslate nohighlight">
@@ -539,7 +539,7 @@ the following syntax of <em>throw contexts</em> is defined, as well as associate
 <p>Throw contexts allow matching the program context around a throw instruction up to the nearest enclosing <span class="math notranslate nohighlight">\(\href{../exec/runtime.html#syntax-catchn}{\mathsf{catch}}\)</span> handler, thereby selecting the exception handler responsible for an exception.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For example, catching a simple <a class="reference internal" href="instructions.html#exec-throw"><span class="std std-ref">throw</span></a> in a <a class="reference internal" href="instructions.html#exec-try"><span class="std std-ref">try-catch block</span></a> would be as follows.</p>
+<p>For example, catching a simple <a class="reference internal" href="instructions.html#exec-throw"><span class="std std-ref">throw</span></a> in a <a class="reference internal" href="instructions.html#exec-try"><span class="std std-ref">try block</span></a> would be as follows.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{ll}
 &amp; \hspace{-5ex} S;~F;~\href{../exec/runtime.html#syntax-val}{\mathit{val}}^n~(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{try}}~\mathit{bt}~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{throw}}~x~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{catch}}~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{return}}~\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{end}}) \\
@@ -554,7 +554,7 @@ the following syntax of <em>throw contexts</em> is defined, as well as associate
 \end{array}\end{split}\]</div>
 <p>When a throw occurs, execution halts until that throw is the continuation of a throw context in a catching try block.</p>
 <p>In this particular case, the exception reference is returned normally, as opposed to being thrown as the result of a plain
-<span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{throw}}~x\)</span> without a catching try-block.</p>
+<span class="math notranslate nohighlight">\(\href{../syntax/instructions.html#syntax-instr-control}{\mathsf{throw}}~x\)</span> without a catching try block.</p>
 <p><em>(TODO: add administrative values to describe unresolved throws).</em></p>
 </div>
 </div>

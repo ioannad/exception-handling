@@ -202,9 +202,12 @@ The limits are given in numbers of entries.</p>
 \[\begin{split}\begin{array}{llll}
 \def\mathdef1717#1{{}}\mathdef1717{exception type} &amp;\href{../syntax/types.html#syntax-exntype}{\mathit{exntype}} &amp;::=&amp; \href{../syntax/types.html#syntax-functype}{\mathit{functype}} \\
 \end{array}\end{split}\]</div>
-<p>Because <a class="reference internal" href="modules.html#syntax-exn"><span class="std std-ref">exceptions</span></a> have a <a class="reference internal" href="../valid/modules.html#valid-exn"><span class="std std-ref">valid</span></a> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-exntype}{\mathit{exntype}}\)</span>,
-it is an invariant of the semantics that the function type <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span> has empty result type.
-The parameters of <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span> define the list of values associated with the exception.</p>
+<p>The parameters of <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span> define the list of values associated with the exception.
+Furthermore, it is an invariant of the semantics that every <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span> in a <a class="reference internal" href="../valid/types.html#valid-exntype"><span class="std std-ref">valid</span></a> exception type has an empty result type.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Future versions of WebAssembly may allow non-empty result types in exceptions.</p>
+</div>
 </div>
 <div class="section" id="global-types">
 <span id="syntax-globaltype"></span><span id="syntax-mut"></span><span id="index-10"></span><h2>Global Types<a class="headerlink" href="#global-types" title="Permalink to this headline">¶</a></h2>
