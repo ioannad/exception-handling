@@ -287,17 +287,17 @@ That way, the function itself is able to make sufficient assumptions about futur
   S \href{../appendix/properties.html#valid-meminst}{\vdash} \{ \href{../exec/runtime.html#syntax-meminst}{\mathsf{type}}~\href{../syntax/types.html#syntax-limits}{\mathit{limits}}, \href{../exec/runtime.html#syntax-meminst}{\mathsf{data}}~b^n \} : \href{../syntax/types.html#syntax-limits}{\mathit{limits}}
 }\]</div>
 </div>
-<div class="section" id="exception-instances-xref-exec-runtime-syntax-exninst-mathsf-type-xref-syntax-types-syntax-functype-mathit-functype">
-<span id="valid-exninst"></span><span id="index-7"></span><h3><a class="reference internal" href="../exec/runtime.html#syntax-exninst"><span class="std std-ref">Exception Instances</span></a> <span class="math notranslate nohighlight">\(\{ \href{../exec/runtime.html#syntax-exninst}{\mathsf{type}}~\href{../syntax/types.html#syntax-functype}{\mathit{functype}} \}\)</span><a class="headerlink" href="#exception-instances-xref-exec-runtime-syntax-exninst-mathsf-type-xref-syntax-types-syntax-functype-mathit-functype" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="exception-instances-xref-exec-runtime-syntax-exninst-mathsf-type-xref-syntax-types-syntax-exntype-mathit-exntype">
+<span id="valid-exninst"></span><span id="index-7"></span><h3><a class="reference internal" href="../exec/runtime.html#syntax-exninst"><span class="std std-ref">Exception Instances</span></a> <span class="math notranslate nohighlight">\(\{ \href{../exec/runtime.html#syntax-exninst}{\mathsf{type}}~\href{../syntax/types.html#syntax-exntype}{\mathit{exntype}} \}\)</span><a class="headerlink" href="#exception-instances-xref-exec-runtime-syntax-exninst-mathsf-type-xref-syntax-types-syntax-exntype-mathit-exntype" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>The <a class="reference internal" href="../syntax/types.html#syntax-exntype"><span class="std std-ref">exception type</span></a> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span> must be <a class="reference internal" href="../valid/types.html#valid-exntype"><span class="std std-ref">valid</span></a>.</p></li>
-<li><p>Then the exception instance is valid with <a class="reference internal" href="../syntax/types.html#syntax-exntype"><span class="std std-ref">exception type</span></a> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-functype}{\mathit{functype}}\)</span>.</p></li>
+<li><p>The <a class="reference internal" href="../syntax/types.html#syntax-exntype"><span class="std std-ref">exception type</span></a> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-exntype}{\mathit{exntype}}\)</span> must be <a class="reference internal" href="../valid/types.html#valid-exntype"><span class="std std-ref">valid</span></a>.</p></li>
+<li><p>Then the exception instance is valid with <a class="reference internal" href="../syntax/types.html#syntax-exntype"><span class="std std-ref">exception type</span></a> <span class="math notranslate nohighlight">\(\href{../syntax/types.html#syntax-exntype}{\mathit{exntype}}\)</span>.</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[\frac{
-  \href{../valid/types.html#valid-exntype}{\vdash} \href{../syntax/types.html#syntax-functype}{\mathit{functype}} \mathrel{\mbox{ok}}
+  \href{../valid/types.html#valid-exntype}{\vdash} \href{../syntax/types.html#syntax-exntype}{\mathit{exntype}} \mathrel{\mbox{ok}}
 }{
-  S \href{../appendix/properties.html#valid-exninst}{\vdash} \{ \href{../exec/runtime.html#syntax-exninst}{\mathsf{type}}~\href{../syntax/types.html#syntax-functype}{\mathit{functype}} \} : \href{../syntax/types.html#syntax-functype}{\mathit{functype}}
+  S \href{../appendix/properties.html#valid-exninst}{\vdash} \{ \href{../exec/runtime.html#syntax-exninst}{\mathsf{type}}~\href{../syntax/types.html#syntax-exntype}{\mathit{exntype}} \} : \href{../syntax/types.html#syntax-exntype}{\mathit{exntype}}
 }\]</div>
 </div>
 <div class="section" id="global-instances-xref-exec-runtime-syntax-globalinst-mathsf-type-xref-syntax-types-syntax-mut-mathit-mut-t-xref-exec-runtime-syntax-globalinst-mathsf-value-xref-exec-runtime-syntax-val-mathit-val">
